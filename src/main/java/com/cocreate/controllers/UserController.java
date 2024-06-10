@@ -1,52 +1,52 @@
 package com.cocreate.controllers;
 
+// Imports
 import com.cocreate.models.User;
 import com.cocreate.services.UserService;
 import jakarta.validation.Valid;
-import org.apache.catalina.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("api/users")
 public class UserController {
 
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
-
-/*
-    @PostMapping("/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@Valid @RequestBody User newUser) {    // @Valid tells the endpoint to check if there are any constraints when creating a user
-        System.out.println(newUser.getUserName());                // the constraints are specified in the user model i.e. @NotEmpty usw
-        userService.createUser(newUser);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public void getUser( @PathVariable int id) {
-        userService.getUser(id);
-
-    }
-*/
     @GetMapping("/")
-    public ResponseEntity<List<User>> getAllusers() {
-        List<User> greetingResponse = new ArrayList<>();
-        greetingResponse = userService.getUsers();
+    public ResponseEntity<List<User>> findAllUsers() {
+        List<User> greetingResponse;
+        greetingResponse = userService.findAllUsers();
         return ResponseEntity.status(HttpStatus.OK).body(greetingResponse);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/")
-    public void createUser(@RequestBody User newUser) {
-        userService.createUser(newUser);
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findUserById(@PathVariable int id) {
+        Optional<User> user = userService.findUserById(id);
+        return user.<ResponseEntity<Object>>map(value -> ResponseEntity.status(HttpStatus.OK).body(value))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user found with id: " + id));
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/")
+    public void createUser(@RequestBody @Valid User newUser) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
+       userService.createUser(newUser);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
