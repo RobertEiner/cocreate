@@ -1,10 +1,10 @@
-package com.cocreate.models;
+package com.cocreate.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 // @entity marks the class as a JPA entity. These entities are mapped to tables in relational databases.
 @Entity
-@Table(name="user") // if the names of the entity class and the db table does not match, use this to clarify it.
+@Table(name="user") // we use users because user is a reserved keyword in SQL, you get  DDL exception when it is used.
 public class User {
 
     @Id // indicating that the member field below is the primary key
@@ -22,7 +22,7 @@ public class User {
 
 
     public User(String userName, String emailAddress, String preferredLanguages) {
-        if(userName.isEmpty()) throw new IllegalArgumentException("Username cannot be empty.");
+        //if(userName.isEmpty()) throw new IllegalArgumentException("Username cannot be empty.");
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.preferredLanguage= preferredLanguages;

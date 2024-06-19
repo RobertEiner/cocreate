@@ -1,8 +1,9 @@
-package com.cocreate.controllers;
+package com.cocreate.user;
 
 // Imports
-import com.cocreate.models.User;
-import com.cocreate.services.UserService;
+import com.cocreate.user.User;
+
+import com.cocreate.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -33,14 +34,13 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> findUserById(@PathVariable int id) {
         Optional<User> user = userService.findUserById(id);
-        return user.<ResponseEntity<Object>>map(value -> ResponseEntity.status(HttpStatus.OK).body(value))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user found with id: " + id));
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
     public void createUser(@RequestBody @Valid User newUser) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
-       userService.createUser(newUser);
+        userService.createUser(newUser);
     }
 
 
@@ -49,4 +49,11 @@ public class UserController {
         userService.deleteUserById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable int id, @RequestBody User user) {
+        userService.updateUser(id, user);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
+

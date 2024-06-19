@@ -1,17 +1,17 @@
-package com.cocreate.repositories;
-import com.cocreate.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
+package com.cocreate.user;
 
-import java.util.List;
-import java.util.Optional;
+import com.cocreate.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepository{
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-    private final JdbcClient jdbcClient;
+
+}
+
+
+ /*private final JdbcClient jdbcClient;
 
     @Autowired
     public UserRepository(JdbcClient jdbcClient) {
@@ -25,12 +25,12 @@ public class UserRepository{
     }
 
     // Create a new user
-    public void createUser(User newUSer) {
+    public int createUser(User newUSer) {
         var updated = jdbcClient.sql("INSERT INTO user(userName, emailAddress, preferredLanguage) values(?, ?, ?)")
                 .params(List.of(newUSer.getUserName(), newUSer.getEmailAddress(), newUSer.getPreferredLanguage()))
                 .update();
-
-        Assert.state(updated == 1, "Failed to create user" + newUSer.getUserName());
+        return updated;
+        /*Assert.state(updated == 1, "Failed to create user" + newUSer.getUserName());
         System.out.println(updated);
 
     }
@@ -49,21 +49,14 @@ public class UserRepository{
        Assert.state(updated == 1, "Failed to delete user with id: " + id);
    }
 
+   public void updateUser(int id, User user) {
+        jdbcClient.sql("UPDATE user SET userName = ?, emailAddress = ?, preferredLanguage = ? WHERE userId = ?")
+                .param("userName", user.getUserName())
+                .param("emailAddress", user.getEmailAddress())
+                .param("preferredLanguage", user.getPreferredLanguage())
+                .param("id", id)
+                .update();
+   }
 
+*/
 
-    /*
-    public void createUser(User newUser) {
-        String query = "INSERT INTO users (username, emailAddress, preferredLanguage) VALUES (?, ?, ?)";
-        this.jdbcTemplate.update(query, newUser.getUserName(), newUser.getEmailAddress(), newUser.getPreferredLanguage());
-    }*/
-
-
-
-   /* public void getUser(int id) {
-        Optional<String> user = this.jdbcTemplate.queryForMap("SELECT * FROM users WHERE userId = ?", id);
-        System.out.println(user);
-    }*/
-
-
-
-}
