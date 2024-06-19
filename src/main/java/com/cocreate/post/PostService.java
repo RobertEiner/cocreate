@@ -28,7 +28,6 @@ public class PostService {
         } else {
             throw new PostNotFoundException("The post doesn't exist.");
         }
-
     }
 
     public void updatePost(int id, String title, String content) {

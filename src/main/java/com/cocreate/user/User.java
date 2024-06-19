@@ -55,4 +55,8 @@ public class User {
     public void setPreferredLanguages(String preferredLanguage) {
         this.preferredLanguage = preferredLanguage;
     }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

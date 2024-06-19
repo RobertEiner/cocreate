@@ -1,9 +1,7 @@
 package com.cocreate.user;
 
 // Imports
-import com.cocreate.user.User;
 
-import com.cocreate.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
