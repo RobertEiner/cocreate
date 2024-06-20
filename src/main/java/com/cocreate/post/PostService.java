@@ -1,5 +1,7 @@
 package com.cocreate.post;
 
+import com.cocreate.developer.Developer;
+import com.cocreate.developer.DeveloperRepository;
 import com.cocreate.exceptions.PostNotFoundException;
 import com.cocreate.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,12 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final DeveloperRepository developerRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, DeveloperRepository developerRepository) {
         this.postRepository = postRepository;
+        this.developerRepository = developerRepository;
     }
 
     public Post createPost(Post newPost) {
@@ -47,6 +51,21 @@ public class PostService {
         postToDelete.ifPresentOrElse(post -> postRepository.delete(post), () -> {
             throw new UserNotFoundException("There exists no user with the ID to which the post belongs.");
         });
+    }
+
+    public void createPostForExistingDeveloper(int developerId, Post post) {
+        Optional<Developer> developer = developerRepository.findById(developerId);
+        if(developer.isPresent()) {
+            Post newPost = new Post();
+            newPost.setTitle(post.getTitle());
+            newPost.setContent(post.getContent());
+            newPost.setDeveloper(developer.get());
+            postRepository.save(newPost);
+        } else {
+            throw new UserNotFoundException("Developer doesn't exist");
+        }
+
+
     }
 
 

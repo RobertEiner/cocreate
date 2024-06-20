@@ -1,5 +1,6 @@
 package com.cocreate.post;
 
+import com.cocreate.developer.Developer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -15,6 +16,10 @@ public class Post {
     private String title;
     @NotEmpty(message = "Content cannot be empty")
     private String content;
+
+    @ManyToOne(cascade = CascadeType.ALL) // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
+    @JoinColumn(name = "developer_id", nullable = false ) // Specifies the foreign key column (developer_id) in the Post table that refers to the primary key of the Developer table.
+    private Developer developer;
 
     public Post(int postId, String title, String content) {
         this.postId = postId;
@@ -49,5 +54,26 @@ public class Post {
     public String getContent() {
         return content;
     }
+
+    public void setDeveloper(Developer developer) {
+        this.developer = developer;
+    }
 }
+
+/*
+* create table post
+(
+    post_id      int auto_increment
+        primary key,
+    title        varchar(50)   not null,
+    content      varchar(1000) not null,
+    developer_id int           null,
+    constraint post_ibfk_1
+        foreign key (developer_id) references developer (developer_id)
+            on update cascade on delete cascade
+);
+
+create index developer_id
+    on post (developer_id);
+*/
 

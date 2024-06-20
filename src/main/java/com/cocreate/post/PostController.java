@@ -21,11 +21,7 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public void createUser(@RequestBody @Valid Post newPost) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
-        // create new post, and then create a test for
-        // it to see if you get the same error as with the user
-        // you want to see if it is the keyword user that is the problem
-        System.out.println("Post");
+    public void createPost(@RequestBody @Valid Post newPost) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
         postService.createPost(newPost);
     }
 
@@ -46,6 +42,8 @@ public class PostController {
         postService.deletePost(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+
 
 }
 
