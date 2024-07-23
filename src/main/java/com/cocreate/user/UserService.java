@@ -1,6 +1,7 @@
 package com.cocreate.user;
 
 
+import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.exceptions.UserNotFoundException;
 import com.cocreate.user.User;
 
@@ -27,7 +28,7 @@ public class UserService {
 
     public Optional<User> findUserById(int id) {
         if(userRepository.findById(id).isEmpty()) {
-            throw  new UserNotFoundException("There exists no user with ID: " + id);
+            throw  new ResourceNotFoundException("There exists no user with ID: " + id);
         }
         return userRepository.findById(id);
     }
@@ -45,13 +46,13 @@ public class UserService {
             existingUser.setPreferredLanguages(updateInfo.getPreferredLanguage());
             userRepository.save(existingUser);
         } else {
-            throw new UserNotFoundException("There exists no user with that ID");
+            throw new ResourceNotFoundException("There exists no user with that ID");
         }
     }
 
     public void deleteUserById(int id) {
         if(userRepository.findById(id).isEmpty()) {
-            throw new UserNotFoundException("There exists no user with ID: " + id);
+            throw new ResourceNotFoundException("There exists no user with ID: " + id);
         }
         userRepository.deleteById(id);
     }

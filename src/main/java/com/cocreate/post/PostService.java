@@ -1,12 +1,15 @@
 package com.cocreate.post;
 
+import com.cocreate.comment.Comment;
 import com.cocreate.developer.Developer;
 import com.cocreate.developer.DeveloperRepository;
 import com.cocreate.exceptions.PostNotFoundException;
+import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +33,7 @@ public class PostService {
         if(post.isPresent()) {
             return post;
         } else {
-            throw new PostNotFoundException("The post doesn't exist.");
+            throw new ResourceNotFoundException("The post doesn't exist.");
         }
     }
 
@@ -42,14 +45,14 @@ public class PostService {
             existingPost.setContent(content);
             postRepository.save(existingPost);
         } else {
-            throw new UserNotFoundException("There exists no user with that ID");
+            throw new ResourceNotFoundException("There exists no user with that ID");
         }
     }
 
     public void deletePost(int id) {
         Optional<Post> postToDelete = findById(id);
         postToDelete.ifPresentOrElse(post -> postRepository.delete(post), () -> {
-            throw new UserNotFoundException("There exists no user with the ID to which the post belongs.");
+            throw new ResourceNotFoundException("There exists no user with the ID to which the post belongs.");
         });
     }
 
@@ -62,11 +65,10 @@ public class PostService {
             newPost.setDeveloper(developer.get());
             postRepository.save(newPost);
         } else {
-            throw new UserNotFoundException("Developer doesn't exist");
+            throw new ResourceNotFoundException("Developer doesn't exist");
         }
-
-
     }
+
 
 
 

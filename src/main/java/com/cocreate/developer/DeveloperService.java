@@ -1,5 +1,6 @@
 package com.cocreate.developer;
 
+import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class DeveloperService {
 
     public Optional<Developer> findDeveloperById(int id) {
         if(developerRepository.findById(id).isEmpty()) {
-            throw  new UserNotFoundException("There exists no user with ID: " + id);
+            throw  new ResourceNotFoundException("There exists no user with ID: " + id);
         }
         return developerRepository.findById(id);
     }
@@ -42,13 +43,13 @@ public class DeveloperService {
             existingDeveloper.setPreferredLanguages(updateInfo.getPreferredLanguage());
             developerRepository.save(existingDeveloper);
         } else {
-            throw new UserNotFoundException("There exists no developer with that ID");
+            throw new ResourceNotFoundException("There exists no developer with that ID");
         }
     }
 
     public void deleteDeveloperById(int id) {
         if(developerRepository.findById(id).isEmpty()) {
-            throw new UserNotFoundException("There exists no user with ID: " + id);
+            throw new ResourceNotFoundException("There exists no user with ID: " + id);
         }
         developerRepository.deleteById(id);
     }

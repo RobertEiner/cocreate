@@ -1,10 +1,18 @@
 package com.cocreate.post;
 
+import com.cocreate.comment.Comment;
 import com.cocreate.developer.Developer;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Post {
 
     @Id
@@ -20,6 +28,10 @@ public class Post {
     @ManyToOne(cascade = CascadeType.ALL) // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
     @JoinColumn(name = "developer_id", nullable = false ) // Specifies the foreign key column (developer_id) in the Post table that refers to the primary key of the Developer table.
     private Developer developer;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @JsonManagedReference // is used to break the infinite loop that occurs when using bidirectional relationships (post - comment)
+    List<Comment> comments;
 
     public Post(int postId, String title, String content) {
         this.postId = postId;
@@ -60,20 +72,4 @@ public class Post {
     }
 }
 
-/*
-* create table post
-(
-    post_id      int auto_increment
-        primary key,
-    title        varchar(50)   not null,
-    content      varchar(1000) not null,
-    developer_id int           null,
-    constraint post_ibfk_1
-        foreign key (developer_id) references developer (developer_id)
-            on update cascade on delete cascade
-);
-
-create index developer_id
-    on post (developer_id);
-*/
 
