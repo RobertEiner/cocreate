@@ -1,15 +1,12 @@
 package com.cocreate.post;
 
-import com.cocreate.comment.Comment;
 import com.cocreate.developer.Developer;
 import com.cocreate.developer.DeveloperRepository;
-import com.cocreate.exceptions.PostNotFoundException;
 import com.cocreate.exceptions.ResourceNotFoundException;
-import com.cocreate.exceptions.UserNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,28 +14,31 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final DeveloperRepository developerRepository;
+    private final PostDTOMapper postDTOMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, DeveloperRepository developerRepository) {
+    public PostService(PostRepository postRepository, DeveloperRepository developerRepository, ModelMapper modelMapper, PostDTOMapper postDTOMapper) {
         this.postRepository = postRepository;
         this.developerRepository = developerRepository;
+        this.postDTOMapper = postDTOMapper;
     }
 
-    public Post createPost(Post newPost) {
-        return postRepository.save(newPost);
+    public PostDTO createPost(Post newPost) {
+        postRepository.save(newPost);
+        return postDTOMapper.apply(newPost);
     }
 
-    public Optional<Post> findById(int id) {
+    public PostDTO findById(int id) {
         Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()) {
-            return post;
+            return postDTOMapper.apply(post.get());
         } else {
             throw new ResourceNotFoundException("The post doesn't exist.");
         }
     }
 
     public void updatePost(int id, String title, String content) {
-        Optional<Post> post = findById(id);
+        Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()) {
             Post existingPost = post.get();
             existingPost.setTitle(title);
@@ -50,7 +50,7 @@ public class PostService {
     }
 
     public void deletePost(int id) {
-        Optional<Post> postToDelete = findById(id);
+        Optional<Post> postToDelete = postRepository.findById(id);
         postToDelete.ifPresentOrElse(post -> postRepository.delete(post), () -> {
             throw new ResourceNotFoundException("There exists no user with the ID to which the post belongs.");
         });

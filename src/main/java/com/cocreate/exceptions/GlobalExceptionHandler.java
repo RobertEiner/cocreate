@@ -11,16 +11,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class GlobalExceptionHandler {
 
 
-   /* @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(PostNotFoundException.class)
-    public ResponseEntity<String> handlePostNotFoundException(PostNotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }*/
-
     // When user enters username or email that is not unique
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<String> handleSQLIntegrityConstraintViolationException(Exception e) {

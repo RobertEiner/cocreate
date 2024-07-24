@@ -20,10 +20,13 @@ public class DeveloperService {
         this.developerDTOMapper = developerDTOMapper;
     }
 
-    public Developer createDeveloper(Developer newDeveloper) {
-        return developerRepository.save(newDeveloper);
+    // Create a new developer
+    public DeveloperDTO createDeveloper(Developer newDeveloper) {
+        Developer dev = developerRepository.save(newDeveloper);
+        return developerDTOMapper.apply(dev);
     }
 
+    // Find a developer by it's ID
     public DeveloperDTO findDeveloperById(int id) {
         return developerRepository.findById(id)
                 .map(developerDTOMapper)        // We are only working with a single value and don't need to use streams
@@ -44,9 +47,9 @@ public class DeveloperService {
         if(optDev.isPresent()) {
             Developer existingDev = optDev.get();
             // update dev
-            existingDev.setUserName(updateInfo.getUserName());
-            existingDev.setEmailAddress(updateInfo.getEmailAddress());
-            existingDev.setPreferredLanguages(updateInfo.getPreferredLanguage());
+            if(updateInfo.getUserName() != null) existingDev.setUserName(updateInfo.getUserName());
+            if(updateInfo.getEmailAddress() != null) existingDev.setEmailAddress(updateInfo.getEmailAddress());
+            if(updateInfo.getPreferredLanguage() != null) existingDev.setPreferredLanguages(updateInfo.getPreferredLanguage());
             developerRepository.save(existingDev);
             return optDev.map(developerDTOMapper).get();
         } else {

@@ -31,8 +31,8 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Post>> findPostById(@PathVariable int id) {
-        Optional<Post> post = postService.findById(id);
+    public ResponseEntity<PostDTO> findPostById(@PathVariable int id) {
+        PostDTO post = postService.findById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(post);
     }
 

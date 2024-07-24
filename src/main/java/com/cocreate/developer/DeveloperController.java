@@ -40,8 +40,8 @@ public class DeveloperController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public void createDeveloper(@RequestBody @Valid Developer newDeveloper) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
-        developerService.createDeveloper(newDeveloper);
+    public DeveloperDTO createDeveloper(@RequestBody @Valid Developer newDeveloper) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
+        return developerService.createDeveloper(newDeveloper);
     }
 
 
