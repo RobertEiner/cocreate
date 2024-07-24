@@ -1,6 +1,7 @@
 package com.cocreate.developer;
 
 import com.cocreate.post.Post;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -23,10 +24,11 @@ public class Developer {
     private String preferredLanguage;
 
     @OneToMany(mappedBy = "developer", cascade = CascadeType.REMOVE) // mappedBy should be set to the name that the developer object has in the post entity
+    @JsonManagedReference
     private List<Post> posts;
 
     public Developer(String userName, String emailAddress, String preferredLanguages) {
-         this.userName = userName;
+        this.userName = userName;
         this.emailAddress = emailAddress;
         this.preferredLanguage= preferredLanguages;
     }

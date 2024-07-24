@@ -27,14 +27,14 @@ public class DeveloperController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Developer>> findAllDevelopers() {
-        List<Developer> greetingResponse = developerService.findAllDevelopers();
-        return ResponseEntity.status(HttpStatus.OK).body(greetingResponse);
+    public ResponseEntity<List<DeveloperDTO>> findAllDevelopers() {
+        List<DeveloperDTO> developers = developerService.findAllDevelopers();
+        return ResponseEntity.status(HttpStatus.OK).body(developers);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Developer>> findDeveloperById(@PathVariable int id) {
-        Optional<Developer> developer = developerService.findDeveloperById(id);
+    public ResponseEntity<DeveloperDTO> findDeveloperById(@PathVariable int id) {
+        DeveloperDTO developer = developerService.findDeveloperById(id);
         return ResponseEntity.status(HttpStatus.OK).body(developer);
     }
 
@@ -52,9 +52,9 @@ public class DeveloperController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> updateDeveloper(@PathVariable int id, @RequestBody Developer developer) {
-        developerService.updateDeveloper(id, developer);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<DeveloperDTO> updateDeveloper(@PathVariable int id, @RequestBody Developer developer) {
+        DeveloperDTO updatedDev = developerService.updateDeveloper(id, developer);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedDev);
     }
 
     @PostMapping("/{id}/posts")

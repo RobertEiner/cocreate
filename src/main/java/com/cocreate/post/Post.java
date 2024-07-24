@@ -2,6 +2,7 @@ package com.cocreate.post;
 
 import com.cocreate.comment.Comment;
 import com.cocreate.developer.Developer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,6 +28,7 @@ public class Post {
 
     @ManyToOne(cascade = CascadeType.ALL) // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
     @JoinColumn(name = "developer_id", nullable = false ) // Specifies the foreign key column (developer_id) in the Post table that refers to the primary key of the Developer table.
+    @JsonBackReference
     private Developer developer;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
