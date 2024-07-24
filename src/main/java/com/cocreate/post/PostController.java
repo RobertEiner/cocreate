@@ -1,6 +1,7 @@
 package com.cocreate.post;
 
 import com.cocreate.comment.Comment;
+import com.cocreate.comment.CommentDTO;
 import com.cocreate.comment.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,9 @@ public class PostController {
 
     // Create comment
     @PostMapping("/{id}/comments")
-    public ResponseEntity<Optional<String>> createComment(@PathVariable int id, @RequestBody Comment comment) {
-        commentService.createComment(id, comment);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<CommentDTO> createComment(@PathVariable int id, @RequestBody Comment comment) {
+        CommentDTO commentDTO = commentService.createComment(id, comment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
     }
 
     @GetMapping("/{id}/comments")

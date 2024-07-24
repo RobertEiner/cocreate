@@ -52,7 +52,7 @@ public class PostService {
     public void deletePost(int id) {
         Optional<Post> postToDelete = postRepository.findById(id);
         postToDelete.ifPresentOrElse(post -> postRepository.delete(post), () -> {
-            throw new ResourceNotFoundException("There exists no user with the ID to which the post belongs.");
+            throw new ResourceNotFoundException("The post doesn't exist.");
         });
     }
 
@@ -65,7 +65,7 @@ public class PostService {
             newPost.setDeveloper(developer.get());
             postRepository.save(newPost);
         } else {
-            throw new ResourceNotFoundException("Developer doesn't exist");
+            throw new ResourceNotFoundException("The developer doesn't exist");
         }
     }
 

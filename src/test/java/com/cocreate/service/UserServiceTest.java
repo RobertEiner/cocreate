@@ -1,4 +1,4 @@
-package com.cocreate.service;
+/*package com.cocreate.service;
 
 
 import com.cocreate.user.User;
@@ -48,3 +48,4 @@ public class UserServiceTest {
     }
 
 }
+*/

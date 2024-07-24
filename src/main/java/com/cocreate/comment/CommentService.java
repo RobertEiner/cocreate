@@ -12,24 +12,26 @@ import java.util.Optional;
 @Service
 public class CommentService {
 
-    private CommentRepository commentRepository;
-    private PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    private final CommentDTOMapper commentDTOMapper;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, PostRepository postRepository) {
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository, CommentDTOMapper commentDTOMapper) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
+        this.commentDTOMapper = commentDTOMapper;
     }
 
-    public void createComment(int postId, Comment comment) {
-        Optional<Post> post =  postRepository.findById(postId);
+    public CommentDTO createComment(int postId, Comment comment) {
+        Optional<Post> post = postRepository.findById(postId);
         if(post.isPresent()) {
             Comment newComment = new Comment();
             newComment.setContent(comment.getContent());
-            newComment.setPost(post.get());
             commentRepository.save(newComment);
+            return commentDTOMapper.mapToDTO(comment);
         } else {
-            throw new ResourceNotFoundException("The post doesn't exist");
+            throw new ResourceNotFoundException("The post doesn't exist.");
         }
     }
 
