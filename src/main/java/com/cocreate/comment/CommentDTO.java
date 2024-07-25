@@ -1,6 +1,6 @@
 package com.cocreate.comment;
 
-import com.cocreate.post.Post;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -28,6 +28,7 @@ public class CommentService {
         if(post.isPresent()) {
             Comment newComment = new Comment();
             newComment.setContent(comment.getContent());
+            newComment.setPost(post.get());
             commentRepository.save(newComment);
             return commentDTOMapper.mapToDTO(comment);
         } else {
