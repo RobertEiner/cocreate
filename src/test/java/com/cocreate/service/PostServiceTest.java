@@ -1,9 +1,6 @@
 package com.cocreate.service;
 
-import com.cocreate.post.Post;
-import com.cocreate.post.PostDTO;
-import com.cocreate.post.PostRepository;
-import com.cocreate.post.PostService;
+import com.cocreate.post.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,6 +19,8 @@ public class PostServiceTest {
     // Dependency of PostService
     @Mock // Mockito creates a mock implementation of PostRepository
     private PostRepository postRepository;
+    @Mock
+    private PostDTOMapper postDTOMapper;
 
     @BeforeEach
     void setUp() {
@@ -36,13 +35,16 @@ public class PostServiceTest {
                 "Social media platform for dogs",
                 "This application is a social media platform for dogs. Dogs should be able to follow eachother" +
                         "and like each other photos and so on and so forth...");
-        // Mocking the call to the save method. Means that whenever the save method is called, return the post that
-        // was created previously
+
+        // When the save method of postRepository is called with any Post object as an argument,
+        // then return the post object we've specified.
         when(postRepository.save(any(Post.class))).thenReturn(post);
+        // the expected result
+        /*PostDTO expectedPostDTO = postDTOMapper.apply(post);
         // When
-        //Post controlPost = postService.createPost(post);
+        PostDTO actualPostDTO = postService.createPost(post);
         // Then
-       // assertEquals(post.getTitle(), controlPost.getTitle());
+        assertEquals(actualPostDTO, expectedPostDTO);*/
         //assertEquals(post.getContent(), controlPost.getContent());
 
         verify(postRepository).save(post);
@@ -56,15 +58,20 @@ public class PostServiceTest {
                 "This application is a social media platform for dogs. Dogs should be able to follow eachother" +
                         "and like each other photos and so on and so forth...");
 
+        // We are returning an Optional<Post> because that is indeed what the postrepository.findbyid
+        // method is returning. Since that's the method we are mocking, we should also use the same return type.
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
+        PostDTO expectedPostDTO = postService.findById(5);
         // When
-        PostDTO controlPost = postService.findById(5);
+       /* PostDTO actualPostDTO = postDTOMapper.apply(post);
         // Then
-        /*
-        assertEquals(controlPost.get().getTitle(), post.getTitle());
-        assertEquals(controlPost.get().getContent(), post.getContent());
-*/
+        assertEquals(actualPostDTO, expectedPostDTO);*/
         verify(postRepository).findById(5);
+    }
+
+    @Test
+    public void should_update_a_post() {
+
     }
 
 

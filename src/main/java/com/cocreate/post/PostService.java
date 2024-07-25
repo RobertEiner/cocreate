@@ -25,13 +25,13 @@ public class PostService {
 
     public PostDTO createPost(Post newPost) {
         postRepository.save(newPost);
-        return postDTOMapper.apply(newPost);
+        return postDTOMapper.mapToDTO(newPost);
     }
 
     public PostDTO findById(int id) {
         Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()) {
-            return postDTOMapper.apply(post.get());
+            return postDTOMapper.mapToDTO(post.get());
         } else {
             throw new ResourceNotFoundException("The post doesn't exist.");
         }
