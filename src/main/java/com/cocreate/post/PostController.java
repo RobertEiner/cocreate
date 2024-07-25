@@ -1,11 +1,15 @@
 package com.cocreate.post;
 
+import com.cocreate.comment.Comment;
+import com.cocreate.comment.CommentDTO;
+import com.cocreate.comment.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -13,25 +17,23 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public void createUser(@RequestBody @Valid Post newPost) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
-        // create new post, and then create a test for
-        // it to see if you get the same error as with the user
-        // you want to see if it is the keyword user that is the problem
-        System.out.println("Post");
+    public void createPost(@RequestBody @Valid Post newPost) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
         postService.createPost(newPost);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Post>> findPostById(@PathVariable int id) {
-        Optional<Post> post = postService.findById(id);
+    public ResponseEntity<PostDTO> findPostById(@PathVariable int id) {
+        PostDTO post = postService.findById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(post);
     }
 
@@ -46,6 +48,22 @@ public class PostController {
         postService.deletePost(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    // Create comment
+    @PostMapping("/{id}/comments")
+    public ResponseEntity<CommentDTO> createComment(@PathVariable int id, @RequestBody Comment comment) {
+        CommentDTO commentDTO = commentService.createComment(id, comment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<Comment>> findAllComments(@PathVariable int id) {
+        List<Comment> comments = commentService.findCommentsOfPost(id);
+        return ResponseEntity.status(HttpStatus.OK).body(comments);
+    }
+
+
+
 
 }
 

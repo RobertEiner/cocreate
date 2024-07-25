@@ -1,15 +1,18 @@
-package com.cocreate.user;
+package com.cocreate.developer;
+
+import com.cocreate.post.Post;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
-// @entity marks the class as a JPA entity. These entities are mapped to tables in relational databases.
+import java.util.List;
+
 @Entity
-@Table(name="user") // we use users because user is a reserved keyword in SQL, you get  DDL exception when it is used.
-public class User {
+public class Developer {
 
     @Id // indicating that the member field below is the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // means that we are auto-incrementing the id
-    private int userId;
+    private int developerId;
     @NotEmpty(message = "User name cannot be empty!")                   // part of the jakarta validation dependency
     @Column(unique = true)      // user name needs to be unique
     private String userName;
@@ -20,15 +23,17 @@ public class User {
     @NotEmpty(message = "A preferred language must be added")
     private String preferredLanguage;
 
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.REMOVE) // mappedBy should be set to the name that the developer object has in the post entity
+    @JsonManagedReference
+    private List<Post> posts;
 
-    public User(String userName, String emailAddress, String preferredLanguages) {
-        //if(userName.isEmpty()) throw new IllegalArgumentException("Username cannot be empty.");
+    public Developer(String userName, String emailAddress, String preferredLanguages) {
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.preferredLanguage= preferredLanguages;
     }
 
-    public User() {
+    public Developer() {
 
     }
 
@@ -55,4 +60,17 @@ public class User {
     public void setPreferredLanguages(String preferredLanguage) {
         this.preferredLanguage = preferredLanguage;
     }
+
+    public void setUserId(int developerId) {
+        this.developerId = developerId;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 }
+
