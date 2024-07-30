@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +23,10 @@ public class Post {
     private int postId;
 
     @NotEmpty(message = "Title cannot be empty")
+    @NotNull(message = "Title cannot be empty")
     private String title;
     @NotEmpty(message = "Content cannot be empty")
+    @NotNull(message = "Content cannot be empty")
     private String content;
 
     @ManyToOne(cascade = CascadeType.ALL) // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
