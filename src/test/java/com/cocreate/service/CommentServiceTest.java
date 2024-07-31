@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,6 +36,7 @@ public class CommentServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    // -------------- CREATE ------------------
     @Test
     public void should_CreateComment_WhenPostExists() {
         // Given
@@ -74,6 +77,72 @@ public class CommentServiceTest {
 
     }
 
+    // -------------- GET ------------------
+    @Test
+    public void should_FindAllComments_When_PostExists() {
+        // Given
+        int postId = 5, commentId1 = 6, commentId2 = 7, commentId3 = 8;
+        Post post = new Post(postId, "Title", "Content");
+        Comment comment1 = new Comment(commentId1, "Content1", post);
+        Comment comment2 = new Comment(commentId2, "Content2", post);
+        Comment comment3 = new Comment(commentId3, "Content3", post);
+        post.setComments(List.of(comment1, comment2, comment3));
+        CommentDTO commentDTO1 = new CommentDTO(comment1.getContent());
+        CommentDTO commentDTO2 = new CommentDTO(comment2.getContent());
+        CommentDTO commentDTO3 = new CommentDTO(comment3.getContent());
+        // When
+        when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
+        // when(commentDTOMapper.mapToDTO(comment1)).thenReturn(commentDTO1);
+        // when(commentDTOMapper.mapToDTO(comment2)).thenReturn(commentDTO2);
+        //when(commentDTOMapper.mapToDTO(comment3)).thenReturn(commentDTO3);
+        when(commentDTOMapper.mapToDTO(any(Comment.class))).thenAnswer(invocation -> {
+            Comment comment = invocation.getArgument(0);
+            return new CommentDTO(comment.getContent());
+        });
+
+        List<CommentDTO> commentDTOs = commentService.findCommentsOfPost(postId);
+        // Then
+        assertEquals(commentDTO1.getContent(), commentDTOs.get(0).getContent());
+        assertEquals(commentDTO2.getContent(), commentDTOs.get(1).getContent());
+        assertEquals(commentDTO3.getContent(), commentDTOs.get(2).getContent());
+        assertEquals(3, commentDTOs.size());
+        verify(postRepository).findById(any(Integer.class));
+        verify(commentDTOMapper, times(3)).mapToDTO(any(Comment.class));
+    }
+
+    @Test
+    public void should_ThrowExceptionWhenFetchingComments_When_PostNotFound() {
+        // Given
+        int postId = 5;
+        // When
+        when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+        // Then
+        assertThrows(ResourceNotFoundException.class, () -> {
+           commentService.findCommentsOfPost(postId);
+        });
+        verify(commentDTOMapper, never()).mapToDTO(any(Comment.class));
+    }
+
+    @Test
+    public void should_ReturnEmptyList_When_PostHasNoComments() {
+        // Given
+        int postId = 5;
+        Post post = new Post(postId, "Title", "Content");
+        List<Comment> comments = new ArrayList<>();
+        post.setComments(comments);
+        List<CommentDTO> expected = new ArrayList<>();
+
+        // When
+        when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
+        when(commentDTOMapper.mapToDTO(any(Comment.class))).thenReturn(null);
+
+        List<CommentDTO> actual = commentService.findCommentsOfPost(postId);
+        // Then
+        assertEquals(actual, expected);
+        // the stream is empty because there are no comments, therefore,
+        // mapToDTO is never called, therefore we verify with never()
+        verify(commentDTOMapper, never()).mapToDTO(any(Comment.class));
+    }
 
 
 
