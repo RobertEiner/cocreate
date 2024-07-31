@@ -1,10 +1,7 @@
 package com.cocreate.service;
 
-import com.cocreate.developer.Developer;
-import com.cocreate.developer.DeveloperController;
 import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.post.*;
-import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
