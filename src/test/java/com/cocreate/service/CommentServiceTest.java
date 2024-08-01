@@ -94,7 +94,7 @@ public class CommentServiceTest {
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
         // when(commentDTOMapper.mapToDTO(comment1)).thenReturn(commentDTO1);
         // when(commentDTOMapper.mapToDTO(comment2)).thenReturn(commentDTO2);
-        //when(commentDTOMapper.mapToDTO(comment3)).thenReturn(commentDTO3);
+        // when(commentDTOMapper.mapToDTO(comment3)).thenReturn(commentDTO3);
         when(commentDTOMapper.mapToDTO(any(Comment.class))).thenAnswer(invocation -> {
             Comment comment = invocation.getArgument(0);
             return new CommentDTO(comment.getContent());
@@ -134,7 +134,8 @@ public class CommentServiceTest {
 
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
-        when(commentDTOMapper.mapToDTO(any(Comment.class))).thenReturn(null);
+        // Not necessary to mock mapToDTO because it is never called since the stream will be empty.
+        //when(commentDTOMapper.mapToDTO(any(Comment.class))).thenReturn(null);
 
         List<CommentDTO> actual = commentService.findCommentsOfPost(postId);
         // Then

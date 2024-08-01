@@ -23,22 +23,22 @@ public class DeveloperService {
     // Create a new developer
     public DeveloperDTO createDeveloper(Developer newDeveloper) {
         Developer dev = developerRepository.save(newDeveloper);
-        return developerDTOMapper.apply(dev);
+        return developerDTOMapper.mapToDTO(dev);
     }
 
     // Find a developer by it's ID
     public DeveloperDTO findDeveloperById(int id) {
         return developerRepository.findById(id)
-                .map(developerDTOMapper)        // We are only working with a single value and don't need to use streams
+                .map(developerDTOMapper::mapToDTO)        // We are only working with a single value and don't need to use streams
                 .orElseThrow(() -> new ResourceNotFoundException("There exists no user with ID: " + id));
     }
 
     // Get all developers
     public List<DeveloperDTO> findAllDevelopers() {
         return developerRepository.findAll()
-                .stream()                      // Here the list that is returned by findAll() is converted to a stream. We use stream API because we are working with a collection of elements
-                .map(developerDTOMapper)       // applies the apply() method to each element of the stream
-                .collect(Collectors.toList()); // the collect method gathers the elements of the stream into a List
+                .stream()                               // Here the list that is returned by findAll() is converted to a stream. We use stream API because we are working with a collection of elements
+                .map(developerDTOMapper::mapToDTO)       // applies the mapToDTO method to each element
+                .collect(Collectors.toList());          // the collect method gathers the elements of the stream into a List
     }
 
     // Update an existing developer
@@ -51,7 +51,7 @@ public class DeveloperService {
             if(updateInfo.getEmailAddress() != null) existingDev.setEmailAddress(updateInfo.getEmailAddress());
             if(updateInfo.getPreferredLanguage() != null) existingDev.setPreferredLanguages(updateInfo.getPreferredLanguage());
             developerRepository.save(existingDev);
-            return optDev.map(developerDTOMapper).get();
+            return optDev.map(developerDTOMapper::mapToDTO).get();
         } else {
             throw new ResourceNotFoundException("There is no developer with ID " + id);
         }
