@@ -92,14 +92,12 @@ public class CommentServiceTest {
         CommentDTO commentDTO3 = new CommentDTO(comment3.getContent());
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
-        // when(commentDTOMapper.mapToDTO(comment1)).thenReturn(commentDTO1);
-        // when(commentDTOMapper.mapToDTO(comment2)).thenReturn(commentDTO2);
-        // when(commentDTOMapper.mapToDTO(comment3)).thenReturn(commentDTO3);
+        // Using thenAnswer here for less code repetition. Comparing the content in the assertions below,
+        // and not the objects like in developerService test
         when(commentDTOMapper.mapToDTO(any(Comment.class))).thenAnswer(invocation -> {
             Comment comment = invocation.getArgument(0);
             return new CommentDTO(comment.getContent());
         });
-
         List<CommentDTO> commentDTOs = commentService.findCommentsOfPost(postId);
         // Then
         assertEquals(commentDTO1.getContent(), commentDTOs.get(0).getContent());
