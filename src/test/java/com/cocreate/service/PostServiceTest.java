@@ -27,17 +27,20 @@ public class PostServiceTest {
     @Mock
     private final PostDTOMapper postDTOMapper = new PostDTOMapper(new ModelMapper());
 
+    private int postId;
+
     @BeforeEach
     void setUp() {
         // We want to start/open the mocks for the PostService class
         MockitoAnnotations.openMocks(this);
+         postId = 1;
     }
 
     // ------------ CREATE -----------------------
     @Test
-    public void should_successfully_save_a_post() {
+    public void should_CreatePostAndReturnPostDTO_When_PostExists() {
         // Given
-        Post post = new Post(5,
+        Post post = new Post(postId,
                 "Social media platform for dogs",
                 "This application is a social media platform for dogs. Dogs should be able to follow eachother" +
                         "and like each other photos and so on and so forth...");
@@ -59,29 +62,25 @@ public class PostServiceTest {
     @Test
     public void should_FindPostById_When_PostExists() {
         // Given
-        Post post = new Post(5,
+        Post post = new Post(postId,
                 "Social media platform for dogs",
                 "This application is a social media platform for dogs. Dogs should be able to follow eachother" +
                         "and like each other photos and so on and so forth...");
         PostDTO postDTO = new PostDTO(post.getContent(), post.getTitle(), post.getDeveloper(), post.getComments());
-
-
         // We are returning an Optional<Post> because that is indeed what the postrepository.findbyid
         // method is returning. Since that's the method we are mocking, we should also use the same return type.
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
         when(postDTOMapper.mapToDTO(any(Post.class))).thenReturn(postDTO);
-        PostDTO expectedPostDTO = postService.findById(5);
+        PostDTO expectedPostDTO = postService.findById(postId);
         PostDTO actualPostDTO = postDTOMapper.mapToDTO(post);
         // Then
         assertEquals(actualPostDTO, expectedPostDTO);
-        verify(postRepository).findById(5);
+        verify(postRepository).findById(postId);
     }
 
     @Test
     public void should_ThrowExceptionInFindPostById_When_PostDoesntExist () {
-        int postId = 5;
-
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {
@@ -94,7 +93,6 @@ public class PostServiceTest {
     @Test
     public void should_UpdatePostSuccessfully_When_PostExists() {
         // Given
-        int postId = 5;
         Post existingPost = new Post(postId,
                 "Social media platform for dogs",
                 "Content of existing post");
@@ -113,13 +111,10 @@ public class PostServiceTest {
     @Test
     public void should_ThrowExceptionOnUpdate_When_PostDoesntExist() {
         // Given
-        int postId = 5;
         String newTitle = "New title";
         String newContent = "New content";
-
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
-
         // Then
         assertThrows(ResourceNotFoundException.class, () -> {
             postService.updatePost(postId, newTitle, newContent);
@@ -130,9 +125,8 @@ public class PostServiceTest {
     // ------------ DELETE --------------------------
     @Test
     public void should_DeletePost_When_PostExists() {
-        int postId = 5;
+        // Given
         Post postToDelete = new Post(postId, "Title", "Content");
-
         //When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(postToDelete));
         //Then
@@ -143,9 +137,6 @@ public class PostServiceTest {
 
     @Test
     public void should_ThrowExceptionOnDelete_When_PostDoesntExist() {
-        // Given
-        int postId = 5;
-        // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
         // Then
         assertThrows(ResourceNotFoundException.class, () -> {
@@ -153,6 +144,5 @@ public class PostServiceTest {
         });
         verify(postRepository, never()).delete(any(Post.class));
     }
-
 
 }

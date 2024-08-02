@@ -24,8 +24,6 @@ public class DeveloperServiceTest {
     @InjectMocks
     DeveloperService developerService;
     @Mock
-    PostRepository postRepository;
-    @Mock
     DeveloperDTOMapper developerDTOMapper;
     @Mock
     DeveloperRepository  developerRepository;
@@ -37,8 +35,6 @@ public class DeveloperServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        // Given
-
         developer = new Developer("Ben", "ben@gmail.com", "Java");
         developerId = 1;
         Post post1 = new Post(1, "Title1", "Content1");

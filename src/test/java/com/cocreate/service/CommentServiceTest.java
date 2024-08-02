@@ -31,17 +31,20 @@ public class CommentServiceTest {
     @InjectMocks
     private CommentService commentService;
 
+    private int postId, commentId;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        postId = 1;
+        commentId = 2;
     }
 
     // -------------- CREATE ------------------
     @Test
     public void should_CreateComment_WhenPostExists() {
         // Given
-        int postId = 5;
-        int commentId = 6;
+
         Post existingPost = new Post(postId, "Title", "content");
         Comment comment = new Comment(commentId, "Comment content", existingPost);
         CommentDTO commentDTO = new CommentDTO(comment.getContent());
@@ -59,10 +62,8 @@ public class CommentServiceTest {
     }
 
     @Test
-    public void should_ThrowException_When_PostNotFound() {
+    public void should_ThrowExceptionOnCreateComment_When_PostNotFound() {
         // Given
-        int postId = 5;
-        int commentId = 6;
         Post post = new Post();
         Comment comment = new Comment(commentId, "Content", post);
         // When
@@ -79,11 +80,11 @@ public class CommentServiceTest {
 
     // -------------- GET ------------------
     @Test
-    public void should_FindAllComments_When_PostExists() {
+    public void should_FindAllCommentsAndReturnListOfCommentDTOs_When_PostExists() {
         // Given
-        int postId = 5, commentId1 = 6, commentId2 = 7, commentId3 = 8;
+        int commentId2 = 7, commentId3 = 8;
         Post post = new Post(postId, "Title", "Content");
-        Comment comment1 = new Comment(commentId1, "Content1", post);
+        Comment comment1 = new Comment(commentId, "Content1", post);
         Comment comment2 = new Comment(commentId2, "Content2", post);
         Comment comment3 = new Comment(commentId3, "Content3", post);
         post.setComments(List.of(comment1, comment2, comment3));
@@ -109,9 +110,7 @@ public class CommentServiceTest {
     }
 
     @Test
-    public void should_ThrowExceptionWhenFetchingComments_When_PostNotFound() {
-        // Given
-        int postId = 5;
+    public void should_ThrowExceptionOnFindAllComments_When_PostNotFound() {
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
         // Then
@@ -122,14 +121,12 @@ public class CommentServiceTest {
     }
 
     @Test
-    public void should_ReturnEmptyList_When_PostHasNoComments() {
+    public void should_ReturnEmptyListOnFindAllComments_When_PostHasNoComments() {
         // Given
-        int postId = 5;
         Post post = new Post(postId, "Title", "Content");
         List<Comment> comments = new ArrayList<>();
         post.setComments(comments);
         List<CommentDTO> expected = new ArrayList<>();
-
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
         // Not necessary to mock mapToDTO because it is never called since the stream will be empty.
