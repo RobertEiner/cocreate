@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -23,6 +24,7 @@ public class CommentService {
         this.commentDTOMapper = commentDTOMapper;
     }
 
+    // Create a comment
     public CommentDTO createComment(int postId, Comment comment) {
         Optional<Post> post = postRepository.findById(postId);
         if(post.isPresent()) {
@@ -36,11 +38,17 @@ public class CommentService {
         }
     }
 
-    public List<Comment> findCommentsOfPost(int postId) {
+    // Find all comments of a specific post
+    public List<CommentDTO> findCommentsOfPost(int postId) {
         Optional<Post> postOptional = postRepository.findById(postId);
         if(postOptional.isPresent()) {
             Post post = postOptional.get();
-            return post.getComments();
+            return post.getComments()
+                    .stream() // Create a stream from the List<Comment>
+                    // shorthand for lambda expression: comment -> commentDTOMapper.mapToDTO(comment)
+                    // Works because the mapToDTO method conforms to the signature requirements of the generic apply() method of the Function interface
+                    .map(commentDTOMapper::mapToDTO)
+                    .collect(Collectors.toList()); // Convert the stream into a list of CommentDTOs
         } else {
             throw new ResourceNotFoundException("The post couldn't be found");
         }
