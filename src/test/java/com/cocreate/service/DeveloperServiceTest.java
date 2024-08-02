@@ -131,8 +131,66 @@ public class DeveloperServiceTest {
 
     // -------------- UPDATE ------------------
 
-    
+    @Test
+    public void should_UpdateDeveloperPropertiesAndReturnDTO_When_UpdateInputExists() {
+        // Given
+        Developer updateInfo = new Developer();
+        updateInfo.setUserName("UpdatedUserName");
+        updateInfo.setEmailAddress("updated@gmail.com");
+        updateInfo.setPreferredLanguages("C++");
+        DeveloperDTO expected = new DeveloperDTO("UpdatedUserName", "updated@gmail.com", "C++", developer.getPosts());
+        // When
+        when(developerRepository.findById(developerId)).thenReturn(Optional.of(developer));
+        when(developerRepository.save(developer)).thenReturn(developer);
+        when(developerDTOMapper.mapToDTO(developer)).thenReturn(expected);
+        DeveloperDTO actual = developerService.updateDeveloper(developerId, updateInfo);
+        // Then
+        assertEquals(updateInfo.getUserName(), developer.getUserName());
+        assertEquals(updateInfo.getEmailAddress(), developer.getEmailAddress());
+        assertEquals(updateInfo.getPreferredLanguage(), developer.getPreferredLanguage());
+        assertEquals(expected, actual);
+        verify(developerRepository).findById(developerId);
+        verify(developerRepository).save(developer);
+        verify(developerDTOMapper).mapToDTO(developer);
 
+    }
+
+    @Test
+    public void should_ThrowExceptionOnUpdate_When_DeveloperNotFound() {
+        // Given
+        Developer updateInfo = new Developer();
+        updateInfo.setUserName("UpdatedUserName");
+        updateInfo.setEmailAddress("updated@gmail.com");
+        updateInfo.setPreferredLanguages("C++");
+        // When
+        when(developerRepository.findById(developerId)).thenThrow(ResourceNotFoundException.class);
+        // Then
+        assertThrows(ResourceNotFoundException.class, () -> {
+            developerService.updateDeveloper(developerId, updateInfo);
+        });
+    }
+
+    // -------------- DELETE ------------------
+    @Test
+    public void should_DeleteDeveloper_When_DeveloperExists() {
+        // When
+        when(developerRepository.findById(developerId)).thenReturn(Optional.ofNullable(developer));
+        developerService.deleteDeveloperById(developerId);
+        // Then
+        verify(developerRepository).findById(developerId);
+        verify(developerRepository).deleteById(developerId);
+    }
+
+    @Test
+    public void should_ThrowExceptionOnDelete_When_DeveloperNotFound() {
+        // When
+        when(developerRepository.findById(developerId)).thenThrow(ResourceNotFoundException.class);
+        // Then
+        assertThrows(ResourceNotFoundException.class, () -> {
+           developerService.deleteDeveloperById(developerId);
+        });
+        verify(developerRepository, never()).deleteById(developerId);
+    }
 
 
 }
