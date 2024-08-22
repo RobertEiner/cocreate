@@ -9,3 +9,5 @@ This is a work in progress.
 Unit tests:
 - [ ] create tests for developerService class
 - [ ] create tests for all controllers
+
+Start implementing the Frontend application
