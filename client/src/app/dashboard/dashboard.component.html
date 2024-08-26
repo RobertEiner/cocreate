@@ -1,11 +1,23 @@
-<div class="parent">
-    <div class="welcome-div">
-        <h3>Welcome to your dashboard!</h3>
-        <button class="btn btn-primary">Show projects</button>
+<div class="parent-welcome">
+  <div class="welcome-div">
+    <h3>Welcome to your dashboard!</h3>
+    <button
+      class="btn btn-primary show-projects-btn"
+      (click)="getAllPosts()"
+    >
+      Show projects
+    </button>
+  </div>
+  <div></div>
+</div>
+<div class="row row-div">
+  <div class="card col-sm-2 card-div m-2" *ngFor="let post of posts">
+    <div class="card-body">
+      <h3 class="card-title">{{ post.title }}</h3>
+      <!-- <p>{{ post.content }}</p> -->
+      <p>Preferred language: {{ post.developer.preferredLanguage }}</p>
+      <p>Posted by {{  post.developer.userName }} </p>
+      <button class="btn btn-primary">Open</button>
     </div>
-    <ul>
-        <li><a href="" routerLink="path"> Path</a></li>
-    </ul>
-    
-    
+  </div>
 </div>
