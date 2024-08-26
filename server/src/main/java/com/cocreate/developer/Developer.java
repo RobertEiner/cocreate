@@ -23,7 +23,9 @@ public class Developer {
     @NotEmpty(message = "A preferred language must be added")
     private String preferredLanguage;
 
-    @OneToMany(mappedBy = "developer", cascade = CascadeType.REMOVE) // mappedBy should be set to the name that the developer object has in the post entity
+    // mappedBy should be set to the name that the developer object has in the post entity
+    // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL) // CascadeType.ALL should be on the OneToMAny side of the bidirectional relationship
     @JsonManagedReference
     private List<Post> posts;
 

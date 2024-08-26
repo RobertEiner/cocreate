@@ -23,7 +23,7 @@ public class Comment {
     @NotEmpty(message = "The comment needs content")
     private String content;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "post_id")
     @JsonBackReference
     private Post post;

@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/posts")
+@RequestMapping("api/v1/posts")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PostController {
 
     private final PostService postService;
@@ -31,10 +32,16 @@ public class PostController {
         postService.createPost(newPost);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<PostDTO>> getAllPosts() {
+        List<PostDTO> posts = postService.getAllPosts();
+        return ResponseEntity.status(HttpStatus.OK).body(posts);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> findPostById(@PathVariable int id) {
         PostDTO post = postService.findById(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(post);
+        return ResponseEntity.status(HttpStatus.OK).body(post);
     }
 
     @PatchMapping("/{id}")

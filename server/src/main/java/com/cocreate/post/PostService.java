@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.validation.Validator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -27,6 +29,13 @@ public class PostService {
     public PostDTO createPost(Post newPost) {
         postRepository.save(newPost);
         return postDTOMapper.mapToDTO(newPost);
+    }
+
+    public List<PostDTO> getAllPosts() {
+        return postRepository.findAll()
+                .stream()
+                .map(postDTOMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     public PostDTO findById(int id) {

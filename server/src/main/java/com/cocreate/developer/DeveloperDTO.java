@@ -17,6 +17,6 @@ import java.util.List;
 public class DeveloperDTO {
         String userName;
         String emailAddress;
-        String preferredLanguages;
+        String preferredLanguage;
         List<Post> posts;
 }

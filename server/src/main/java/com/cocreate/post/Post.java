@@ -29,12 +29,13 @@ public class Post {
     @NotNull(message = "Content cannot be empty")
     private String content;
 
-    @ManyToOne(cascade = CascadeType.ALL) // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
+    @ManyToOne
     @JoinColumn(name = "developer_id", nullable = false ) // Specifies the foreign key column (developer_id) in the Post table that refers to the primary key of the Developer table.
+    // necessary in the "child" entity to break the infinite loop that occurs when using bidirectional relationships (developer - post)
     @JsonBackReference
     private Developer developer;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @JsonManagedReference // is used to break the infinite loop that occurs when using bidirectional relationships (post - comment)
     List<Comment> comments;
 
