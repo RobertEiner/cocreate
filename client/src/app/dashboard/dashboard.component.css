@@ -12,15 +12,4 @@
   text-align: center; /* also aligns <button> element*/
 }
 
-.show-projects-btn {
-  /* width: 30%; */
-}
 
-.row-div {
-  display: flex;
-  justify-content: center;
-}
-
-.card-div {
-  /* width: 20%; */
-}

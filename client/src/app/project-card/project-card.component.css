@@ -1,0 +1,13 @@
+.row-div {
+    display: flex;
+    justify-content: center;
+}
+
+.card-body-div {
+    text-align: center;
+}
+
+
+.card-body-div button {
+    width: 100%;
+}
