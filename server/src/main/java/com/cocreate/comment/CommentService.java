@@ -1,5 +1,7 @@
 package com.cocreate.comment;
 
+import com.cocreate.developer.Developer;
+import com.cocreate.developer.DeveloperRepository;
 import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.post.Post;
 import com.cocreate.post.PostRepository;
@@ -15,26 +17,33 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
+    private DeveloperRepository developerRepository;
     private final CommentDTOMapper commentDTOMapper;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, PostRepository postRepository, CommentDTOMapper commentDTOMapper) {
+    public CommentService(CommentRepository commentRepository,
+                          PostRepository postRepository,
+                          CommentDTOMapper commentDTOMapper,
+                          DeveloperRepository developerRepository) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
         this.commentDTOMapper = commentDTOMapper;
+        this.developerRepository = developerRepository;
     }
 
     // Create a comment
-    public CommentDTO createComment(int postId, Comment comment) {
+    public CommentDTO createComment(int postId, Comment comment, int developerId) {
         Optional<Post> post = postRepository.findById(postId);
-        if(post.isPresent()) {
+        Optional<Developer> dev = developerRepository.findById(developerId);
+        if(dev.isPresent() && post.isPresent()) {
             Comment newComment = new Comment();
             newComment.setContent(comment.getContent());
             newComment.setPost(post.get());
+            newComment.setDeveloper(dev.get());
             commentRepository.save(newComment);
             return commentDTOMapper.mapToDTO(comment);
         } else {
-            throw new ResourceNotFoundException("The post doesn't exist.");
+            throw new ResourceNotFoundException("The post or user doesn't exist.");
         }
     }
 

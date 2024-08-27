@@ -1,7 +1,9 @@
 package com.cocreate.comment;
 
+import com.cocreate.developer.Developer;
 import com.cocreate.post.Post;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -25,8 +27,13 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    @JsonBackReference
+    @JsonIgnoreProperties({"developer", "comments"})
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "developer_id", nullable = false)
+    @JsonIgnoreProperties({"comments", "posts"})
+    private Developer developer;
 
 
 }

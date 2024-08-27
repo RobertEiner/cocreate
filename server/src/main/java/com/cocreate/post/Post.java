@@ -3,6 +3,7 @@ package com.cocreate.post;
 import com.cocreate.comment.Comment;
 import com.cocreate.developer.Developer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -32,11 +33,11 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "developer_id", nullable = false ) // Specifies the foreign key column (developer_id) in the Post table that refers to the primary key of the Developer table.
     // necessary in the "child" entity to break the infinite loop that occurs when using bidirectional relationships (developer - post)
-    @JsonBackReference
+    @JsonIgnoreProperties({"posts", "comments"})
     private Developer developer;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    @JsonManagedReference // is used to break the infinite loop that occurs when using bidirectional relationships (post - comment)
+    @JsonIgnoreProperties("post") // is used to break the infinite loop that occurs when using bidirectional relationships (post - comment)
     List<Comment> comments;
 
     public Post(int postId, String title, String content) {

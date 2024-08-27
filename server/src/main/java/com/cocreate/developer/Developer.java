@@ -1,6 +1,8 @@
 package com.cocreate.developer;
 
+import com.cocreate.comment.Comment;
 import com.cocreate.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -26,8 +28,15 @@ public class Developer {
     // mappedBy should be set to the name that the developer object has in the post entity
     // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
     @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL) // CascadeType.ALL should be on the OneToMAny side of the bidirectional relationship
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonIgnoreProperties( "developer")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL)
+    // When a comment in the list of comments is serialized, the developer field of that comment will not be serialized.
+    // This is to avoid infinite recursion problem
+    @JsonIgnoreProperties("developer") // developer denotes the name of the Developer field in the comment class
+    private List<Comment> comments;
 
     public Developer(String userName, String emailAddress, String preferredLanguages) {
         this.userName = userName;
@@ -63,8 +72,11 @@ public class Developer {
         this.preferredLanguage = preferredLanguage;
     }
 
-    public void setUserId(int developerId) {
+    public void setDeveloperId(int developerId) {
         this.developerId = developerId;
+    }
+    public int getDeveloperId() {
+        return this.developerId;
     }
 
     public List<Post> getPosts() {

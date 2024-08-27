@@ -1,6 +1,7 @@
 package com.cocreate.service;
 
 import com.cocreate.comment.*;
+import com.cocreate.developer.Developer;
 import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.post.Post;
 import com.cocreate.post.PostRepository;
@@ -32,12 +33,15 @@ public class CommentServiceTest {
     private CommentService commentService;
 
     private int postId, commentId;
+    Developer dev;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         postId = 1;
         commentId = 2;
+        dev = new Developer();
+        dev.setDeveloperId(1);
     }
 
     // -------------- CREATE ------------------
@@ -46,14 +50,14 @@ public class CommentServiceTest {
         // Given
 
         Post existingPost = new Post(postId, "Title", "content");
-        Comment comment = new Comment(commentId, "Comment content", existingPost);
+        Comment comment = new Comment(commentId, "Comment content", existingPost, dev);
         CommentDTO commentDTO = new CommentDTO(comment.getContent());
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(existingPost));
         when(commentRepository.save(any(Comment.class))).thenReturn(comment);
         when(commentDTOMapper.mapToDTO(any(Comment.class))).thenReturn(commentDTO);
         CommentDTO expectedCommentDTO = commentDTOMapper.mapToDTO(comment);
-        CommentDTO actualCommentDTO = commentService.createComment(postId, comment);
+        CommentDTO actualCommentDTO = commentService.createComment(postId, comment, dev.getDeveloperId());
         // Then
         assertEquals(expectedCommentDTO, actualCommentDTO);
         verify(postRepository).findById(any(Integer.class));
@@ -65,12 +69,12 @@ public class CommentServiceTest {
     public void should_ThrowExceptionOnCreateComment_When_PostNotFound() {
         // Given
         Post post = new Post();
-        Comment comment = new Comment(commentId, "Content", post);
+        Comment comment = new Comment(commentId, "Content", post, dev);
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
         // Then
         assertThrows(ResourceNotFoundException.class, () -> {
-           commentService.createComment(postId, comment);
+           commentService.createComment(postId, comment, dev.getDeveloperId());
         });
         verify(postRepository).findById(any(Integer.class));
         verify(commentRepository, never()).save(any(Comment.class));
@@ -84,9 +88,9 @@ public class CommentServiceTest {
         // Given
         int commentId2 = 7, commentId3 = 8;
         Post post = new Post(postId, "Title", "Content");
-        Comment comment1 = new Comment(commentId, "Content1", post);
-        Comment comment2 = new Comment(commentId2, "Content2", post);
-        Comment comment3 = new Comment(commentId3, "Content3", post);
+        Comment comment1 = new Comment(commentId, "Content1", post, dev);
+        Comment comment2 = new Comment(commentId2, "Content2", post, dev);
+        Comment comment3 = new Comment(commentId3, "Content3", post, dev);
         post.setComments(List.of(comment1, comment2, comment3));
         CommentDTO commentDTO1 = new CommentDTO(comment1.getContent());
         CommentDTO commentDTO2 = new CommentDTO(comment2.getContent());

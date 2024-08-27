@@ -44,7 +44,7 @@ public class PostServiceTest {
                 "Social media platform for dogs",
                 "This application is a social media platform for dogs. Dogs should be able to follow eachother" +
                         "and like each other photos and so on and so forth...");
-        PostDTO postDTO = new PostDTO(post.getContent(), post.getTitle(), post.getDeveloper(), post.getComments());
+        PostDTO postDTO = new PostDTO(post.getPostId(), post.getContent(), post.getTitle(), post.getDeveloper(), post.getComments());
         // When the save method of postRepository is called with any Post object as an argument,
         // then return the post object we've specified.
         when(postRepository.save(any(Post.class))).thenReturn(post);
@@ -66,7 +66,7 @@ public class PostServiceTest {
                 "Social media platform for dogs",
                 "This application is a social media platform for dogs. Dogs should be able to follow eachother" +
                         "and like each other photos and so on and so forth...");
-        PostDTO postDTO = new PostDTO(post.getContent(), post.getTitle(), post.getDeveloper(), post.getComments());
+        PostDTO postDTO = new PostDTO(post.getPostId(), post.getContent(), post.getTitle(), post.getDeveloper(), post.getComments());
         // We are returning an Optional<Post> because that is indeed what the postrepository.findbyid
         // method is returning. Since that's the method we are mocking, we should also use the same return type.
         // When
