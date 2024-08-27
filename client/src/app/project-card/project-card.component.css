@@ -11,3 +11,9 @@
 .card-body-div button {
     width: 100%;
 }
+
+.card-div-detail {
+    width: 80%;
+    margin: 1%;
+    border: 2px solid rgb(77, 77, 233);
+}

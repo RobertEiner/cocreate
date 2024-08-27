@@ -15,16 +15,21 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class ProjectCardComponent {
   router: Router = inject(Router);
   avtiveRoute: ActivatedRoute = inject(ActivatedRoute);
-
-  @Input() title: string = '';
-  @Input() content: string = '';
   @Input() posts: Post[] = [];
 
+  selectedPostTitle: string = '';
+  selectedPostContent: string = '';
+  selectedPostAuthor: string = '';
+  selectedPostComments: Comment[] = [];
 
- 
-  navigateToPost(post: Post) {
-    console.log(post.title);
-    this.router.navigate([`post/${post.postId}`],  {relativeTo: this.avtiveRoute});
+  openPostDetails(post: Post) {
+    // console.log(post.title);
+    // this.router.navigate([`post/${post.postId}`],  {relativeTo: this.avtiveRoute});
+    this.selectedPostTitle = post.title;
+    this.selectedPostContent = post.content;
+    this.selectedPostComments = post.comments;
+    this.selectedPostAuthor = post.developer.userName;
+
   }
 
 }

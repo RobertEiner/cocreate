@@ -6,7 +6,38 @@
       <p>Preferred language: {{ post.developer.preferredLanguage }}</p>
       <p>comments: {{ post.comments.length  }}</p>
       <p>Posted by {{ post.developer.userName}}</p>
-      <button class="btn btn-primary" (click)="navigateToPost(post)">Open</button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Open</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ selectedPostTitle }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ selectedPostContent }}</p>
+        <div class="row" *ngIf="selectedPostComments.length > 0; else noComments" >
+          <div class="card card-div-detail" *ngFor="let comment of selectedPostComments">
+            <div class="card-body">
+              <p> {{ comment.content }}</p>
+              <p> posted by {{ comment.developer.userName}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+      </div>
+      <ng-template #noComments >Be the first to comment on this post by {{ selectedPostAuthor}}</ng-template>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Comment</button>
+      </div>
     </div>
   </div>
 </div>
