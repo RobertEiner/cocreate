@@ -1,1 +1,40 @@
-<p>sign-up works!</p>
+
+<div class="parent">
+    <div class="card card-div">
+      <h2 class="card-title text-center">{{ title }}</h2>
+      <div class="card-body">
+        <!-- #registrationForm is a template reference variable, it stores a reference to the form element in the form of a javascript object-->
+        <form  class="" (ngSubmit)="onFormSubmitted()" #registrationForm="ngForm">
+          <div class="">
+            <!-- to be able to access the form controls within the form element/object we need to do two things:
+            1. git the form control (input) a name attribute
+            2. add ngModel to the form control, to tell angular that the form control belongs to the form -->
+            <label for="" class="form-label" >Email address</label>
+            <input type="email" class="form-control" name="email" ngModel/>
+          </div>
+          <div class="">
+            <label for="" class="form-label" >User name</label>
+            <input type="" class="form-control" name="userName" ngModel/>
+          </div>
+          <div class="">
+            <label for="" class="form-label" >Password</label>
+            <input type="password" class="form-control" name="password" ngModel/>
+          </div>
+          <div class="">
+            <label for="" class="form-label">What is your preferred programming language?</label>
+            <input type="" class="form-control" name="prefLang" ngModel/>
+          </div>
+          <div class="button-wrapper">
+            <!-- when we press submit, the typ="submit" will call the onFormSubmitted method -->
+              <input class="btn btn-success w-50" type="submit" >
+          </div>
+        </form>
+      </div>
+      
+      <div class="text-center">
+          <p>Already have an account? <a href="" routerLink="/">Sign in</a> </p>
+      </div>
+      
+    </div>
+  </div>
+  
