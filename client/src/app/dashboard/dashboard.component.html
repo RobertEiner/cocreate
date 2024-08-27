@@ -1,11 +1,18 @@
-<div class="parent">
-    <div class="welcome-div">
-        <h3>Welcome to your dashboard!</h3>
-        <button class="btn btn-primary">Show projects</button>
-    </div>
-    <ul>
-        <li><a href="" routerLink="path"> Path</a></li>
-    </ul>
-    
-    
+<div class="parent-welcome">
+  <div class="welcome-div">
+    <h3>Welcome to your dashboard!</h3>
+    <button
+      class="btn btn-primary show-projects-btn"
+      (click)="getAllPosts()"
+    >
+      Show projects
+    </button>
+  </div>
+  <div></div>
 </div>
+<app-project-card
+[posts]="posts"
+></app-project-card>
+<app-post-detail
+
+></app-post-detail>

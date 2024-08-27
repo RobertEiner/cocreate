@@ -1,11 +1,15 @@
-.parent {
-    
-    border: 2px solid red;
+.parent-welcome {
+  display: flex;
+  justify-content: center;
+  /* border: 2px solid red; */
 }
 
 .welcome-div {
-    margin: auto;
-    border: 2px solid rgb(170, 255, 0);
-    
-
+  /* display: flex;
+    justify-content: center; */
+  width: 50%;
+  /* border: 2px solid rgb(170, 255, 0); */
+  text-align: center; /* also aligns <button> element*/
 }
+
+

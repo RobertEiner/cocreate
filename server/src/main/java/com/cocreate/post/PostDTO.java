@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDTO {
+
+    Integer postId;
     String content;
     String title;
     Developer developer;
