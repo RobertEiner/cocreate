@@ -1,18 +1,12 @@
 <div class="parent-welcome">
   <div class="welcome-div">
-    <h3>Welcome to your dashboard!</h3>
-    <button
-      class="btn btn-primary show-projects-btn"
-      (click)="getAllPosts()"
-    >
-      Show projects
-    </button>
+    <h3>Welcome to your dashboard, {{ userName }}.</h3>
+    <button class="btn btn-outline-primary show-projects-btn me-2" (click)="getAllPosts()">Show posts</button>
+    <button class="btn btn-outline-success" (click)="createPost()">Create post</button>
+  </div>
+  <div>
   </div>
   <div></div>
 </div>
-<app-project-card
-[posts]="posts"
-></app-project-card>
-<app-post-detail
-
-></app-post-detail>
+<app-project-card *ngIf="activeView === 'showPosts'" [posts]="posts"></app-project-card>
+<app-create-post *ngIf="activeView === 'createPost'" [devId]="developerId"></app-create-post>

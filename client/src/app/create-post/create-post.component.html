@@ -1,0 +1,24 @@
+<div class="parent mt-5">
+  <div class="row w-50">
+    <div class="card card-div">
+      <div class="card-body">
+        <h3 class="card-title text-center">Create a new post</h3>
+        <form action="" #createPostForm="ngForm" (ngSubmit)="onFormSubmit()">
+            <div>
+                <label for="">Title</label>
+                <input name="title" type="text" class="form-control" required #titleRef="ngModel" [(ngModel)]="title">
+                <small *ngIf="titleRef.invalid && titleRef.touched" class="invalid-msg">*Title is required</small>
+            </div>
+            <div>
+                <label for="">Description</label>
+                <textarea name="description" id="" class="form-control" required #descriptionRef="ngModel" [(ngModel)]="content"></textarea>
+                <small *ngIf="descriptionRef.invalid && descriptionRef.touched" class="invalid-msg">*Description is required</small>
+            </div>
+            <div>
+                <input value="Create post" type="submit" class="btn btn-outline-success mt-2" [disabled]="createPostForm.invalid">
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
