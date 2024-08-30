@@ -1,20 +1,20 @@
 <div class="row row-div">
-  <div class="card col-sm-2 card-div m-2 bg-success bg-gradient" *ngFor="let post of posts">
-    <div class="card-body card-body-div">
+  <div class="card col-sm-2 card-div m-2 bg-transparent border-light" *ngFor="let post of posts">
+    <div class="card-body card-body-div card-text">
       
-      <h4 class="card-title text-white">{{ post.title }}</h4>
+      <h4 class="card-title">{{ post.title }}</h4>
       <br>
-      <div class="text-white">
+      <div class="">
         <p><i class="bi bi-file-code-fill"></i> {{ post.developer?.preferredLanguage }}</p>
       </div>
-      <div class="text-white">
+      <div class="">
         <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
       </div>
     </div>
-    <div class="card-footer footer-div bg-transparent text-white ">
+    <div class="card-footer footer-div bg-transparent  card-text">
       <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Open</button>
       <div class="text-center">
-        <small>Posted by {{ post.developer?.userName}}</small>
+        <small class="">Posted by {{ post.developer?.userName}}</small>
       </div>
     </div>
   </div>

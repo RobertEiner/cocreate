@@ -12,4 +12,8 @@
   text-align: center; /* also aligns <button> element*/
 }
 
+.welcome-msg {
+  color: #d3d9d4;
+}
+
 

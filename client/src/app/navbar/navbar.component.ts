@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  title = 'Cocreate'
+  title = 'CoCreate'
   profileDropdown: string = 'My CoCreate'
 }
