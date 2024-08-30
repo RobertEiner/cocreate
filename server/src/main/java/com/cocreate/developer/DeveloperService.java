@@ -1,6 +1,8 @@
 package com.cocreate.developer;
 
+import com.cocreate.exceptions.AuthenticationFailedException;
 import com.cocreate.exceptions.ResourceNotFoundException;
+import com.cocreate.requests.SignInRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -63,6 +65,21 @@ public class DeveloperService {
             throw new ResourceNotFoundException("There exists no user with ID: " + id);
         }
         developerRepository.deleteById(id);
+    }
+
+    // authenticate developer
+    public DeveloperDTO authenticateDeveloper(SignInRequestDTO signInRequestDTO) {
+        Optional<Developer> dev = developerRepository.findByUserName(signInRequestDTO.getUserName());
+        if(dev.isEmpty()) {
+            throw new ResourceNotFoundException("There is no developer with that user name!");
+        }
+        System.out.println(dev.get().getPosts());
+        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERE");
+        if(dev.get().getPassword().equals(signInRequestDTO.getPassword())) {
+            return developerDTOMapper.mapToDTO(dev.get());
+        } else {
+            throw new AuthenticationFailedException("Passwords are not matching!");
+        }
     }
 
 }

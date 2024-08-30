@@ -1,19 +1,22 @@
 
 <div class="parent">
   <div class="card card-div">
-    <h2 class="card-title text-center">Sign in</h2>
+    <h2 class="card-title text-center mt-4 bg-">Sign in</h2>
     <div class="card-body">
       <form class="" #signInForm="ngForm" (ngSubmit)="navigateToDashboard()">
         <div class="">
-          <label for="" class="form-label">Email address</label>
-          <input name="email" type="email" class="form-control" #emailRef="ngModel" [(ngModel)]="emailAddress" required/>
+          <label for="" class="form-label">Username</label>
+          <input name="username" type="text" class="form-control" #userNameRef="ngModel" [(ngModel)]="userName" required/>
+          <small *ngIf="invalidUserName && !userNameRef.dirty" class="invalid-msg">*Invalid username</small>
         </div>
         <div class="">
           <label for="" class="form-label">Password</label>
           <input name="password" type="password" class="form-control" #passwordRef="ngModel" [(ngModel)]="password" required/>
+          <small *ngIf="invalidPassword && !passwordRef.dirty" class="invalid-msg">*Incorrect password</small>
+
         </div>
         <div class="button-wrapper">
-          <input type="submit" class="btn btn-success w-50" >
+          <input type="submit" value="Sign in" class="btn btn-success w-50" >
         </div>
       </form>
     </div>

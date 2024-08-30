@@ -18,3 +18,7 @@
     justify-content: center;
     margin-top: 4%;
   }
+
+.invalid-msg {
+  color: red;
+}
