@@ -2,6 +2,7 @@ package com.cocreate.service;
 
 import com.cocreate.comment.*;
 import com.cocreate.developer.Developer;
+import com.cocreate.developer.DeveloperRepository;
 import com.cocreate.exceptions.ResourceNotFoundException;
 import com.cocreate.post.Post;
 import com.cocreate.post.PostRepository;
@@ -26,9 +27,11 @@ public class CommentServiceTest {
     @Mock
     private CommentRepository commentRepository;
     @Mock
-    PostRepository postRepository;
+    private PostRepository postRepository;
     @Mock
-    CommentDTOMapper commentDTOMapper = new CommentDTOMapper(new ModelMapper());
+    private DeveloperRepository developerRepository;
+    @Mock
+    private CommentDTOMapper commentDTOMapper = new CommentDTOMapper(new ModelMapper());
     @InjectMocks
     private CommentService commentService;
 
@@ -54,27 +57,31 @@ public class CommentServiceTest {
         CommentDTO commentDTO = new CommentDTO(comment.getContent());
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(existingPost));
+        when(developerRepository.findById(any(Integer.class))).thenReturn(Optional.of(dev));
         when(commentRepository.save(any(Comment.class))).thenReturn(comment);
         when(commentDTOMapper.mapToDTO(any(Comment.class))).thenReturn(commentDTO);
+
         CommentDTO expectedCommentDTO = commentDTOMapper.mapToDTO(comment);
-        CommentDTO actualCommentDTO = commentService.createComment(postId, comment, dev.getDeveloperId());
+        CommentDTO actualCommentDTO = commentService.createComment(postId, commentDTO, dev.getDeveloperId());
         // Then
         assertEquals(expectedCommentDTO, actualCommentDTO);
         verify(postRepository).findById(any(Integer.class));
         verify(commentRepository).save(any(Comment.class));
-        verify(commentDTOMapper, times(2)).mapToDTO(any(Comment.class));
+        verify(commentDTOMapper).mapToDTO(any(Comment.class));
     }
 
     @Test
     public void should_ThrowExceptionOnCreateComment_When_PostNotFound() {
         // Given
         Post post = new Post();
-        Comment comment = new Comment(commentId, "Content", post, dev);
+        CommentDTO commentDTO = new CommentDTO("Content");
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+        when(developerRepository.findById(any(Integer.class))).thenReturn(Optional.of(dev));
+
         // Then
         assertThrows(ResourceNotFoundException.class, () -> {
-           commentService.createComment(postId, comment, dev.getDeveloperId());
+           commentService.createComment(postId, commentDTO, dev.getDeveloperId());
         });
         verify(postRepository).findById(any(Integer.class));
         verify(commentRepository, never()).save(any(Comment.class));

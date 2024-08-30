@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   developerId: number = 0;
   userName: string = '';
   posts: Post[] = [];
-  activeView: string = 'createPost';
+  activeView: string = 'showPosts';
 
 
   ngOnInit(): void {
@@ -46,6 +46,8 @@ export class DashboardComponent implements OnInit {
         }
       })
       
+    } else {
+      console.error('Could not get ID from path');
     }
   }
 

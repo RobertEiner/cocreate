@@ -14,8 +14,8 @@
                 <textarea name="description" id="" class="form-control" required #descriptionRef="ngModel" [(ngModel)]="content"></textarea>
                 <small *ngIf="descriptionRef.invalid && descriptionRef.touched" class="invalid-msg">*Description is required</small>
             </div>
-            <div>
-                <input value="Create post" type="submit" class="btn btn-outline-success mt-2" [disabled]="createPostForm.invalid">
+            <div class="text-center">
+                <input value="Create post" type="submit" class="btn btn-outline-success mt-2 w-50" [disabled]="createPostForm.invalid">
             </div>
         </form>
       </div>

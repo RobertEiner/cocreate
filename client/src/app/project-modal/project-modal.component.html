@@ -1,0 +1,37 @@
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{ postTitle }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ postDescription }}</p>
+          <div class="row" *ngIf="postComments.length > 0; else noComments" >
+            <div class="card card-div-detail" *ngFor="let comment of postComments">
+              <div class="card-body">
+                <p> {{ comment.content }}</p>
+                <small> posted by {{ comment.developer.userName}}</small>
+              </div>
+            </div>
+          </div>
+          <!-- ------------ Form ------------------ -->
+          <div class="mb-3">
+            <form action="" #commentForm="ngForm" (ngSubmit)="createComment()">
+              <label for="exampleFormControlTextarea1" class="form-label">Sounds interesting? Write a comment below</label>
+              <textarea class="form-control" name="commentText" rows="3" #textAreaRef="ngModel" [(ngModel)]="commentContent" required></textarea>
+              <small *ngIf="textAreaRef.touched && textAreaRef.invalid" class="invalid-msg">*The comment cannot be empty</small>
+              <div class="text-center">
+                <input value="Comment" type="submit" class="btn btn-success mt-2 w-50" [disabled]="textAreaRef.invalid">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <small>Posted by {{ postAuthor }}</small>
+  
+          </div>
+        </div>
+        <ng-template #noComments >Be the first to comment on this post</ng-template>
+      </div>
+    </div>
+  </div>

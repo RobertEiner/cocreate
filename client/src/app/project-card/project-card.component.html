@@ -1,43 +1,31 @@
 <div class="row row-div">
-  <div class="card col-sm-2 card-div m-2" *ngFor="let post of posts">
+  <div class="card col-sm-2 card-div m-2 bg-success bg-gradient" *ngFor="let post of posts">
     <div class="card-body card-body-div">
-      <h3 class="card-title">{{ post.title }}</h3>
-      <!-- <p>{{ post.content }}</p> -->
-      <p>Preferred language: {{ post.developer.preferredLanguage }}</p>
-      <p>comments: {{ post.comments.length  }}</p>
-      <p>Posted by {{ post.developer.userName}}</p>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Open</button>
+      
+      <h4 class="card-title text-white">{{ post.title }}</h4>
+      <br>
+      <div class="text-white">
+        <p><i class="bi bi-file-code-fill"></i> {{ post.developer?.preferredLanguage }}</p>
+      </div>
+      <div class="text-white">
+        <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
+      </div>
+    </div>
+    <div class="card-footer footer-div bg-transparent text-white ">
+      <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Open</button>
+      <div class="text-center">
+        <small>Posted by {{ post.developer?.userName}}</small>
+      </div>
     </div>
   </div>
 </div>
+<app-project-modal
+[postTitle]="selectedPostTitle"
+[postDescription]="selectedPostContent"
+[postAuthor]="selectedPostAuthor"
+[postComments]="selectedPostComments"
+[postId]="selectedPostId"
+[devId]="devId"
+(commentCreated)="onCommentCreated($event)"
+></app-project-modal>
 
-<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ selectedPostTitle }}</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>{{ selectedPostContent }}</p>
-        <div class="row" *ngIf="selectedPostComments.length > 0; else noComments" >
-          <div class="card card-div-detail" *ngFor="let comment of selectedPostComments">
-            <div class="card-body">
-              <p> {{ comment.content }}</p>
-              <p> posted by {{ comment.developer.userName}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-      </div>
-      <ng-template #noComments >Be the first to comment on this post by {{ selectedPostAuthor}}</ng-template>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Comment</button>
-      </div>
-    </div>
-  </div>
-</div>

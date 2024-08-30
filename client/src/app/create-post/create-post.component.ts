@@ -16,8 +16,8 @@ import { Post } from '../models/post';
 export class CreatePostComponent {
 
   @ViewChild('createPostForm') form: NgForm = new NgForm([], []);
-  postService: PostService = inject(PostService);
   @Input() devId: number = 0;
+  postService: PostService = inject(PostService);
 
   // Class variables
   title: string = '';
@@ -27,8 +27,15 @@ export class CreatePostComponent {
 
   onFormSubmit() {
     console.log(this.title, " ", this.content)
-    // const newPost: Post = new Post(this.title, this.content);
-    // this.postService.createPost(newPost)
+    const newPost: Post = new Post(this.title, this.content);
+    this.postService.createPost(this.devId, newPost).subscribe({
+      next: (response: Post) => {
+        console.log(response);
+      },
+      error(err) {
+        console.log(err);
+      }
+    })
     console.log(this.devId)
   }
 

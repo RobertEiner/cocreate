@@ -6,9 +6,9 @@ export class Post {
     constructor(
         public title: string,
         public content: string,
-        public postId: number,
-        public developer: Developer,
-        public comments: Comment[]
+        public postId?: number,
+        public developer: Developer | null = null,
+        public comments: Comment[] | [] = []
     )
     {
 

@@ -1,0 +1,23 @@
+.row-div {
+    display: flex;
+    justify-content: center;
+}
+
+.card-body-div {
+    text-align: center;
+}
+
+
+.card-body-div button {
+    width: 100%;
+}
+
+.card-div-detail {
+    width: 80%;
+    margin: 1%;
+    border: 2px solid rgb(77, 77, 233);
+}
+
+.invalid-msg {
+    color: red;
+}

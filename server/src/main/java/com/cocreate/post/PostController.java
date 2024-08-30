@@ -58,16 +58,16 @@ public class PostController {
     }
 
     // Create comment
-    @PostMapping("/{id}/comments")
-    public ResponseEntity<CommentDTO> createComment(@PathVariable int id, @RequestBody Comment comment) {
-        System.out.println(comment.getDeveloper().getUserName());
-        CommentDTO commentDTO = commentService.createComment(id, comment, comment.getDeveloper().getDeveloperId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
+    @PostMapping("/{postId}/developers/{developerId}/comments")
+    public ResponseEntity<CommentDTO> createComment(@PathVariable int postId, @PathVariable int developerId, @Valid @RequestBody CommentDTO commentDTO) {
+        CommentDTO responseCommentDTO = commentService.createComment(postId, commentDTO, developerId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseCommentDTO);
     }
 
     // Get all comments for a specific post
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDTO>> findAllComments(@PathVariable int id) {
+        System.out.println("HELLLOOOOOOOOOOOOOOOO");
         List<CommentDTO> comments = commentService.findCommentsOfPost(id);
         return ResponseEntity.status(HttpStatus.OK).body(comments);
     }
