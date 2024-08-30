@@ -1,0 +1,18 @@
+.parent {
+    display: flex;
+    justify-content: center;
+    /* border: 2px solid red; */
+}
+
+
+.card-div {
+}
+
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid {
+    border: 2px solid red;
+}
+
+.invalid-msg {
+    color: red;
+}

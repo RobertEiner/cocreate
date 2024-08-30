@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeveloperDTO {
+        Integer id;
         String userName;
         String emailAddress;
         String preferredLanguage;

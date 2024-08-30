@@ -1,1 +1,48 @@
-<p>sign-up works!</p>
+
+<div class="parent">
+    <div class="card card-div">
+      <h2 class="card-title text-center">{{ title }}</h2>
+      <div class="card-body">
+        <!-- #registrationForm is a template reference variable, it stores a reference to the form element (ngForm) in the form of a javascript object.
+         ngForm kind of IS the form-->
+        <form  class="" (ngSubmit)="onFormSubmitted()" #registrationForm="ngForm">
+          <div class="">
+            <!-- to be able to access the form controls within the form element/object we need to do two things:
+            1. give the form control (<input>) a name attribute
+            2. add ngModel to the form control, to tell angular that the form control belongs to the form -->
+            <label for="" class="form-label" >Email address</label>
+            <!-- Here we create a template reference variable called emailRef, it will have a reference to the form control (the email <input>) in the 
+            form of a JS object. This is because we set it equal to ngModel, if we just use #emailRef (without =ngModel) we will have a reference
+             to the html element, not as a JS object-->
+            <input type="email" class="form-control"  name="email"  [(ngModel)]="email" required email #emailRef="ngModel"/>
+            <small *ngIf="emailRef.invalid && emailRef.touched" class="invalid-msg">*Email is required</small>
+          </div>
+          <div class="">
+            <label for="" class="form-label" >User name</label>
+            <input type="" class="form-control" name="userName" [(ngModel)]="userName" required #userNameRef="ngModel"/>
+            <small *ngIf="userNameRef.invalid && userNameRef.touched" class="invalid-msg">*User name is required</small>
+          </div>
+          <div class="">
+            <label for="" class="form-label" >Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="password" required #passwordRef="ngModel"/>
+            <small *ngIf="passwordRef.invalid && passwordRef.touched" class="invalid-msg">*Password is required</small>
+          </div>
+          <div class="">
+            <label for="" class="form-label">What is your preferred programming language?</label>
+            <input type="" class="form-control" name="prefLang" [(ngModel)]="preferredLanguage" required #prefLangRef="ngModel"/>
+            <small *ngIf="prefLangRef.invalid && prefLangRef.touched" class="invalid-msg">*A preferred language is required</small>
+          </div>
+          <div class="button-wrapper">
+            <!-- when we press submit, the type="submit" will call the onFormSubmitted method -->
+              <input value="Submit" class="btn btn-success w-50" type="submit" [disabled]="registrationForm.invalid">
+          </div>
+        </form>
+      </div>
+      
+      <div class="text-center">
+          <p>Already have an account? <a href="" routerLink="/">Sign in</a> </p>
+      </div>
+      
+    </div>
+  </div>
+  

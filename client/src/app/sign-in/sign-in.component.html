@@ -3,22 +3,22 @@
   <div class="card card-div">
     <h2 class="card-title text-center">Sign in</h2>
     <div class="card-body">
-      <form action="" class="">
+      <form class="" #signInForm="ngForm" (ngSubmit)="navigateToDashboard()">
         <div class="">
           <label for="" class="form-label">Email address</label>
-          <input type="email" class="form-control" />
+          <input name="email" type="email" class="form-control" #emailRef="ngModel" [(ngModel)]="emailAddress" required/>
         </div>
         <div class="">
           <label for="" class="form-label">Password</label>
-          <input type="password" class="form-control" />
+          <input name="password" type="password" class="form-control" #passwordRef="ngModel" [(ngModel)]="password" required/>
+        </div>
+        <div class="button-wrapper">
+          <input type="submit" class="btn btn-success w-50" >
         </div>
       </form>
     </div>
-    <div class="button-wrapper">
-        <button class="btn btn-success w-50" (click)="navigateToDashboard()">Sign in</button>
-    </div>
     <div class="text-center">
-        <p>Don't have an account yet? <a href="">Register</a> </p>
+        <p>Don't have an account yet? <a href="" routerLink="/signup">Sign up</a> </p>
     </div>
     
   </div>

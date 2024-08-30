@@ -5,9 +5,10 @@ import { Post } from "./post";
 export class Developer {
     constructor(
         public userName: string,
-        public email: string,
+        public emailAddress: string,
         public preferredLanguage: string,
-        public posts: Post[],
+        public id?: number,
+        public posts?: Post[],
     )
     {
 

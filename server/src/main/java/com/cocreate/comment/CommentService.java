@@ -32,16 +32,16 @@ public class CommentService {
     }
 
     // Create a comment
-    public CommentDTO createComment(int postId, Comment comment, int developerId) {
+    public CommentDTO createComment(int postId, CommentDTO commentDTO, int developerId) {
         Optional<Post> post = postRepository.findById(postId);
         Optional<Developer> dev = developerRepository.findById(developerId);
         if(dev.isPresent() && post.isPresent()) {
             Comment newComment = new Comment();
-            newComment.setContent(comment.getContent());
+            newComment.setContent(commentDTO.getContent());
             newComment.setPost(post.get());
             newComment.setDeveloper(dev.get());
             commentRepository.save(newComment);
-            return commentDTOMapper.mapToDTO(comment);
+            return commentDTO;
         } else {
             throw new ResourceNotFoundException("The post or user doesn't exist.");
         }

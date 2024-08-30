@@ -41,7 +41,7 @@ public class DeveloperServiceTest {
         Post post2 = new Post(2, "Title2", "Content2");
         Post post3 = new Post(3, "Title3", "Content3");
         developer.setPosts(List.of(post1, post2, post3));
-        developerDTO = new DeveloperDTO(developer.getUserName(), developer.getEmailAddress(), developer.getPreferredLanguage(), developer.getPosts());
+        developerDTO = new DeveloperDTO(developerId, developer.getUserName(), developer.getEmailAddress(), developer.getPreferredLanguage(), developer.getPosts());
     }
 
     // -------------- CREATE ------------------
@@ -94,9 +94,9 @@ public class DeveloperServiceTest {
         developer.setPosts(List.of(post1));
         developer2.setPosts(List.of(post2));
         developer3.setPosts(List.of(post3));
-        DeveloperDTO developerDTO1 = new DeveloperDTO(developer.getUserName(), developer.getEmailAddress(), developer.getPreferredLanguage(), developer.getPosts());
-        DeveloperDTO developerDTO2 = new DeveloperDTO(developer2.getUserName(), developer2.getEmailAddress(), developer2.getPreferredLanguage(), developer2.getPosts());
-        DeveloperDTO developerDTO3 = new DeveloperDTO(developer3.getUserName(), developer3.getEmailAddress(), developer3.getPreferredLanguage(), developer3.getPosts());
+        DeveloperDTO developerDTO1 = new DeveloperDTO(developerId, developer.getUserName(), developer.getEmailAddress(), developer.getPreferredLanguage(), developer.getPosts());
+        DeveloperDTO developerDTO2 = new DeveloperDTO(developerId, developer2.getUserName(), developer2.getEmailAddress(), developer2.getPreferredLanguage(), developer2.getPosts());
+        DeveloperDTO developerDTO3 = new DeveloperDTO(developerId, developer3.getUserName(), developer3.getEmailAddress(), developer3.getPreferredLanguage(), developer3.getPosts());
         List<DeveloperDTO> expectedDTOs = List.of(developerDTO1, developerDTO2,developerDTO3);
         // When
         when(developerRepository.findAll()).thenReturn(List.of(developer, developer2, developer3));
@@ -134,7 +134,7 @@ public class DeveloperServiceTest {
         updateInfo.setUserName("UpdatedUserName");
         updateInfo.setEmailAddress("updated@gmail.com");
         updateInfo.setPreferredLanguages("C++");
-        DeveloperDTO expected = new DeveloperDTO("UpdatedUserName", "updated@gmail.com", "C++", developer.getPosts());
+        DeveloperDTO expected = new DeveloperDTO(developerId, "UpdatedUserName", "updated@gmail.com", "C++", developer.getPosts());
         // When
         when(developerRepository.findById(developerId)).thenReturn(Optional.of(developer));
         when(developerRepository.save(developer)).thenReturn(developer);

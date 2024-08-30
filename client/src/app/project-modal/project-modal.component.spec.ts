@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PathTwoComponent } from './path-two.component';
+import { ProjectModalComponent } from './project-modal.component';
 
-describe('PathTwoComponent', () => {
-  let component: PathTwoComponent;
-  let fixture: ComponentFixture<PathTwoComponent>;
+describe('ProjectModalComponent', () => {
+  let component: ProjectModalComponent;
+  let fixture: ComponentFixture<ProjectModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PathTwoComponent]
+      imports: [ProjectModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PathTwoComponent);
+    fixture = TestBed.createComponent(ProjectModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
