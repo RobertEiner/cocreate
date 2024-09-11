@@ -13,11 +13,20 @@
 }
 
 .card-div-detail {
-    width: 80%;
+    width: fit-content;
     margin: 1%;
-    border: 2px solid rgb(77, 77, 233);
+    border: 1px solid #d3d9d4;
 }
 
 .invalid-msg {
-    color: red;
+    color: rgb(255, 152, 152);
+}
+
+.modal-color {
+    background-color: #23637c;
+    color: #d3d9d4;
+} 
+
+.posted-by {
+    font-size: small;
 }

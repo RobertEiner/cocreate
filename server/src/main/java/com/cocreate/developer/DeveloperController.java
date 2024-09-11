@@ -3,6 +3,8 @@ package com.cocreate.developer;
 // Imports
 import com.cocreate.post.Post;
 import com.cocreate.post.PostService;
+import com.cocreate.requests.SignInRequestDTO;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +63,12 @@ public class DeveloperController {
     public ResponseEntity<String> createPostForExistingDeveloper(@PathVariable int id, @RequestBody Post post) {
         postService.createPostForExistingDeveloper(id, post);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/auth")
+    public ResponseEntity<DeveloperDTO> authenticateDeveloper(@RequestBody SignInRequestDTO signInRequestDTO )  {
+        DeveloperDTO devDTO = developerService.authenticateDeveloper(signInRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(devDTO);
     }
 }
 

@@ -22,6 +22,7 @@ export class CreatePostComponent {
   // Class variables
   title: string = '';
   content: string = '';
+  showSuccessMessage: boolean = false;
 
 
 
@@ -31,6 +32,8 @@ export class CreatePostComponent {
     this.postService.createPost(this.devId, newPost).subscribe({
       next: (response: Post) => {
         console.log(response);
+        this.form.resetForm();
+        this.showSuccessMessage = true;
       },
       error(err) {
         console.log(err);

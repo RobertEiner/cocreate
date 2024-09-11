@@ -33,7 +33,7 @@ export class SignUpComponent {
     this.userName = this.form.value.userName;
     this.password = this.form.value.password;
     this.preferredLanguage = this.form.value.prefLang;
-    const newDev: Developer = new Developer(this.userName, this.email, this.preferredLanguage);
+    const newDev: Developer = new Developer(this.userName, this.password, this.email, this.preferredLanguage);
     
     this.developerService.createDeveloper(newDev).subscribe({
       next: (response: Developer) => {

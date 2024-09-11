@@ -1,6 +1,6 @@
 
 <div class="parent">
-    <div class="card card-div">
+    <div class="card bg-transparent border-0 text-white card-div">
       <h2 class="card-title text-center">{{ title }}</h2>
       <div class="card-body">
         <!-- #registrationForm is a template reference variable, it stores a reference to the form element (ngForm) in the form of a javascript object.
@@ -34,7 +34,7 @@
           </div>
           <div class="button-wrapper">
             <!-- when we press submit, the type="submit" will call the onFormSubmitted method -->
-              <input value="Submit" class="btn btn-success w-50" type="submit" [disabled]="registrationForm.invalid">
+              <input value="Submit" class="btn button-color w-50" type="submit" [disabled]="registrationForm.invalid">
           </div>
         </form>
       </div>
