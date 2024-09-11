@@ -24,6 +24,7 @@ export class ProjectModalComponent {
   @Input() postComments: Comment[] = []
   @Input() postId: number = 0;
   @Input() devId: number = 0;
+  @Input() signedInUser: string = "";
   @Output() commentCreated: EventEmitter<number> = new EventEmitter<number>();
 
   // Class variables

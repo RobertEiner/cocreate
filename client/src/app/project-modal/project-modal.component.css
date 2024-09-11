@@ -30,3 +30,11 @@
 .posted-by {
     font-size: small;
 }
+
+.icon{
+     font-size: 0.7rem;
+}
+
+.icon-div {
+    display: inline-block;
+}

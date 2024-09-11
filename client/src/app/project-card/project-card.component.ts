@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -18,11 +18,14 @@ import { Observable } from 'rxjs';
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css'
 })
+
 export class ProjectCardComponent {
 
+  @ViewChild('commentForm') form: NgForm = new NgForm([], []);
   @Input() posts: Post[] = [];
   @Input() devId: number = 0;
-  @ViewChild('commentForm') form: NgForm = new NgForm([], []);
+  @Input() devUserName: string = "";
+  @Output() commentsUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   // services
   commentService: CommentService = inject(CommentService);
@@ -52,17 +55,16 @@ export class ProjectCardComponent {
       this.postService.getPostById(postId).subscribe({
         next: (response: Post) => {
           this.selectedPostComments = response.comments;
+          this.commentsUpdated.emit('comments updated');
+
         },
         error(err) {
           console.error('This is ERROR:', err);
         }
-      })
-      // this.selectedPostComments = post.comments;
-    
+      })    
   }
 
 
-    
-
+  
 
 }
