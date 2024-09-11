@@ -1,16 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 body {
     background-color: #23637c;
-    
-
 }
 
 .card-text {
     color: #d3d9d4;
-    
 }
 
 .button-color {
-    background-color: #88bdbc;
+    background-color: #2dbbb9;
     color: #eeeeee;
+}  
+
+.button-color:hover {
+    background-color: #66b8b7ca;
 }
