@@ -1,11 +1,10 @@
 <div class="row row-div">
   <div class="card col-sm-2 card-div m-2 bg-transparent border-light" *ngFor="let post of posts">
     <div class="card-body card-body-div card-text">
-      
       <h4 class="card-title">{{ post.title }}</h4>
       <br>
       <div class="">
-        <p><i class="bi bi-file-code-fill"></i> {{ post.developer?.preferredLanguage }}</p>
+        <p><i class="bi bi-file-code-fill "></i> {{ post.developer?.preferredLanguage }}</p>
       </div>
       <div class="">
         <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>

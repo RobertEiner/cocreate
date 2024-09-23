@@ -5,10 +5,8 @@ import { Comment } from '../models/comment';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommentService } from '../services/comment/comment.service';
-import { CommentDTO } from '../models/comment-dto';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
 import { PostService } from '../services/post/post.service';
-import { Observable } from 'rxjs';
 
 
 @Component({
