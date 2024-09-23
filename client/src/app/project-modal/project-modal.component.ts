@@ -25,13 +25,17 @@ export class ProjectModalComponent {
   @Input() postId: number = 0;
   @Input() devId: number = 0;
   @Input() signedInUser: string = "";
-  @Output() commentCreated: EventEmitter<number> = new EventEmitter<number>();
+  @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
 
   // Class variables
   commentService: CommentService = inject(CommentService)
   commentContent: string = '';
 
-  
+  // edit comment flow
+  // 1. presse edit
+  // 2. hide current comment
+
+
   createComment() {
     const commentDTO: CommentDTO = { 
       content: this.commentContent 
@@ -43,12 +47,29 @@ export class ProjectModalComponent {
         // clear the textarea
         this.form.reset();
         // emit to parent that a comment has been created
-        this.commentCreated.emit(this.postId);
+        this.commentUpdated.emit(this.postId);
       },
       error(err) {
         console.error(err);
       }
     })
+  }
+
+  editComment() {
+    console.log("EDIT")
+    }
+
+  deleteComment(commentId: number, postId: number) {
+    this.commentService.deleteComment(commentId).subscribe({
+      next: (response: Comment) => {
+        this.commentUpdated.emit(postId);
+      },
+      error(err) {
+        console.error(err);
+      }
+    })
+
+
   }
 
 }

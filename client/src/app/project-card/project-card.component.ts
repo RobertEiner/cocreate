@@ -49,17 +49,23 @@ export class ProjectCardComponent {
     this.selectedPostId = post.postId ? post.postId : 0;
   }
 
-  onCommentCreated(postId: number) {
-      this.postService.getPostById(postId).subscribe({
-        next: (response: Post) => {
-          this.selectedPostComments = response.comments;
-          this.commentsUpdated.emit('comments updated');
+  onCommentUpdated(postId: number) {
+    console.log(postId)
+    this.postService.getPostById(postId).subscribe({
+      next: (response: Post) => {
+        this.selectedPostComments = response.comments;
+        this.commentsUpdated.emit('comments updated');
 
-        },
-        error(err) {
-          console.error('This is ERROR:', err);
-        }
-      })    
+      },
+      error(err) {
+        console.error('Error updating comments:', err);
+      }
+    })    
+  }
+
+  onCommentDeleted(commentId: number) {
+    //this.commentService.getAllComments()
+    // Call service and get all comments, repopulate selectedPostComments and see if the compoentnt rerenders!
   }
 
 
