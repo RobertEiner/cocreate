@@ -49,8 +49,8 @@ export class ProjectCardComponent {
     this.selectedPostId = post.postId ? post.postId : 0;
   }
 
-  onCommentUpdated(postId: number) {
-    console.log(postId)
+    onCommentUpdated(postId: number) {
+    console.log('postid:',  postId)
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
         this.selectedPostComments = response.comments;

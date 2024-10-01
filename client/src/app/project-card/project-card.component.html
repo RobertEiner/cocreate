@@ -10,10 +10,10 @@
         <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
       </div>
     </div>
-    <div class="card-footer footer-div bg-transparent  card-text">
-      <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Open</button>
+    <div class="card-footer footer-div bg-transparent card-text">
+      <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Show details</button>
       <div class="text-center">
-        <small class="">Posted by {{ post.developer?.userName}}</small>
+        <small class="">Posted by {{ post.developer?.userName === devUserName? 'you' : post.developer?.userName}}</small>
       </div>
     </div>
   </div>

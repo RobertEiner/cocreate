@@ -11,12 +11,17 @@
             <div>
               <div class="card card-div-detail modal-color" *ngFor="let comment of postComments">
                 <div class="">
-                  <div class="icon-div">
+                  <div class="icon-div" *ngIf="commentToEdit !== comment.commentId;">
                     <p class="my-1 mx-2">{{ comment.content }} </p> 
                   </div>
+                  <div *ngIf="commentToEdit === comment.commentId">
+                    <ng-container *ngTemplateOutlet="editCommentTextArea; context: { commentId: comment.commentId }"></ng-container>
+                  </div>
+
+                  <!-- create a ngif div here that renders the form to change the comment, the crux is to only make it appear on the desired comment and not all of them though -->
                   <div *ngIf="comment.developer.userName === signedInUser">
                     <div class="icon-div" >
-                      <a routerLink="" (click)="editComment()"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
+                      <a routerLink="" (click)="editComment(comment.commentId)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
                       <a routerLink="" (click)="deleteComment(comment.commentId, postId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
                     </div>
                   </div>
@@ -31,7 +36,7 @@
 
             </div>
           </div>
-          <!-- ------------ Form ------------------ -->
+          <!-- ------------ Form create comment ------------------ -->
           <div class="mb-3 modal-color">
             <form class="modal-color" action="" #commentForm="ngForm" (ngSubmit)="createComment()">
               <label for="exampleFormControlTextarea1" class="form-label">Sounds interesting? Write a comment below</label>
@@ -43,11 +48,27 @@
             </form>
           </div>
           <div class="modal-footer">
-            <small>Posted by {{ postAuthor }}</small>
+            <small>Posted by {{ postAuthor == signedInUser? 'you' : postAuthor}}</small>
   
           </div>
         </div>
         <ng-template #noComments >Be the first to comment on this post</ng-template>
+          
+        <!-- ------------ Form edit comment ------------------ -->
+        <ng-template #editCommentTextArea let-commentId="commentId">
+         <div class="mx-2">
+          <form action="" #editCommentForm="ngForm" (ngSubmit)="editCommentInForm(commentId)"> 
+            <label for="">Edit comment</label>
+            <textarea name="editCommentText" class="form-control" rows="2" #editCommentTextAreaRef="ngModel" [(ngModel)]="editCommentContent" required></textarea>
+            <small *ngIf="editCommentTextAreaRef.touched && editCommentTextAreaRef.invalid" class="invalid-msg">*The comment cannot be empty</small>
+            <div class="my-2">
+              <input type="submit" value="Edit" class="btn btn-outline-light me-1" [disabled]="editCommentTextAreaRef.invalid">
+              <!-- type="button" is necessary, without it the form will treat all buttons as submit buttons -->
+              <button type="button"  class="btn btn-outline-light" (click)="cancelEditComment()">Cancel</button>
+            </div>
+          </form>
+         </div>
+        </ng-template>
       </div>
     </div>
   </div>
