@@ -34,6 +34,9 @@ export class CreatePostComponent {
         console.log(response);
         this.form.resetForm();
         this.showSuccessMessage = true;
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+        }, 3000)
       },
       error(err) {
         console.log(err);

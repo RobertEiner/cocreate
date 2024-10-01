@@ -22,6 +22,17 @@ export class CommentService {
     return this.httpClient.post<Comment>(`${baseUrl}/posts/${postId}/developers/${developerId}/comments`, newComment);
   }
 
+  deleteComment(commentId: number) {
+    return this.httpClient.delete<Comment>(`${baseUrl}/comments/${commentId}`);
+  }
+
+  editComment(commentId: number, newContent: CommentDTO) {
+    // TODO: Why is this returning error??
+    return this.httpClient.patch(`${baseUrl}/comments/${commentId}`, newContent);
+  }
+
+ 
+
   
 
 
