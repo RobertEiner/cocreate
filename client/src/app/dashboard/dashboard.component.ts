@@ -62,7 +62,6 @@ export class DashboardComponent implements OnInit {
     this.postService.getAllPosts().subscribe({ //
       next: (response: Post[]) => {
         this.posts = response;
-        // console.log(this.posts);
       },
       error(error) {
         console.error('Error fetching posts: ', error);

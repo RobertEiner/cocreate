@@ -14,5 +14,6 @@
 [devId]="developerId"
 [devUserName]="userName"
 (commentsUpdated)="getAllPosts()"
+(postDeleted)="getAllPosts()"
 ></app-project-card>
 <app-create-post *ngIf="activeView === 'createPost'" [devId]="developerId"></app-create-post>

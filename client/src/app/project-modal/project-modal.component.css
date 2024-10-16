@@ -39,3 +39,8 @@
 .icon-div {
     display: inline-block;
 }
+
+.icon-post {
+    font-size: 1rem;
+    cursor: pointer;
+}
