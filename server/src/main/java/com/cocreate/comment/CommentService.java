@@ -49,6 +49,7 @@ public class CommentService {
 
     // Find all comments of a specific post
     public List<CommentDTO> findCommentsOfPost(int postId) {
+        System.out.println(postId);
         Optional<Post> postOptional = postRepository.findById(postId);
         if(postOptional.isPresent()) {
             Post post = postOptional.get();
@@ -60,6 +61,28 @@ public class CommentService {
                     .collect(Collectors.toList()); // Convert the stream into a list of CommentDTOs
         } else {
             throw new ResourceNotFoundException("The post couldn't be found");
+        }
+    }
+
+    // Delete a comment
+    public void deleteComment(int commentId) {
+        Optional<Comment> deletedComment = commentRepository.findById(commentId);
+        if(deletedComment.isPresent()) {
+            commentRepository.deleteById(commentId);
+        } else {
+            throw new ResourceNotFoundException("The comment doesn't exist");
+        }
+    }
+
+    public void updateComment(int commentId, CommentDTO newContent) {
+        System.out.println(newContent.getContent() + " " + commentId);
+        Optional<Comment> commentToUpdate = commentRepository.findById(commentId);
+        if(commentToUpdate.isPresent()) {
+            commentToUpdate.get().setContent(newContent.getContent());
+            commentRepository.save(commentToUpdate.get());
+
+        } else {
+            throw new ResourceNotFoundException("Comment couldn't be found");
         }
     }
 

@@ -1,0 +1,12 @@
+<div class="mx-2">
+    <form action="" #editTextForm="ngForm" (ngSubmit)="editText(currItemToEdit)"> 
+      <label for="">Edit {{ currItemToEdit }}</label>
+      <textarea name="editTextArea" class="form-control" rows="2" #editTextAreaRef="ngModel" [(ngModel)]="textContent" required></textarea>
+      <small *ngIf="editTextAreaRef.touched && editTextAreaRef.invalid" class="invalid-msg">*The {{ currItemToEdit }} cannot be empty</small>
+      <div class="my-2">
+        <input type="submit" value="Edit" class="btn btn-outline-light me-1" [disabled]="editTextAreaRef.invalid">
+        <!-- type="button" is necessary, without it the form will treat all buttons as submit buttons -->
+        <button type="button"  class="btn btn-outline-light" (click)="cancelEditText()">Cancel</button>
+      </div>
+    </form>
+</div>

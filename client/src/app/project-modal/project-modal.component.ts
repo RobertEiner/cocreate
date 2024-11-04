@@ -1,21 +1,25 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommentService } from '../services/comment/comment.service';
 import { CommentDTO } from '../models/comment-dto';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Comment } from '../models/comment';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
+import { PostService } from '../services/post/post.service';
+import { EditTextboxComponent } from '../edit-textbox/edit-textbox.component';
+import { TextToEdit} from '../interfaces/textToEdit';
+import { Post } from '../models/post';
+
 
 
 
 @Component({
   selector: 'app-project-modal',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, EditTextboxComponent],
   templateUrl: './project-modal.component.html',
   styleUrl: './project-modal.component.css',
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ProjectModalComponent {
   @ViewChild('commentForm') form: NgForm = new NgForm([], []);
   @ViewChild('editCommentForm') editCommentForm: NgForm = new NgForm([], []);
@@ -28,14 +32,21 @@ export class ProjectModalComponent {
   @Input() devId: number = 0;
   @Input() signedInUser: string = "";
   @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
+  @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
+  @Output() postContentUpdated: EventEmitter<number> = new EventEmitter<number>();
 
   // Class variables
+  itemToEdit: string = "Post";
   commentService: CommentService = inject(CommentService);
+  postService: PostService = inject(PostService);
   commentContent: string = '';
 
   updateComment: boolean = false;
   commentToEdit: number = 0;
   editCommentContent: string = "";
+
+  deletePostPressed: boolean = false;
+  editPostPressed: boolean = false;
 
 
   createComment() {
@@ -48,7 +59,7 @@ export class ProjectModalComponent {
         console.log(response.content);
         // clear the textarea
         this.form.reset();
-        // emit to parent that a comment has been created
+        // emit to parent that a comment has been created 
         this.commentUpdated.emit(this.postId);
       },
       error(err) {
@@ -57,19 +68,19 @@ export class ProjectModalComponent {
     })
   }
 
+  // ------------------------------- Edit comment ------------------------
+
   editComment(commentId: number) {
     this.updateComment = true;
     this.commentToEdit = commentId;
   }
 
-  editCommentInForm(commentId: number, ) {
+  editCommentInForm(commentId: number) {
     const commentDTO: CommentDTO = { 
       content: this.editCommentContent 
     }
-    console.log(this.editCommentForm);
-    console.log(commentId, this.editCommentContent)
+
     this.commentService.editComment(commentId, commentDTO).subscribe({
-      // TODO: FIX ewrror here
       next: () => {
         this.commentUpdated.emit(this.postId);
         this.commentToEdit = -1;
@@ -79,7 +90,6 @@ export class ProjectModalComponent {
         console.error(err);
       }
     })
-    
   }
 
   cancelEditComment() {
@@ -89,7 +99,6 @@ export class ProjectModalComponent {
   }
 
  
-
   deleteComment(commentId: number, postId: number) {
     this.commentService.deleteComment(commentId).subscribe({
       next: (response: Comment) => {
@@ -100,5 +109,70 @@ export class ProjectModalComponent {
       }
     })
   }
+
+  // ----------------------------- Delete post ----------------------------
+
+  deletePostModal(postId: number) {
+    this.deletePostPressed = true;
+  }
+
+  cancelDeletePost() {
+    this.deletePostPressed = false;
+  }
+
+  reallyDeletePost(postId: number) {
+    this.postService.deletePostById(postId).subscribe({
+      next: () => {
+        this.postDeleted.emit(postId);
+        this.deletePostPressed = false;
+      },
+      error(err) {
+        console.log(err);
+      }
+    })
+  }
+
+  // ----------------------------- Edit post ----------------------------
+
+  displayEditPostTextbox(postId: number) {
+    this.editPostPressed = true;
+    // TODO: finish edit post functionality
+  }
+
+  cancelEditPost() {
+    this.editPostPressed = false;
+  }
+
+  editText(textToEdit: TextToEdit) {
+    if(textToEdit.type === 'Post') {
+      this.editPost(textToEdit);
+    }
+  }
+
+
+  editPost(postContent: TextToEdit) {
+    const editedPost: Post = {
+      title: this.postTitle,
+      content: postContent.newContent,
+      developer: null,
+      comments: []
+    }
+    this.postService.editPostById(this.postId, editedPost).subscribe({
+      next: () => {
+        console.log('post edited right')
+        // TODO: rerender component here to get the updated post content immediately
+        this.editPostPressed = false;
+        // this.postContentUpdated.emit(this.postId);
+        this.postDescription = editedPost.content;
+
+      },
+      error(err) {
+        console.error(err);
+      }
+    })
+
+  }
+
+
 
 }

@@ -24,6 +24,7 @@ export class ProjectCardComponent {
   @Input() devId: number = 0;
   @Input() devUserName: string = "";
   @Output() commentsUpdated: EventEmitter<string> = new EventEmitter<string>();
+  @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
 
   // services
   commentService: CommentService = inject(CommentService);
@@ -49,8 +50,11 @@ export class ProjectCardComponent {
     this.selectedPostId = post.postId ? post.postId : 0;
   }
 
-    onCommentUpdated(postId: number) {
-    console.log('postid:',  postId)
+  onPostDeleted(postId: number) {
+    this.postDeleted.emit(postId);
+  }
+
+  onCommentUpdated(postId: number) {
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
         this.selectedPostComments = response.comments;
@@ -63,12 +67,19 @@ export class ProjectCardComponent {
     })    
   }
 
-  onCommentDeleted(commentId: number) {
-    //this.commentService.getAllComments()
-    // Call service and get all comments, repopulate selectedPostComments and see if the compoentnt rerenders!
+  onPostUpdated(postId: number) {
+    this.postService.getPostById(postId).subscribe({
+      next: (response: Post) => {
+        this.selectedPostContent = response.content;
+        // this.commentsUpdated.emit('comments updated');
+
+      },
+      error(err) {
+        console.error('Error updating comments:', err);
+      }
+    })    
+
   }
 
-
-  
 
 }
