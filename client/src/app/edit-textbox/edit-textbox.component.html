@@ -1,5 +1,5 @@
 <div class="mx-2">
-    <form action="" #editTextForm="ngForm" (ngSubmit)="editText()"> 
+    <form action="" #editTextForm="ngForm" (ngSubmit)="editText(currItemToEdit)"> 
       <label for="">Edit {{ currItemToEdit }}</label>
       <textarea name="editTextArea" class="form-control" rows="2" #editTextAreaRef="ngModel" [(ngModel)]="textContent" required></textarea>
       <small *ngIf="editTextAreaRef.touched && editTextAreaRef.invalid" class="invalid-msg">*The {{ currItemToEdit }} cannot be empty</small>

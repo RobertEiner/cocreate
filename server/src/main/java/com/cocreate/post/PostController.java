@@ -45,7 +45,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Optional<Post>> updatePost(@PathVariable int id, @RequestBody Post post) { // @RequestBody will map the Http body to a user object in java
         postService.updatePost(id, post.getTitle(), post.getContent());
         return ResponseEntity.status(HttpStatus.OK).build();

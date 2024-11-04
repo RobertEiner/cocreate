@@ -27,7 +27,6 @@ export class CommentService {
   }
 
   editComment(commentId: number, newContent: CommentDTO) {
-    // TODO: Why is this returning error??
     return this.httpClient.patch(`${baseUrl}/comments/${commentId}`, newContent);
   }
 

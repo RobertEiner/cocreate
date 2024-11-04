@@ -55,7 +55,6 @@ export class ProjectCardComponent {
   }
 
   onCommentUpdated(postId: number) {
-    console.log('postid:',  postId)
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
         this.selectedPostComments = response.comments;
@@ -66,6 +65,20 @@ export class ProjectCardComponent {
         console.error('Error updating comments:', err);
       }
     })    
+  }
+
+  onPostUpdated(postId: number) {
+    this.postService.getPostById(postId).subscribe({
+      next: (response: Post) => {
+        this.selectedPostContent = response.content;
+        // this.commentsUpdated.emit('comments updated');
+
+      },
+      error(err) {
+        console.error('Error updating comments:', err);
+      }
+    })    
+
   }
 
 

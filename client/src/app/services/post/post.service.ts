@@ -34,6 +34,10 @@ export class PostService {
     return this.httpClient.delete(`${baseUrl}/posts/${id}`);
   }
 
+  editPostById(id: number, editedPost: Post) {
+    return this.httpClient.put(`${baseUrl}/posts/${id}`, editedPost);
+  }
+
   
 
 }

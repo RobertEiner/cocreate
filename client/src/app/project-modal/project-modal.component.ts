@@ -6,6 +6,9 @@ import { Comment } from '../models/comment';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../services/post/post.service';
 import { EditTextboxComponent } from '../edit-textbox/edit-textbox.component';
+import { TextToEdit} from '../interfaces/textToEdit';
+import { Post } from '../models/post';
+
 
 
 
@@ -17,7 +20,7 @@ import { EditTextboxComponent } from '../edit-textbox/edit-textbox.component';
   styleUrl: './project-modal.component.css',
 })
 
-export class ProjectModalComponent implements OnInit {
+export class ProjectModalComponent {
   @ViewChild('commentForm') form: NgForm = new NgForm([], []);
   @ViewChild('editCommentForm') editCommentForm: NgForm = new NgForm([], []);
   // Inputs and Outputs
@@ -30,6 +33,7 @@ export class ProjectModalComponent implements OnInit {
   @Input() signedInUser: string = "";
   @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
   @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
+  @Output() postContentUpdated: EventEmitter<number> = new EventEmitter<number>();
 
   // Class variables
   itemToEdit: string = "Post";
@@ -44,11 +48,6 @@ export class ProjectModalComponent implements OnInit {
   deletePostPressed: boolean = false;
   editPostPressed: boolean = false;
 
-
-
-  ngOnInit() {
-  // TODO: här ska du inkludera JS för tooltip? 
-  }
 
   createComment() {
     const commentDTO: CommentDTO = { 
@@ -76,14 +75,12 @@ export class ProjectModalComponent implements OnInit {
     this.commentToEdit = commentId;
   }
 
-  editCommentInForm(commentId: number, ) {
+  editCommentInForm(commentId: number) {
     const commentDTO: CommentDTO = { 
       content: this.editCommentContent 
     }
-    console.log(this.editCommentForm);
-    console.log(commentId, this.editCommentContent)
+
     this.commentService.editComment(commentId, commentDTO).subscribe({
-      // TODO: FIX error here
       next: () => {
         this.commentUpdated.emit(this.postId);
         this.commentToEdit = -1;
@@ -126,7 +123,6 @@ export class ProjectModalComponent implements OnInit {
   reallyDeletePost(postId: number) {
     this.postService.deletePostById(postId).subscribe({
       next: () => {
-        console.log('deleted');
         this.postDeleted.emit(postId);
         this.deletePostPressed = false;
       },
@@ -138,12 +134,45 @@ export class ProjectModalComponent implements OnInit {
 
   // ----------------------------- Edit post ----------------------------
 
-  editPost(postId: number) {
+  displayEditPostTextbox(postId: number) {
     this.editPostPressed = true;
+    // TODO: finish edit post functionality
   }
 
   cancelEditPost() {
     this.editPostPressed = false;
   }
+
+  editText(textToEdit: TextToEdit) {
+    if(textToEdit.type === 'Post') {
+      this.editPost(textToEdit);
+    }
+  }
+
+
+  editPost(postContent: TextToEdit) {
+    const editedPost: Post = {
+      title: this.postTitle,
+      content: postContent.newContent,
+      developer: null,
+      comments: []
+    }
+    this.postService.editPostById(this.postId, editedPost).subscribe({
+      next: () => {
+        console.log('post edited right')
+        // TODO: rerender component here to get the updated post content immediately
+        this.editPostPressed = false;
+        // this.postContentUpdated.emit(this.postId);
+        this.postDescription = editedPost.content;
+
+      },
+      error(err) {
+        console.error(err);
+      }
+    })
+
+  }
+
+
 
 }
