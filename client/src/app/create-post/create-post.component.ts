@@ -27,7 +27,6 @@ export class CreatePostComponent {
 
 
   onFormSubmit() {
-    console.log(this.title, " ", this.content)
     const newPost: Post = new Post(this.title, this.content);
     this.postService.createPost(this.devId, newPost).subscribe({
       next: (response: Post) => {
@@ -42,7 +41,6 @@ export class CreatePostComponent {
         console.log(err);
       }
     })
-    console.log(this.devId)
   }
 
 

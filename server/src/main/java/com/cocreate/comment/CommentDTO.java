@@ -15,5 +15,6 @@ import lombok.Setter;
 public class CommentDTO {
     @NotEmpty(message = "Content cannot be empty")
     private String content;
+    private String createdAt;
 
 }

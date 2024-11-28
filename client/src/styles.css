@@ -15,3 +15,7 @@ body {
 .button-color:hover {
     background-color: #66b8b7ca;
 }
+
+.small-text {
+    font-size: 0.8rem;
+}

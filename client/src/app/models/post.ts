@@ -8,7 +8,8 @@ export class Post {
         public content: string,
         public postId?: number,
         public developer: Developer | null = null,
-        public comments: Comment[] | [] = []
+        public comments: Comment[] | [] = [],
+        public createdAt?: string
     )
     {
 

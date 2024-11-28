@@ -68,6 +68,12 @@ export class ProjectModalComponent {
     })
   }
 
+  // convertDate(comment: Comment): string {
+  //   const date = comment.
+  //   return "";
+
+  // }
+
   // ------------------------------- Edit comment ------------------------
 
   editComment(commentId: number) {
@@ -162,7 +168,8 @@ export class ProjectModalComponent {
         console.log('post edited right')
         // TODO: rerender component here to get the updated post content immediately
         this.editPostPressed = false;
-        // this.postContentUpdated.emit(this.postId);
+        this.postContentUpdated.emit(this.postId);
+        // the line above also works with this line:
         this.postDescription = editedPost.content;
 
       },

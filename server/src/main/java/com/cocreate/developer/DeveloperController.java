@@ -61,6 +61,7 @@ public class DeveloperController {
 
     @PostMapping("/{id}/posts")
     public ResponseEntity<String> createPostForExistingDeveloper(@PathVariable int id, @RequestBody Post post) {
+        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEERe" + post.getCreatedAt());
         postService.createPostForExistingDeveloper(id, post);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

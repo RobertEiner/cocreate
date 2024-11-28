@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -35,6 +37,11 @@ public class Comment {
     @JsonIgnoreProperties({"comments", "posts"})
     private Developer developer;
 
+    // 1. lägg till created at här
+    // 2. lägg till created at i DTO
+    // 3. lägg till created at i frontend comment
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 }
 

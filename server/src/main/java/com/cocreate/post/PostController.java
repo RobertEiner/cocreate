@@ -30,6 +30,7 @@ public class PostController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
     public void createPost(@RequestBody @Valid Post newPost) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
+        System.out.println(newPost);
         postService.createPost(newPost);
     }
 
@@ -42,6 +43,7 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> findPostById(@PathVariable int id) {
         PostDTO post = postService.findById(id);
+        System.out.println("HERE IS POST: " + post.createdAt);
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
 

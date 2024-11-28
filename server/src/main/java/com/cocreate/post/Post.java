@@ -10,7 +10,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -38,7 +42,12 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("post") // is used to break the infinite loop that occurs when using bidirectional relationships (post - comment)
-    List<Comment> comments;
+    private List<Comment> comments;
+
+    @Column(name = "created_at")
+    // automatically inserts the current timestamp at the time of creation of a post. Is needed to be able to insert the date into the database.
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     public Post(int postId, String title, String content) {
         this.postId = postId;

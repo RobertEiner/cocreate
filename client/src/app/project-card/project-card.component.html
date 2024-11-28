@@ -14,6 +14,8 @@
       <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Show details</button>
       <div class="text-center">
         <small class="">Posted by {{ post.developer?.userName === devUserName? 'you' : post.developer?.userName}}</small>
+        <br>
+        <p class="small-text">{{ convertDate(post) }}</p>
       </div>
     </div>
   </div>

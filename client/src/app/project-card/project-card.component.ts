@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -17,7 +17,7 @@ import { PostService } from '../services/post/post.service';
   styleUrl: './project-card.component.css'
 })
 
-export class ProjectCardComponent {
+export class ProjectCardComponent implements OnInit {
 
   @ViewChild('commentForm') form: NgForm = new NgForm([], []);
   @Input() posts: Post[] = [];
@@ -33,13 +33,35 @@ export class ProjectCardComponent {
   router: Router = inject(Router);
   avtiveRoute: ActivatedRoute = inject(ActivatedRoute);
   // class variables
+  createdAt: Date = new Date();
   selectedPostTitle: string = '';
   selectedPostContent: string = '';
   selectedPostAuthor: string = '';
   selectedPostComments: Comment[] = [];
   selectedPostId: number = 0;          // maybe shouldn't have default value??
   commentContent: string = '';
+
   
+  ngOnInit(): void {
+    // console.log(this.posts); 
+  }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //  if(changes['posts']) {
+  //   console.log(this.posts)
+  //   for(const post in this.posts) {
+  //     //  const date = this.posts[post].createdAt ? new Date(this.posts[post].createdAt) : null;
+  //     // console.log(date)
+  //     // this.posts[post].createdAt = date?.getFullYear() + '-' + ((date?.getMonth() ?? 0) + 1) +  '-' + date?.getDate()
+  //   }
+  //  } 
+   
+  // }
+
+  convertDate(post: Post): string {
+    const date = post.createdAt ? new Date(post.createdAt) : null;
+    return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
+  }
 
   openPostDetails(post: Post) {
     // this.router.navigate([`post/${post.postId}`],  {relativeTo: this.avtiveRoute});
@@ -48,6 +70,10 @@ export class ProjectCardComponent {
     this.selectedPostComments = post.comments;
     this.selectedPostAuthor = post.developer ? post.developer?.userName : 'Unknown'; // ternary operator. means we are checking if the post.developer is null, if it is we give it a default username 'Unknown'
     this.selectedPostId = post.postId ? post.postId : 0;
+    // console.log(post);
+    const date = post.createdAt ? new Date(post.createdAt) : null;
+    console.log(date); //TODO: figure out what is wrong here!
+
   }
 
   onPostDeleted(postId: number) {
@@ -71,8 +97,6 @@ export class ProjectCardComponent {
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
         this.selectedPostContent = response.content;
-        // this.commentsUpdated.emit('comments updated');
-
       },
       error(err) {
         console.error('Error updating comments:', err);

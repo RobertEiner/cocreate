@@ -68,7 +68,10 @@ public class PostService {
 
     public void createPostForExistingDeveloper(int developerId, Post post) {
         Optional<Developer> developer = developerRepository.findById(developerId);
+        System.out.println("REPOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         if(developer.isPresent()) {
+            System.out.println("REPOOOOOOOOOOOO++++++++++++++++++++OOOOOOOOOOOOOOOOOOOOOOO");
+
             Post newPost = new Post();
             newPost.setTitle(post.getTitle());
             newPost.setContent(post.getContent());
