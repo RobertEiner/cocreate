@@ -27,7 +27,6 @@ export class EditTextboxComponent {
       newContent: this.textContent
     };
     
-    // console.log(textToEmit);
     this.editTextEmitter.emit(textToEmit);
 
   }

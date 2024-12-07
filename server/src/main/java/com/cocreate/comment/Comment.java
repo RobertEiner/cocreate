@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -37,10 +38,9 @@ public class Comment {
     @JsonIgnoreProperties({"comments", "posts"})
     private Developer developer;
 
-    // 1. lägg till created at här
-    // 2. lägg till created at i DTO
-    // 3. lägg till created at i frontend comment
     @Column(name = "created_at")
+    // @CreationTimestamp is a Hibernate thing. Hibernate populates the object with the current timestamp from the JVM.
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }

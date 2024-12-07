@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class CommentServiceTest {
 
     private int postId, commentId;
     Developer dev;
+    private LocalDateTime ldt = LocalDateTime.now();
 
     @BeforeEach
     void setUp() {
@@ -53,8 +55,8 @@ public class CommentServiceTest {
         // Given
 
         Post existingPost = new Post(postId, "Title", "content");
-        Comment comment = new Comment(commentId, "Comment content", existingPost, dev);
-        CommentDTO commentDTO = new CommentDTO(comment.getContent());
+        Comment comment = new Comment(commentId, "Comment content", existingPost, dev, ldt);
+        CommentDTO commentDTO = new CommentDTO(comment.getContent(), ldt.toString());
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(existingPost));
         when(developerRepository.findById(any(Integer.class))).thenReturn(Optional.of(dev));
@@ -74,7 +76,7 @@ public class CommentServiceTest {
     public void should_ThrowExceptionOnCreateComment_When_PostNotFound() {
         // Given
         Post post = new Post();
-        CommentDTO commentDTO = new CommentDTO("Content");
+        CommentDTO commentDTO = new CommentDTO("Content", ldt.toString());
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
         when(developerRepository.findById(any(Integer.class))).thenReturn(Optional.of(dev));
@@ -95,20 +97,20 @@ public class CommentServiceTest {
         // Given
         int commentId2 = 7, commentId3 = 8;
         Post post = new Post(postId, "Title", "Content");
-        Comment comment1 = new Comment(commentId, "Content1", post, dev);
-        Comment comment2 = new Comment(commentId2, "Content2", post, dev);
-        Comment comment3 = new Comment(commentId3, "Content3", post, dev);
+        Comment comment1 = new Comment(commentId, "Content1", post, dev, ldt);
+        Comment comment2 = new Comment(commentId2, "Content2", post, dev, ldt);
+        Comment comment3 = new Comment(commentId3, "Content3", post, dev, ldt);
         post.setComments(List.of(comment1, comment2, comment3));
-        CommentDTO commentDTO1 = new CommentDTO(comment1.getContent());
-        CommentDTO commentDTO2 = new CommentDTO(comment2.getContent());
-        CommentDTO commentDTO3 = new CommentDTO(comment3.getContent());
+        CommentDTO commentDTO1 = new CommentDTO(comment1.getContent(), ldt.toString());
+        CommentDTO commentDTO2 = new CommentDTO(comment2.getContent(), ldt.toString());
+        CommentDTO commentDTO3 = new CommentDTO(comment3.getContent(), ldt.toString());
         // When
         when(postRepository.findById(any(Integer.class))).thenReturn(Optional.of(post));
         // Using thenAnswer here for less code repetition. Comparing the content in the assertions below,
         // and not the objects like in developerService test
         when(commentDTOMapper.mapToDTO(any(Comment.class))).thenAnswer(invocation -> {
             Comment comment = invocation.getArgument(0);
-            return new CommentDTO(comment.getContent());
+            return new CommentDTO(comment.getContent(), ldt.toString());
         });
         List<CommentDTO> commentDTOs = commentService.findCommentsOfPost(postId);
         // Then
