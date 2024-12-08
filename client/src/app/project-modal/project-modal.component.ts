@@ -41,14 +41,16 @@ export class ProjectModalComponent {
   postService: PostService = inject(PostService);
   commentContent: string = '';
 
-  updateComment: boolean = false;
+  editTextContent = '';
+
   commentToEdit: number = 0;
-  editCommentContent: string = "";
+  // editCommentContent: string = "";
 
   deletePostPressed: boolean = false;
   editPostPressed: boolean = false;
 
 
+  // ------------------------------- Create comment ------------------------
   createComment() {
     const commentDTO: CommentDTO = { 
       content: this.commentContent 
@@ -67,57 +69,59 @@ export class ProjectModalComponent {
       }
     })
   }
-
+  
+  // ------------------------------- Convert date ------------------------
   convertDate(comment: Comment): string {
     const date = comment.createdAt ? new Date(comment.createdAt) : null;
     return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
-
+    
   }
-
-  // ------------------------------- Edit comment ------------------------
-
-  editComment(commentId: number) {
-    this.updateComment = true;
-    this.commentToEdit = commentId;
-  }
-
-  editCommentInForm(commentId: number) {
-    const commentDTO: CommentDTO = { 
-      content: this.editCommentContent 
+  
+  // ------------------------------- EDIT TEXT ------------------------
+  editText(textToEdit: TextToEdit) {
+    if(textToEdit.type === 'post') {
+      this.editPost(textToEdit);
+    } 
+    if(textToEdit.type === 'comment') {
+      this.editComment(textToEdit);
     }
+  }
+  
+  cancelEditText(itemToEdit: string) {
+    if(itemToEdit === 'post') {
+      this.editPostPressed = false;
+    }
+    if(itemToEdit === 'comment') {
+      this.commentToEdit = -1;
+    }
+  }
+  
+  // ----------------------------- Edit post ----------------------------
+  
+  displayEditPostTextbox(postId: number, currentPostContent: string) {
+    this.editPostPressed = true;
+    this.itemToEdit = 'post';
+    this.editTextContent = currentPostContent;
+  }
 
-    this.commentService.editComment(commentId, commentDTO).subscribe({
+  editPost(postContent: TextToEdit) {
+    const editedPost: Post = {
+      title: this.postTitle,
+      content: postContent.newContent,
+      developer: null,
+      comments: []
+    }
+    this.postService.editPostById(this.postId, editedPost).subscribe({
       next: () => {
-        this.commentUpdated.emit(this.postId);
-        this.commentToEdit = -1;
-        this.editCommentContent = ""; 
+        this.editPostPressed = false;
+        this.postContentUpdated.emit(this.postId);
       },
       error(err) {
         console.error(err);
       }
     })
   }
-
-  cancelEditComment() {
-    this.commentToEdit = -1;
-    this.editCommentContent = "";
-    console.log(this.signedInUser, " ", this.postAuthor)
-  }
-
- 
-  deleteComment(commentId: number, postId: number) {
-    this.commentService.deleteComment(commentId).subscribe({
-      next: (response: Comment) => {
-        this.commentUpdated.emit(postId);
-      },
-      error(err) {
-        console.error(err);
-      }
-    })
-  }
-
-  // ----------------------------- Delete post ----------------------------
-
+  
   deletePostModal(postId: number) {
     this.deletePostPressed = true;
   }
@@ -138,48 +142,39 @@ export class ProjectModalComponent {
     })
   }
 
-  // ----------------------------- Edit post ----------------------------
-
-  displayEditPostTextbox(postId: number) {
-    this.editPostPressed = true;
-    // TODO: finish edit post functionality
+  // ------------------------------- Edit comment ------------------------
+  displayEditCommentTextBox(commentId: number, currentCommentContent: string) {
+    this.commentToEdit = commentId;
+    this.itemToEdit = 'comment';
+    this.editTextContent = currentCommentContent;
   }
 
-  cancelEditPost() {
-    this.editPostPressed = false;
-  }
+  editComment(commentContent: TextToEdit) {
+    const editedComment: CommentDTO = {
+      content: commentContent.newContent
+    } 
 
-  editText(textToEdit: TextToEdit) {
-    if(textToEdit.type === 'Post') {
-      this.editPost(textToEdit);
-    }
-  }
-
-
-  editPost(postContent: TextToEdit) {
-    const editedPost: Post = {
-      title: this.postTitle,
-      content: postContent.newContent,
-      developer: null,
-      comments: []
-    }
-    this.postService.editPostById(this.postId, editedPost).subscribe({
+    this.commentService.editComment(this.commentToEdit, editedComment).subscribe({
       next: () => {
-        console.log('post edited right')
-        // TODO: rerender component here to get the updated post content immediately
-        this.editPostPressed = false;
-        this.postContentUpdated.emit(this.postId);
-        // the line above also works with this line:
-        //this.postDescription = editedPost.content;
-
+        console.log('comment edited');
+        this.commentUpdated.emit(this.postId);
+        this.commentToEdit = -1;
+      }, 
+      error(err) {
+        console.error(err);
+      }
+    })
+  }
+ 
+  deleteComment(commentId: number, postId: number) {
+    this.commentService.deleteComment(commentId).subscribe({
+      next: (response: Comment) => {
+        this.commentUpdated.emit(postId);
       },
       error(err) {
         console.error(err);
       }
     })
-
   }
-
-
 
 }
