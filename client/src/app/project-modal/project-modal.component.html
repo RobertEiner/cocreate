@@ -12,29 +12,23 @@
             <div>
               <div class="card card-div-detail modal-color" *ngFor="let comment of postComments">
                 <div class="">
-                  <div class="icon-div" *ngIf="commentToEdit !== comment.commentId;">
-                    <p class="my-1 mx-2">{{ comment.content }} </p> 
-                  </div>
-                  <div *ngIf="commentToEdit === comment.commentId">
-                    <ng-container *ngTemplateOutlet="editCommentTextArea; context: { commentId: comment.commentId }"></ng-container>
-                  </div>
-
-                  <div *ngIf="comment.developer.userName === signedInUser && !deletePostPressed">
-                    <div class="icon-div" >
-                      <a routerLink="" (click)="editComment(comment.commentId)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
-                      <a routerLink="" (click)="deleteComment(comment.commentId, postId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
-                    </div>
+                  <div class="icon-div" *ngIf="commentToEdit !== comment.commentId; else editTextBox">
+                    <p class="my-1 mx-2">{{ comment.content }}</p> 
                   </div>
                   <div>
                     <div class="">
-                      <p class="mb-2 mx-2 posted-by"> {{ comment.developer.userName}}</p>
-                      <!-- <p>{{  }}</p> -->
+                      <p class=" mb-1 mx-2 posted-by"> {{ comment.developer.userName}}</p>
+                      <p class=" mb-1 mx-2 small-text-comment">{{ convertDate(comment) }}</p>
                     </div>
-                    
+                    <div *ngIf="comment.developer.userName === signedInUser && !deletePostPressed">
+                      <div class="icon-div mb-1" >
+                        <a routerLink="" (click)="displayEditCommentTextBox(comment.commentId, comment.content)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
+                        <a routerLink="" (click)="deleteComment(comment.commentId, postId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              
             </div>
           </div>
           <!-- ------------ Form create comment ------------------ -->
@@ -58,34 +52,19 @@
           <!-- Edit or delete post -->
           <div class="">
             <div *ngIf="postAuthor == signedInUser">
-              <a routerLink="" (click)="displayEditPostTextbox(postId)"><i class="bi bi-pencil-fill mx-2 icon-post float-start"></i></a>
+              <a routerLink="" (click)="displayEditPostTextbox(postId, postDescription)"><i class="bi bi-pencil-fill mx-2 icon-post float-start"></i></a>
               <a routerLink="" (click)="deletePostModal(postId)" ><i class="bi bi-trash3-fill me-2 icon-post text-danger float-start"></i></a>
             </div>
             <small class="float-end">Posted by {{ postAuthor == signedInUser? 'you' : postAuthor}}</small>
           </div>
         </div>
         <ng-template #noComments >Be the first to comment on this post</ng-template>
-        <!-- data-bs-dismiss="modal" -->
-        <!-- ------------ Form edit comment ------------------ -->
-        <ng-template #editCommentTextArea let-commentId="commentId">
-          <div class="mx-2">
-            <form action="" #editCommentForm="ngForm" (ngSubmit)="editCommentInForm(commentId)"> 
-              <label for="">Edit comment</label>
-              <textarea name="editCommentText" ng-init="heeey" class="form-control" rows="2" #editCommentTextAreaRef="ngModel" [(ngModel)]="editCommentContent" required>hihoooooooooooo</textarea>
-              <small *ngIf="editCommentTextAreaRef.touched && editCommentTextAreaRef.invalid" class="invalid-msg">*The comment cannot be empty</small>
-              <div class="my-2">
-                <input type="submit" value="Edit" class="btn btn-outline-light me-1" [disabled]="editCommentTextAreaRef.invalid">
-                <!-- type="button" is necessary, without it the form will treat all buttons as submit buttons -->
-                <button type="button"  class="btn btn-outline-light" (click)="cancelEditComment()">Cancel</button>
-              </div>
-            </form>
-          </div>
-        </ng-template>
+       
         <ng-template #editTextBox>
           <app-edit-textbox
-          [textContent]='postDescription'
+          [textContent]='editTextContent'
           [currItemToEdit]="itemToEdit"
-          (cancelEditTextEmitter)="cancelEditPost()"
+          (cancelEditTextEmitter)="cancelEditText($event)"
           (editTextEmitter)="editText($event)"
           ></app-edit-textbox>
         </ng-template>

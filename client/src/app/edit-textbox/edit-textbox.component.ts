@@ -27,14 +27,12 @@ export class EditTextboxComponent {
       newContent: this.textContent
     };
     
-    // console.log(textToEmit);
     this.editTextEmitter.emit(textToEmit);
-
   }
 
   cancelEditText() {
     console.log('Cancel');
-    this.cancelEditTextEmitter.emit('cancel');
+    this.cancelEditTextEmitter.emit(this.currItemToEdit);
   }
 
 

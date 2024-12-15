@@ -5,7 +5,8 @@ export class Comment {
     constructor(
         public commentId: number,
         public content: string,
-        public developer: Developer
+        public developer: Developer,
+        public createdAt?: string
     )
     {
         
