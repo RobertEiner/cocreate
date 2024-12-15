@@ -9,9 +9,6 @@ import { EditTextboxComponent } from '../edit-textbox/edit-textbox.component';
 import { TextToEdit} from '../interfaces/textToEdit';
 import { Post } from '../models/post';
 
-
-
-
 @Component({
   selector: 'app-project-modal',
   standalone: true,

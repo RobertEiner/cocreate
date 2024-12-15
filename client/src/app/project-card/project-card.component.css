@@ -1,6 +1,7 @@
 .row-div {
     display: flex;
     justify-content: center;
+    margin-right: 0; /*The "row"-class adds margin to the div, this is to counteract that */
 }
 
 .card-div {
