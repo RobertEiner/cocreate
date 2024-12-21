@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3 mb-2" *ngFor="let post of posts">
+            <div class="card card-style same-size-card">
+                <div class="card-title text-center">
+                    <p class="p-1">{{ post.title }}</p>
+
+                </div>
+                <div class="card-body">
+                    <div class="card-body-div">
+                        <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
+                    </div>
+                    <div class="btn-div">
+                        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="populatePost(post)">Show details</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TODO: figure out how to populate the post before the app-project modal is rendered. -->
+<app-project-modal
+[postTitle]="post.title"
+[postDescription]="post.content"
+[postAuthor]="post.developer?.userName || 'not found'"
+[postComments]="post.comments"
+[postId]="post.postId || 0"
+[devId]="this.devId!"
+[signedInUser]="post.developer?.userName || 'not found username'"
+(commentUpdated)="onCommentUpdated($event)"
+(postDeleted)="onPostDeleted($event)"
+(postContentUpdated)="onPostUpdated($event)"
+></app-project-modal>
+

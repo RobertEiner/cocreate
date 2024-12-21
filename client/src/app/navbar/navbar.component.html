@@ -11,10 +11,10 @@
               {{ profileDropdown }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" (click)="navigate('profile')">Profile</a></li>
+              <li><a class="dropdown-item" (click)="navigate('dashboard')">Dashboard</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Log out</a></li>
+              <li><a class="dropdown-item" href="#" style="color: red;">Log out</a></li>
             </ul>
           </li>
          

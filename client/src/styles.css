@@ -23,3 +23,16 @@ body {
 .small-text-comment {
     font-size: 0.6rem;
 }
+
+
+.card-style {
+    background: transparent;
+    border-color: #d3d9d4;
+    color: #d3d9d4;
+    
+}
+
+.flex-jc-c {
+    display: flex;
+    justify-content: center;
+}

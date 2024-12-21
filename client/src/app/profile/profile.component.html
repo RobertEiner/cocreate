@@ -1,1 +1,44 @@
-<p>profile works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 row-div">
+            <div class="card bg-transparent border-light card-text">
+                <div class="card-body">
+                    <h5 class="margin-bottom-options">Your profile page, {{ dev.userName }}.</h5>
+                    <div class="card bg-transparent card-text border-light margin-bottom-options">
+                        <div class="card-body row-div">
+                            <h6><a (click)="handleOption('myposts')">My posts</a></h6>
+                        </div>
+                    </div>
+                    <div class="card bg-transparent card-text border-light margin-bottom-options">
+                        <div class="card-body row-div">
+                            <h6>My activity</h6>
+                        </div>
+                    </div>
+                    <div class="card bg-transparent card-text border-light margin-bottom-options">
+                        <div class="card-body row-div">
+                            <h6>Settings</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="card bg-transparent border-0 card-text">
+                <div class="card-title text-center mt-2">
+                    <h3>Your {{ optionTitle }}</h3>
+                </div>
+                <div class="card-body">
+                    <app-my-posts *ngIf="postsSelected"
+                    [posts]="this.dev.posts!"
+                    [devId]="this.devId">
+                    </app-my-posts>
+                </div>
+
+            </div>
+            <!-- <p>{{ this.dev.posts![0].content }}</p> -->
+        </div>
+    </div>
+</div>

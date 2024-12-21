@@ -52,6 +52,12 @@ export class ProjectModalComponent {
     const commentDTO: CommentDTO = { 
       content: this.commentContent 
     }
+    // console.log('devid' + this.devId)
+    // console.log('postid: ' + this.postId)
+    // console.log('titel: ' + this.postTitle)
+    // console.log('desc: ' + this.postDescription)
+    // console.log('comments: ' + this.postComments)
+    // console.log('signedinuser: ' + this.signedInUser)
     
     this.commentService.createComment(this.postId, commentDTO, this.devId).subscribe({
       next: (response: Comment) => {
@@ -59,6 +65,7 @@ export class ProjectModalComponent {
         // clear the textarea
         this.form.reset();
         // emit to parent that a comment has been created 
+        console.log('HÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄR')
         this.commentUpdated.emit(this.postId);
       },
       error(err) {

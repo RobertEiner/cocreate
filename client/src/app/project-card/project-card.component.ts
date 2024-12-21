@@ -64,10 +64,13 @@ export class ProjectCardComponent {
   }
 
   onCommentUpdated(postId: number) {
+    console.log('häääääääääär: '+ postId)
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
         this.selectedPostComments = response.comments;
         this.postUpdated.emit('comments updated');
+        console.log('andraaaaaaa')
+
 
       },
       error(err) {
