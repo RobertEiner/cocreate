@@ -55,7 +55,7 @@ export class ProjectCardComponent {
     this.selectedPostId = post.postId ? post.postId : 0;
     // console.log(post);
     const date = post.createdAt ? new Date(post.createdAt) : null;
-    console.log(date); //TODO: figure out what is wrong here!
+    console.log(date); 
 
   }
 
@@ -64,13 +64,10 @@ export class ProjectCardComponent {
   }
 
   onCommentUpdated(postId: number) {
-    console.log('häääääääääär: '+ postId)
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
         this.selectedPostComments = response.comments;
         this.postUpdated.emit('comments updated');
-        console.log('andraaaaaaa')
-
 
       },
       error(err) {

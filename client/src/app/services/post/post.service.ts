@@ -16,7 +16,7 @@ export class PostService {
   httpClient: HttpClient = inject(HttpClient);
 
   createPost(developerId: number, newPost: Post): Observable<Post> {
-    return this.httpClient.post<Post>(`http://localhost:8080/api/v1/developers/${developerId}/posts`, newPost);
+    return this.httpClient.post<Post>(`${baseUrl}/developers/${developerId}/posts`, newPost);
   }
 
   getAllPosts(): Observable<Post[]> { 

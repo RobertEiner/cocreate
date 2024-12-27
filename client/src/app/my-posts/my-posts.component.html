@@ -11,7 +11,7 @@
                         <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
                     </div>
                     <div class="btn-div">
-                        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="populatePost(post)">Show details</button>
+                        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#generic-post-modal" (click)="populatePost(post)">Show details</button>
                     </div>
                 </div>
 
@@ -19,8 +19,10 @@
         </div>
     </div>
 </div>
-<!-- TODO: figure out how to populate the post before the app-project modal is rendered. -->
-<app-project-modal
+ <app-post-modal></app-post-modal>
+
+ 
+<!-- <app-project-modal
 [postTitle]="post.title"
 [postDescription]="post.content"
 [postAuthor]="post.developer?.userName || 'not found'"
@@ -31,5 +33,5 @@
 (commentUpdated)="onCommentUpdated($event)"
 (postDeleted)="onPostDeleted($event)"
 (postContentUpdated)="onPostUpdated($event)"
-></app-project-modal>
+></app-project-modal> -->
 

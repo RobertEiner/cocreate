@@ -36,3 +36,10 @@ body {
     display: flex;
     justify-content: center;
 }
+
+
+/* ----------------- Modals ----------------------------- */
+.modal-color {
+    background-color: #23637c;
+    color: #d3d9d4;
+} 

@@ -35,16 +35,11 @@ export class ProfileComponent implements OnInit {
   optionTitle: string = 'posts';
   postsSelected: boolean = true;
 
-
-  // 1. get the dev info
-  // 2. populate local dev object
-  // 3. get the posts from the dev, popukate local posts array?
-  // 4. render everythimng in the template file
-
   ngOnInit(): void {
     this.devId = parseInt(this.util.getDevIdFromUrl()!);
     // console.log("DEVID :  " + this.devId)
     this.getDevInfo();
+    console.log(this.dev.posts)
   }
 
   getDevInfo() {
