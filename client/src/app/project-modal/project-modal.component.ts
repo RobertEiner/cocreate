@@ -8,6 +8,8 @@ import { PostService } from '../services/post/post.service';
 import { EditTextboxComponent } from '../edit-textbox/edit-textbox.component';
 import { TextToEdit} from '../interfaces/textToEdit';
 import { Post } from '../models/post';
+import { Util } from '../../util/util';
+
 
 @Component({
   selector: 'app-project-modal',
@@ -20,6 +22,7 @@ import { Post } from '../models/post';
 export class ProjectModalComponent {
   @ViewChild('commentForm') form: NgForm = new NgForm([], []);
   @ViewChild('editCommentForm') editCommentForm: NgForm = new NgForm([], []);
+  util: Util = new Util();
   // Inputs and Outputs
   @Input() postTitle: string = '';
   @Input() postDescription: string = '';
@@ -69,11 +72,11 @@ export class ProjectModalComponent {
   }
   
   // ------------------------------- Convert date ------------------------
-  convertDate(comment: Comment): string {
-    const date = comment.createdAt ? new Date(comment.createdAt) : null;
-    return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
+  // convertDate(comment: Comment): string {
+  //   const date = comment.createdAt ? new Date(comment.createdAt) : null;
+  //   return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
     
-  }
+  // }
   
   // ------------------------------- EDIT TEXT ------------------------
   editText(textToEdit: TextToEdit) {

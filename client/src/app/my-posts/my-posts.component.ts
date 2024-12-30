@@ -5,6 +5,8 @@ import { ProjectModalComponent } from '../project-modal/project-modal.component'
 import { ProjectCardComponent } from '../project-card/project-card.component';
 import { PostService } from '../services/post/post.service';
 import { PostModalComponent } from '../post-modal/post-modal.component';
+import { Util } from '../../util/util';
+
 
 
 
@@ -17,6 +19,7 @@ import { PostModalComponent } from '../post-modal/post-modal.component';
 })
 export class MyPostsComponent {
 
+  util: Util = new Util();
   @Input() posts: Post[] = [];
   @Input() devId: number | null = 0;
   projectCardComponent: ProjectCardComponent = new ProjectCardComponent();
@@ -36,33 +39,30 @@ export class MyPostsComponent {
   populatePost(selectedPost: Post) {
     this.post = selectedPost;
     this.displayPostModal = true;
-    
-    console.log(this.post.developer);
-    console.log(this.post.postId);
   }
 
 
-onCommentUpdated(postId: number) {
-  this.postService.getPostById(postId).subscribe({
-    next: (response: Post) => {
-      console.log(response)
-      this.post.comments = response.comments;
-      // this.postUpdated.emit('comments updated');
+  onCommentUpdated(postId: number) {
+    this.postService.getPostById(postId).subscribe({
+      next: (response: Post) => {
+        console.log(response)
+        this.post.comments = response.comments;
+        // this.postUpdated.emit('comments updated');
 
-    },
-    error(err) {
-      console.error('Error updating comments:', err);
-    }
-  })    
-}
+      },
+      error(err) {
+        console.error('Error updating comments:', err);
+      }
+    })    
+  }
 
-onPostDeleted(postId: number) {
-  this.projectCardComponent.onPostDeleted(postId);
-}
+  onPostDeleted(postId: number) {
+    this.projectCardComponent.onPostDeleted(postId);
+  }
 
-onPostUpdated(postId: number) {
-  this.projectCardComponent.onPostUpdated(postId)
-}
+  onPostUpdated(postId: number) {
+    this.projectCardComponent.onPostUpdated(postId)
+  }
 
 
 

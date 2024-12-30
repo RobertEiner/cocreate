@@ -15,7 +15,7 @@
       <div class="text-center">
         <small class="">Posted by {{ post.developer?.userName === devUserName? 'you' : post.developer?.userName}}</small>
         <br>
-        <p class="small-text-post">{{ convertDate(post) }}</p>
+        <p class="small-text-post">{{ util.convertDate(post.createdAt!) }}</p>
       </div>
     </div>
   </div>

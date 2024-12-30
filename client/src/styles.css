@@ -43,3 +43,21 @@ body {
     background-color: #23637c;
     color: #d3d9d4;
 } 
+
+/* ----------------- Comments ----------------------------- */
+
+.comment-detail {
+    width: fit-content;
+    margin: 1%;
+    border: 1px solid #d3d9d4;
+}
+
+.comment-text {
+    margin: 4px 8px 4px 8px;
+    font-size: 1rem;
+}
+
+.comment-date-username {
+    margin: 4px 8px 4px 8px;
+    font-size: 0.7rem;
+}
