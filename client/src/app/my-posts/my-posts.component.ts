@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Post } from '../models/post';
 import { CommonModule } from '@angular/common';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
@@ -17,7 +17,7 @@ import { Util } from '../../util/util';
   templateUrl: './my-posts.component.html',
   styleUrl: './my-posts.component.css'
 })
-export class MyPostsComponent {
+export class MyPostsComponent implements OnInit {
 
   util: Util = new Util();
   @Input() posts: Post[] = [];
@@ -35,7 +35,9 @@ export class MyPostsComponent {
      comments: []
   }
 
-
+  ngOnInit(): void {
+    console.log('len here ' + this.posts?.length);
+  }
   populatePost(selectedPost: Post) {
     this.post = selectedPost;
     this.displayPostModal = true;
@@ -45,7 +47,7 @@ export class MyPostsComponent {
   onCommentUpdated(postId: number) {
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
-        console.log(response)
+        console.log('RESPONSE' + response)
         this.post.comments = response.comments;
         // this.postUpdated.emit('comments updated');
 

@@ -27,14 +27,6 @@
     font-size: small;
 }
 
-.icon{
-     font-size: 0.7rem;
-     cursor: pointer;
-}
-
-.icon-div {
-    display: inline-block;
-}
 
 .icon-post {
     font-size: 1rem;

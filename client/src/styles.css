@@ -61,3 +61,14 @@ body {
     margin: 4px 8px 4px 8px;
     font-size: 0.7rem;
 }
+
+/* For thrashcan and pencil icon for editing comments etc. */
+
+.icon {
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.icon-div {
+    display: inline-block;
+}

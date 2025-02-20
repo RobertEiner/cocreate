@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
     this.devId = parseInt(this.util.getDevIdFromUrl()!);
     // console.log("DEVID :  " + this.devId)
     this.getDevInfo();
+    console.log('profile posts: ');
     console.log(this.dev.posts)
   }
 
@@ -47,7 +48,6 @@ export class ProfileComponent implements OnInit {
       this.developerService.getDeveloperById(this.devId).subscribe({
         next: (response: Developer) => {
           this.dev = response;
-          // console.log(this.dev.posts);
         },
         error(err) {
           console.error(err);

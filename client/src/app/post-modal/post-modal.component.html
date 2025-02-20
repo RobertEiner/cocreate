@@ -1,26 +1,42 @@
-<div class="modal fade" id="generic-post-modal">
-    <!-- modal-dialog is the wrapper for the modal -->
-    <div class="modal-dialog  modal-color">
-        <div class="modal-header" data-bs-theme="dark">
-            <h5>{{ selectedPost.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <p>{{ selectedPost.content }}</p>
-            <hr>
-        </div>
-        <div *ngFor="let comment of selectedPost.comments">
-            <div class="card card-style comment-detail">
-                <div class="">
-                    <p class="comment-text">{{ comment.content }}</p>
-                    <p class="comment-date-username">{{ comment.developer.userName }}</p>
-                    <p class="comment-date-username">{{ util.convertDate(comment.createdAt!) }}</p>
+<div class="modal fade" id="generic-post-modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- modal-dialog is the wrapper for the modal, putting other stuff eg. modal-content in same class as dialog = modal closes when clicked anywhere inside -->
+    <div class="modal-dialog">
+        <div class=" modal-content modal-color">
+            <div class="modal-header" data-bs-theme="dark">
+                <h5>{{ selectedPost.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{ selectedPost.content }}</p>
+                <hr>
+            </div>
+            <div *ngFor="let comment of selectedPost.comments">
+                <div class="card card-style comment-detail">
+                    <div class="">
+                        <div *ngIf="comment.commentId !== commentIdToEdit; else editTextBox">
+                            <p class="comment-text">{{ comment.content }}</p>
+                        </div>
+                        <p class="comment-date-username">{{ comment.developer.userName }}</p>
+                        <p class="comment-date-username">{{ util.convertDate(comment.createdAt!) }}</p>
+                        <div class="icon-div mb-1">
+                            <a routerLink="" (click)="displayEditComment(comment.commentId, comment.content)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
+                            <a routerLink="" (click)="deleteComment( comment.commentId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <p class="small-text-post">{{ util.convertDate(selectedPost.createdAt!) }}</p>
+            </div>
+            <ng-template #editTextBox>
+                <app-edit-textbox
+                [currItemToEdit]="itemToEdit"
+                [textContent]="textContent"
+                (editTextEmitter)="emitUpdatedText($event)">    
+                </app-edit-textbox>
 
-        </div>
-        <div class="modal-footer">
-            <p class="small-text-post">{{ util.convertDate(selectedPost.createdAt!) }}</p>
+            </ng-template>
         </div>
     </div>
 </div>
+

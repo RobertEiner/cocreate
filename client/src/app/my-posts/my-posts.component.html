@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="row">
+    <!-- (posts?.length || 0) means that if posts is null, then the expression will result in 0. i use this instead of non null assertion on length ! -->
+    <div class="row" *ngIf="(posts?.length || 0) > 0; else noPosts">
         <div class="col-3 mb-2" *ngFor="let post of posts">
             <div class="card card-style same-size-card">
                 <div class="card-title text-center">
                     <p class="p-1">{{ post.title }}</p>
-
                 </div>
                 <div class="card-body">
                     <div class="card-body-div">
@@ -21,7 +21,13 @@
 </div>
  <app-post-modal
  [selectedPost]="this.post"
+ (commentUpdated)="onCommentUpdated($event)"
  ></app-post-modal>
+ <ng-template #noPosts>
+    <div>
+        <h5>You haven't posted anything yet.</h5>
+    </div>
+</ng-template>
 
  
 <!-- <app-project-modal
