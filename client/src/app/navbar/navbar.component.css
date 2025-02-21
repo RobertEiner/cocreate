@@ -1,3 +1,23 @@
 .navbar-parent {
     color: #d3d9d4;
 }
+
+.hr-dropdown {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-dropdown-style:hover {
+    background-color: #d3d9d4;
+    cursor: pointer;
+}
+
+.navbar-dropdown-logout {
+    color:rgb(243, 67, 67);
+}
+
+.navbar-dropdown-logout:hover {
+    background-color: rgb(227, 157, 157);
+    color:rgb(243, 67, 67);
+
+}
