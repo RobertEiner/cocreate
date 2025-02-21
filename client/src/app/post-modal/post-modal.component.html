@@ -18,9 +18,15 @@
                         </div>
                         <p class="comment-date-username">{{ comment.developer.userName }}</p>
                         <p class="comment-date-username">{{ util.convertDate(comment.createdAt!) }}</p>
+                        <div *ngIf="deleteCommentPressed && comment.commentId === commentToDelete">
+                            <app-delete-entry
+                            [entryToDelete]="'comment'"
+                            (deleteEntryEmitter)="deleteComment()">
+                            </app-delete-entry>
+                        </div>
                         <div class="icon-div mb-1">
                             <a routerLink="" (click)="displayEditComment(comment.commentId, comment.content)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
-                            <a routerLink="" (click)="deleteComment(comment.commentId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
+                            <a routerLink="" (click)="displayDeleteComment(comment.commentId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
                         </div>
                     </div>
                 </div>
@@ -32,10 +38,11 @@
                 <app-edit-textbox
                 [currItemToEdit]="itemToEdit"
                 [textContent]="textContent"
-                (editTextEmitter)="emitUpdatedText($event)">    
+                (editTextEmitter)="emitUpdatedText($event)"
+                (cancelEditTextEmitter)="cancelEditText($event)">    
                 </app-edit-textbox>
-
             </ng-template>
+          
         </div>
     </div>
 </div>

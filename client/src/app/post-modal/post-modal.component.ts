@@ -7,6 +7,7 @@ import { TextToEdit } from '../interfaces/textToEdit';
 import { CommentDTO } from '../models/comment-dto';
 import { CommentService } from '../services/comment/comment.service';
 import { PostService } from '../services/post/post.service';
+import { DeleteEntryComponent } from '../delete-entry/delete-entry.component';
 
 
 
@@ -14,7 +15,7 @@ import { PostService } from '../services/post/post.service';
 @Component({
   selector: 'app-post-modal',
   standalone: true,
-  imports: [CommonModule, EditTextboxComponent],
+  imports: [CommonModule, EditTextboxComponent, DeleteEntryComponent],
   templateUrl: './post-modal.component.html',
   styleUrl: './post-modal.component.css'
 })
@@ -31,8 +32,10 @@ export class PostModalComponent {
   // Class variables
   changeComment: boolean = false;
   commentIdToEdit: number = -1;
+  commentToDelete: number = -1;
   itemToEdit: string = '';
   textContent: string = '';
+  deleteCommentPressed: boolean = false;
   
   // TODO: here
   // 1. send in post object as an input from the my-posts-component CHECK
@@ -44,6 +47,7 @@ export class PostModalComponent {
   // 4. create edit and delete METHODS. you need a boolean
 
 
+  // Display edit & delete options
   displayEditComment(commentId: number, content: string) {
   this.itemToEdit = 'comment';
   this.textContent = content;
@@ -51,8 +55,9 @@ export class PostModalComponent {
   this.commentIdToEdit = commentId;
  }
 
- deleteComment(commentId: number) {
-  console.log('deleteeee')
+ displayDeleteComment(commentId: number) {
+  this.commentToDelete = commentId;
+  this.deleteCommentPressed = true;
  }
 
 
@@ -62,15 +67,19 @@ export class PostModalComponent {
   }
  }
 
+//  ----------------- EDIT ----------------------
+
+ cancelEditText(comment: string) {
+  this.commentIdToEdit = -1;
+}
+
  editComment(updatedCommentContent: string) {
   const commentDTO: CommentDTO= {
     content: updatedCommentContent
   };
 
-  console.log('EDIT COMMENT')
   this.commentService.editComment(this.commentIdToEdit, commentDTO).subscribe({
     next: () => {
-      console.log('comment edited');
       this.commentUpdated.emit(this.selectedPost.postId);
       this.commentIdToEdit = -1;
       this.changeComment = true;
@@ -79,10 +88,26 @@ export class PostModalComponent {
     error(err) {
       console.error(err);
     }
+  });
+}
+
+//  ----------------- DELETE ----------------------
+
+deleteComment() {
+  this.commentService.deleteComment(this.commentToDelete).subscribe({
+    next: () => {
+      console.log('deleteed coment')
+      this.commentUpdated.emit(this.selectedPost.postId);
+      this.commentToDelete = -1;
+      this.deleteCommentPressed = true;
+    },
+    error(err) {
+
+    }
   })
+} 
 
 
- }
 
 
 

@@ -14,7 +14,7 @@ export class CommentService {
 
   constructor() { }
 
-  baseUrl: string = baseUrl;
+  // baseUrl: string = baseUrl;
   httpClient: HttpClient = inject(HttpClient);
 
 
