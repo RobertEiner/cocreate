@@ -10,9 +10,10 @@
                 <p>{{ selectedPost.content }}</p>
                 <hr>
             </div>
-            <div *ngFor="let comment of selectedPost.comments">
-                <div class="card card-style comment-detail">
-                    <div class="">
+            <div *ngIf="selectedPost.comments.length > 0; else noComments">
+                <div *ngFor="let comment of selectedPost.comments">
+                    <div class="card card-style comment-detail">
+                        <div class="">
                         <div *ngIf="comment.commentId !== commentIdToEdit; else editTextBox">
                             <p class="comment-text">{{ comment.content }}</p>
                         </div>
@@ -22,7 +23,7 @@
                             <app-delete-entry
                             [entryToDelete]="'comment'"
                             (deleteEntryEmitter)="deleteComment()">
-                            </app-delete-entry>
+                        </app-delete-entry>
                         </div>
                         <div class="icon-div mb-1">
                             <a routerLink="" (click)="displayEditComment(comment.commentId, comment.content)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
@@ -31,6 +32,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <app-create-entry>
+                
+            </app-create-entry>
+        </div>
             <div class="modal-footer">
                 <p class="small-text-post">{{ util.convertDate(selectedPost.createdAt!) }}</p>
             </div>
@@ -41,6 +48,11 @@
                 (editTextEmitter)="emitUpdatedText($event)"
                 (cancelEditTextEmitter)="cancelEditText($event)">    
                 </app-edit-textbox>
+            </ng-template>
+            <ng-template #noComments>
+                <div class="d-flex justify-content-center">
+                    <p>There are currently no comments for this post.</p>
+                </div>
             </ng-template>
           
         </div>

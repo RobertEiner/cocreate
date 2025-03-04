@@ -8,6 +8,7 @@ import { CommentDTO } from '../models/comment-dto';
 import { CommentService } from '../services/comment/comment.service';
 import { PostService } from '../services/post/post.service';
 import { DeleteEntryComponent } from '../delete-entry/delete-entry.component';
+import { CreateEntryComponent } from '../create-entry/create-entry.component';
 
 
 
@@ -15,7 +16,7 @@ import { DeleteEntryComponent } from '../delete-entry/delete-entry.component';
 @Component({
   selector: 'app-post-modal',
   standalone: true,
-  imports: [CommonModule, EditTextboxComponent, DeleteEntryComponent],
+  imports: [CommonModule, EditTextboxComponent, DeleteEntryComponent, CreateEntryComponent],
   templateUrl: './post-modal.component.html',
   styleUrl: './post-modal.component.css'
 })
