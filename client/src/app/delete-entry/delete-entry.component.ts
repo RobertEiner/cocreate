@@ -11,7 +11,7 @@ export class DeleteEntryComponent {
 
 @Input() entryToDelete: string = '';
 @Output() deleteEntryEmitter: EventEmitter<number> = new EventEmitter<number>();
-
+@Output() cancelDeleteEmitter: EventEmitter<number> = new EventEmitter<number>();
 
 
 deleteEntry() {
@@ -19,7 +19,7 @@ deleteEntry() {
 }
 
 cancelDelete() {
-
+  this.cancelDeleteEmitter.emit();
 }
 
 }

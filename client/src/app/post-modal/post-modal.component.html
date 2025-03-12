@@ -1,4 +1,4 @@
-<div class="modal fade" id="generic-post-modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="generic-post-modal" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden.bs.modal)="onModalClose()">
     <!-- modal-dialog is the wrapper for the modal, putting other stuff eg. modal-content in same class as dialog = modal closes when clicked anywhere inside -->
     <div class="modal-dialog">
         <div class=" modal-content modal-color">
@@ -22,7 +22,8 @@
                         <div *ngIf="deleteCommentPressed && comment.commentId === commentToDelete">
                             <app-delete-entry
                             [entryToDelete]="'comment'"
-                            (deleteEntryEmitter)="deleteComment()">
+                            (deleteEntryEmitter)="deleteComment()"
+                            (cancelDeleteEmitter)="cancelDeleteComment()">
                         </app-delete-entry>
                         </div>
                         <div class="icon-div mb-1">

@@ -48,8 +48,14 @@ export class PostModalComponent {
   // 4. create edit and delete METHODS. you need a boolean
 
 
+  onModalClose() {
+    this.deleteCommentPressed = false;
+    this.commentIdToEdit = -1;
+  }
+
   // Display edit & delete options
   displayEditComment(commentId: number, content: string) {
+  this.deleteCommentPressed = false;  // If edit is pressed while delete textbox is open, close delete box
   this.itemToEdit = 'comment';
   this.textContent = content;
   this.changeComment = true;
@@ -57,6 +63,7 @@ export class PostModalComponent {
  }
 
  displayDeleteComment(commentId: number) {
+  this.commentIdToEdit = -1; // If delete is pressed while edit textbox is open, close edit box
   this.commentToDelete = commentId;
   this.deleteCommentPressed = true;
  }
@@ -106,7 +113,11 @@ deleteComment() {
 
     }
   })
-} 
+}
+
+cancelDeleteComment() {
+  this.deleteCommentPressed = false;
+}
 
 
 
