@@ -52,7 +52,7 @@ public class PostService {
         if(post.isPresent()) {
             Post existingPost = post.get();
             existingPost.setTitle(title);
-            existingPost.setContent(content);
+            if(!existingPost.getContent().isEmpty()) existingPost.setContent(content);
             postRepository.save(existingPost);
         } else {
             throw new ResourceNotFoundException("There exists no user with that ID");

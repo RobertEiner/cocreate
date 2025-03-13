@@ -22,9 +22,10 @@
  <app-post-modal
  [selectedPost]="this.post"
  (commentUpdated)="onCommentUpdated($event)"
+ (postUpdated)="onPostUpdated($event)"
  ></app-post-modal>
  <ng-template #noPosts>
-    <div>
+    <div class="text-center">
         <h5>You haven't posted anything yet.</h5>
     </div>
 </ng-template>

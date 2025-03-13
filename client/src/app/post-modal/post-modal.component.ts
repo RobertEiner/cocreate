@@ -29,6 +29,7 @@ export class PostModalComponent {
   // Inputs
   @Input() selectedPost: Post = new Post("", "");
   @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
+  @Output() postUpdated: EventEmitter<number> = new EventEmitter<number>();
 
   // Class variables
   changeComment: boolean = false;
@@ -37,6 +38,7 @@ export class PostModalComponent {
   itemToEdit: string = '';
   textContent: string = '';
   deleteCommentPressed: boolean = false;
+  editTitlePressed: boolean = false;
   
   // TODO: here
   // 1. send in post object as an input from the my-posts-component CHECK
@@ -51,6 +53,7 @@ export class PostModalComponent {
   onModalClose() {
     this.deleteCommentPressed = false;
     this.commentIdToEdit = -1;
+    this.editTitlePressed = false;
   }
 
   // Display edit & delete options
@@ -72,11 +75,48 @@ export class PostModalComponent {
  emitUpdatedText(updatedText: TextToEdit) {
   if(updatedText.type === 'comment') {
     this.editComment(updatedText.newContent);
+  } else if(updatedText.type === 'post title') {
+    this.editPostTitle(updatedText.newContent);
   }
  }
 
 //  ----------------- EDIT ----------------------
 
+//POST
+dispayEditPost(title: string) {
+  // clear other text boxes
+  this.commentIdToEdit = -1;
+  this.deleteCommentPressed = false;  // If edit is pressed while delete textbox is open, close delete box
+  this.editTitlePressed = true;
+
+  this.itemToEdit = 'post title';
+  this.textContent = title;
+}
+
+editPostTitle(newTitle: string) {
+  const editedPost: Post = {
+    title: newTitle,
+    content: this.selectedPost.content,
+    developer: null,
+    comments: []
+  }
+
+  this.postService.editPostById(this.selectedPost.postId!, editedPost).subscribe({
+    next: () => {
+      this.editTitlePressed = false;
+      this.selectedPost.title = newTitle;
+    },
+    error(err) {
+      console.error(err);
+    }
+  });
+
+
+}
+
+
+
+// COMMENT
  cancelEditText(comment: string) {
   this.commentIdToEdit = -1;
 }
