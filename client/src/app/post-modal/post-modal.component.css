@@ -1,7 +1,8 @@
 .icona {
     cursor: pointer;
     /* border: 1px solid #d3d9d4; */
-    /* border-radius: 50%;                      */
+    /* border-radius: 50%;     */
+    /* margin-left: 120px; */
 }
 
 .icona:hover {
@@ -11,4 +12,6 @@
 
 .btn-close {
     filter: invert(1);
+    margin: 0 !important;
 }
+

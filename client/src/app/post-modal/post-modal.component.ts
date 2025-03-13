@@ -83,6 +83,7 @@ export class PostModalComponent {
 //  ----------------- EDIT ----------------------
 
 //POST
+
 dispayEditPost(title: string) {
   // clear other text boxes
   this.commentIdToEdit = -1;
@@ -119,6 +120,7 @@ editPostTitle(newTitle: string) {
 // COMMENT
  cancelEditText(comment: string) {
   this.commentIdToEdit = -1;
+  this.editTitlePressed = false;
 }
 
  editComment(updatedCommentContent: string) {

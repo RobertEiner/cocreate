@@ -2,12 +2,12 @@
     <!-- modal-dialog is the wrapper for the modal, putting other stuff eg. modal-content in same class as dialog = modal closes when clicked anywhere inside -->
     <div class="modal-dialog">
         <div class=" modal-content modal-color">
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-between">
                 <h5 *ngIf="!editTitlePressed; else editTextBox">{{ selectedPost.title }}</h5>
-                <a routerLink="" (click)="dispayEditPost(selectedPost.title)" class="icona"><i class="bi bi-pencil-fill mx-4 "></i></a>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div>
-                </div>
+                <div class="d-flex align-items-center">
+                    <a routerLink="" (click)="dispayEditPost(selectedPost.title)" class="icona"><i class="bi bi-pencil-fill "></i></a>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                </div>   
             </div>
             <div class="modal-body">
                 <p>{{ selectedPost.content }}</p>
