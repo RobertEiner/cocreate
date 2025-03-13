@@ -1,17 +1,19 @@
-.icona {
+.edit-delete-icon {
     cursor: pointer;
-    /* border: 1px solid #d3d9d4; */
-    /* border-radius: 50%;     */
-    /* margin-left: 120px; */
 }
 
-.icona:hover {
+.edit-delete-icon:hover {
     transition: transform 0.2s ease-in-out; 
     transform: scale(1.3); /* Increases size by 20% */
 }
 
 .btn-close {
     filter: invert(1);
-    margin: 0 !important;
+    /* margin: 0 !important; */
+}
+
+.comment-icon {
+    font-size: 0.7rem;
+    
 }
 

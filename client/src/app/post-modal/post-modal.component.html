@@ -5,12 +5,17 @@
             <div class="modal-header d-flex justify-content-between">
                 <h5 *ngIf="!editTitlePressed; else editTextBox">{{ selectedPost.title }}</h5>
                 <div class="d-flex align-items-center">
-                    <a routerLink="" (click)="dispayEditPost(selectedPost.title)" class="icona"><i class="bi bi-pencil-fill "></i></a>
+                    <a routerLink="" (click)="dispayEditPostTitle(selectedPost.title)" class="edit-delete-icon card-text"><i class="bi bi-pencil-fill me-2"></i></a>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
                 </div>   
             </div>
             <div class="modal-body">
-                <p>{{ selectedPost.content }}</p>
+                <div *ngIf="!editContentPressed; else editTextBox">
+                    <p>{{ selectedPost.content }}</p>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a routerLink="" (click)="dispayEditPostContent(selectedPost.content)" class="edit-delete-icon card-text"><i class="bi bi-pencil-fill"></i></a>
+                </div>
                 <hr>
             </div>
             <div *ngIf="selectedPost.comments.length > 0; else noComments">
@@ -30,8 +35,8 @@
                         </app-delete-entry>
                         </div>
                         <div class="icon-div mb-1">
-                            <a routerLink="" (click)="displayEditComment(comment.commentId, comment.content)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
-                            <a routerLink="" (click)="displayDeleteComment(comment.commentId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
+                            <a routerLink="" (click)="displayEditComment(comment.commentId, comment.content)" class="edit-delete-icon card-text  comment-icon"><i class="bi bi-pencil-fill mx-2"></i></a>
+                            <a routerLink="" (click)="displayDeleteComment(comment.commentId)" class="edit-delete-icon  comment-icon"><i class="bi bi-trash3-fill  me-2 text-danger"></i></a>
                         </div>
                     </div>
                 </div>
@@ -42,7 +47,8 @@
                 
             </app-create-entry>
         </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-between">
+                <a routerLink="" (click)="deletePost()" class="edit-delete-icon"><i class="bi bi-trash3-fill me-2 text-danger"></i></a>
                 <p class="small-text-post">{{ util.convertDate(selectedPost.createdAt!) }}</p>
             </div>
             <ng-template #editTextBox>

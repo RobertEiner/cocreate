@@ -39,6 +39,7 @@ export class PostModalComponent {
   textContent: string = '';
   deleteCommentPressed: boolean = false;
   editTitlePressed: boolean = false;
+  editContentPressed: boolean = false;
   
   // TODO: here
   // 1. send in post object as an input from the my-posts-component CHECK
@@ -77,14 +78,16 @@ export class PostModalComponent {
     this.editComment(updatedText.newContent);
   } else if(updatedText.type === 'post title') {
     this.editPostTitle(updatedText.newContent);
+  } else if(updatedText.type === 'post content') {
+    this.editPostContent(updatedText.newContent);
   }
- }
+}
 
 //  ----------------- EDIT ----------------------
 
 //POST
 
-dispayEditPost(title: string) {
+dispayEditPostTitle(title: string) {
   // clear other text boxes
   this.commentIdToEdit = -1;
   this.deleteCommentPressed = false;  // If edit is pressed while delete textbox is open, close delete box
@@ -92,6 +95,12 @@ dispayEditPost(title: string) {
 
   this.itemToEdit = 'post title';
   this.textContent = title;
+}
+
+dispayEditPostContent(content: string) {
+  this.editContentPressed = true;
+  this.itemToEdit = 'post content';
+  this.textContent = content;
 }
 
 editPostTitle(newTitle: string) {
@@ -111,7 +120,25 @@ editPostTitle(newTitle: string) {
       console.error(err);
     }
   });
+}
 
+editPostContent(newContent: string) {
+  const editedPost: Post = {
+    title: this.selectedPost.title,
+    content: newContent,
+    developer: null,
+    comments: []
+  }
+
+  this.postService.editPostById(this.selectedPost.postId!, editedPost).subscribe({
+    next: () => {
+      this.editContentPressed = false;
+      this.selectedPost.content = newContent;
+    },
+    error(err) {
+      console.error(err);
+    }
+  });
 
 }
 
@@ -121,6 +148,7 @@ editPostTitle(newTitle: string) {
  cancelEditText(comment: string) {
   this.commentIdToEdit = -1;
   this.editTitlePressed = false;
+  this.editContentPressed = false;
 }
 
  editComment(updatedCommentContent: string) {
@@ -159,6 +187,10 @@ deleteComment() {
 
 cancelDeleteComment() {
   this.deleteCommentPressed = false;
+}
+
+deletePost() {
+
 }
 
 

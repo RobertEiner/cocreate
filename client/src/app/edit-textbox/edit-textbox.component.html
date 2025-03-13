@@ -6,7 +6,7 @@
       <div class="my-2">
         <input type="submit" value="Edit" class="btn btn-outline-light me-1" [disabled]="editTextAreaRef.invalid">
         <!-- type="button" is necessary, without it the form will treat all buttons as submit buttons -->
-        <button type="button"  class="btn btn-outline-light" (click)="cancelEditText()">Cancel</button>
+        <button type="button"  class="btn btn-outline-light cancel-btn" (click)="cancelEditText()">Cancel</button>
       </div>
     </form>
 </div>
