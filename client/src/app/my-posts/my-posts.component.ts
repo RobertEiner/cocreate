@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Post } from '../models/post';
 import { CommonModule } from '@angular/common';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
@@ -6,9 +6,6 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
 import { PostService } from '../services/post/post.service';
 import { PostModalComponent } from '../post-modal/post-modal.component';
 import { Util } from '../../util/util';
-
-
-
 
 @Component({
   selector: 'app-my-posts',
@@ -22,6 +19,7 @@ export class MyPostsComponent implements OnInit {
   util: Util = new Util();
   @Input() posts: Post[] = [];
   @Input() devId: number | null = 0;
+  @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
   projectCardComponent: ProjectCardComponent = new ProjectCardComponent();
 
   postService: PostService = inject(PostService);
@@ -38,6 +36,7 @@ export class MyPostsComponent implements OnInit {
   ngOnInit(): void {
     console.log('len here ' + this.posts?.length);
   }
+
   populatePost(selectedPost: Post) {
     this.post = selectedPost;
     this.displayPostModal = true;
@@ -59,11 +58,19 @@ export class MyPostsComponent implements OnInit {
   }
 
   onPostDeleted(postId: number) {
-    this.projectCardComponent.onPostDeleted(postId);
+    this.postService.deletePostById(postId).subscribe({
+      next: () => {
+        this.postDeleted.emit(postId);
+      },
+      error(err) {
+        console.error(err); 
+    }
+  });
   }
 
   onPostUpdated(postId: number) {
-    this.projectCardComponent.onPostUpdated(postId)
+
+
   }
 
 

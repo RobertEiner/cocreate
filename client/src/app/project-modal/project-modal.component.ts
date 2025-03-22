@@ -1,4 +1,4 @@
-  import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+  import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
   import { CommentService } from '../services/comment/comment.service';
   import { CommentDTO } from '../models/comment-dto';
   import { FormsModule, NgForm } from '@angular/forms';

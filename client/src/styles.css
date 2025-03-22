@@ -36,6 +36,15 @@ body {
     justify-content: center;
 }
 
+/* ----------------- Alerts ----------------------------- */
+
+.alert-delete {
+    background-color: #ff9595;
+    color: #eeeeee; 
+    padding: 2%;
+    
+}
+
 
 /* ----------------- Modals ----------------------------- */
 .modal-color {

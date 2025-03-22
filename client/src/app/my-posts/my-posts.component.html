@@ -23,6 +23,7 @@
  [selectedPost]="this.post"
  (commentUpdated)="onCommentUpdated($event)"
  (postUpdated)="onPostUpdated($event)"
+ (postDeleted)="onPostDeleted($event)"
  ></app-post-modal>
  <ng-template #noPosts>
     <div class="text-center">

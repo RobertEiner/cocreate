@@ -10,9 +10,6 @@ import { PostService } from '../services/post/post.service';
 import { DeleteEntryComponent } from '../delete-entry/delete-entry.component';
 import { CreateEntryComponent } from '../create-entry/create-entry.component';
 
-
-
-
 @Component({
   selector: 'app-post-modal',
   standalone: true,
@@ -30,6 +27,7 @@ export class PostModalComponent {
   @Input() selectedPost: Post = new Post("", "");
   @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
   @Output() postUpdated: EventEmitter<number> = new EventEmitter<number>();
+  @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
 
   // Class variables
   changeComment: boolean = false;
@@ -40,21 +38,13 @@ export class PostModalComponent {
   deleteCommentPressed: boolean = false;
   editTitlePressed: boolean = false;
   editContentPressed: boolean = false;
-  
-  // TODO: here
-  // 1. send in post object as an input from the my-posts-component CHECK
-  // 2. populate the modal with title, content, comments and date   CHECK
-  // 3. create funtionality for creating comments, changing comments, editing post including title, deleting etc. Use edit-textbox-component
-  // try to do this in a smart way. Create smaller components that you can use for future things as well. When creating a comment, you can have a 
-  // create-entry component for example. 
-  // 3. create edit textbox ngtemplate. 
-  // 4. create edit and delete METHODS. you need a boolean
-
+  deletePostPressed: boolean = false;
 
   onModalClose() {
     this.deleteCommentPressed = false;
     this.commentIdToEdit = -1;
     this.editTitlePressed = false;
+    this.deletePostPressed = false;
   }
 
   // Display edit & delete options
@@ -189,8 +179,17 @@ cancelDeleteComment() {
   this.deleteCommentPressed = false;
 }
 
-deletePost() {
+displayDeletePost() {
+  // this.postDeleted.emit(this.selectedPost.postId);
+  this.deletePostPressed = true;
+}
 
+deletePost() {
+  this.postDeleted.emit(this.selectedPost.postId);
+}
+
+cancelDeletePost() {
+  this.deletePostPressed = false;
 }
 
 

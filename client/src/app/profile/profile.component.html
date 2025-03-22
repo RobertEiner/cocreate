@@ -33,7 +33,8 @@
                 <div class="card-body">
                     <app-my-posts *ngIf="postsSelected"
                     [posts]="this.dev.posts!"
-                    [devId]="this.devId">
+                    [devId]="this.devId"
+                    (postDeleted)="onPostDeleted($event)">
                     </app-my-posts>
                 </div>
 

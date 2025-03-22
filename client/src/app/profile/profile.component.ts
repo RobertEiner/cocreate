@@ -6,9 +6,6 @@ import { Developer } from '../models/developer';
 import { MyPostsComponent } from '../my-posts/my-posts.component';
 import { CommonModule } from '@angular/common';
 
-
-
-
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -63,6 +60,10 @@ export class ProfileComponent implements OnInit {
       this.optionTitle = 'posts'
     }
   } 
+
+  onPostDeleted(postId: number) {
+    this.getDevInfo();
+  }
 
 
 
