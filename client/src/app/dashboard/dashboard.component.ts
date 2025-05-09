@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
       this.developerService.getDeveloperById(this.developerId).subscribe({
         next: (response: Developer) => {
           this.userName = response.userName;
+          this.getAllPosts();
         },
         error(err) {
           console.error('not found\n', err);

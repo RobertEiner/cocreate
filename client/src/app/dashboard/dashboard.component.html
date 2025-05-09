@@ -3,12 +3,9 @@
 <div class="parent-welcome">
   <div class="welcome-div">
     <h3 class="welcome-msg">Welcome to your dashboard, {{ userName }}.</h3>
-    <button class="btn btn-outline-light show-projects-btn me-2" (click)="getAllPosts()">Show posts</button>
-    <button class="btn btn-outline-light" (click)="createPost()">Create post</button>
+      <button *ngIf="activeView==='createPost'" class="btn btn-outline-light show-projects-btn me-2" (click)="getAllPosts()">Show posts</button>
+      <button *ngIf="activeView==='showPosts'" class="btn btn-outline-light" (click)="createPost()">Create post</button>
   </div>
-  <div>
-  </div>
-  <div></div>
 </div>
 <app-project-card 
 *ngIf="activeView === 'showPosts'" 

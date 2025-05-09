@@ -4,11 +4,12 @@ import { NotFoundErrorComponent } from './not-found-error/not-found-error.compon
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LandingComponent } from './landing/landing.component';
 
 
 export const routes: Routes = [
-    {path: '', component: SignInComponent},
-    {path: 'signup', component: SignUpComponent},
+    {path: '', component: LandingComponent},
+    //{path: 'signup', component: SignUpComponent},
     {path: 'developer/:id/dashboard', component: DashboardComponent},
     {path: 'developer/:id/profile', component: ProfileComponent},
     {path: 'dashboard', component: DashboardComponent},
