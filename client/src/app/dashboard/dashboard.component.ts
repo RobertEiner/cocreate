@@ -8,12 +8,14 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
 import { PostService } from '../services/post/post.service';
 import { DeveloperService } from '../services/developer/developer.service';
 import { CreatePostComponent } from '../create-post/create-post.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { Util } from '../../util/util';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, CommonModule, ProjectCardComponent, CreatePostComponent],
+  imports: [RouterLink, CommonModule, ProjectCardComponent, CreatePostComponent, NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -22,6 +24,9 @@ export class DashboardComponent implements OnInit {
   // navigation & http
   activeRoute: ActivatedRoute = inject(ActivatedRoute);
   httpClient: HttpClient = inject(HttpClient);
+  util: Util = new Util();
+
+
   // services
   postService: PostService = inject(PostService);
   developerService: DeveloperService = inject(DeveloperService);
@@ -34,12 +39,13 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const idParam: string | null = this.activeRoute.snapshot.paramMap.get('id');
+    const idParam: string | null = this.util.getDevIdFromUrl();
     if(idParam !== null) {
       this.developerId = parseInt(idParam, 10); // tells parseInt we want a base 10 num, i.e. a decimal number. e.g. if the input would be 08, we get 8
       this.developerService.getDeveloperById(this.developerId).subscribe({
         next: (response: Developer) => {
           this.userName = response.userName;
+          this.getAllPosts();
         },
         error(err) {
           console.error('not found\n', err);

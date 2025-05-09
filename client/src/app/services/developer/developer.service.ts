@@ -28,8 +28,6 @@ export class DeveloperService {
   checkDeveloperCredentials(userName: string, password: string): Observable<Developer> {
     const requestBody = {userName, password};
     return this.httpClient.post<Developer>(`${baseUrl}/developers/auth`, requestBody);
-
-
   }
 
 

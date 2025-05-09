@@ -1,0 +1,76 @@
+<div class="modal fade" id="generic-post-modal" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden.bs.modal)="onModalClose()">
+    <!-- modal-dialog is the wrapper for the modal, putting other stuff eg. modal-content in same class as dialog = modal closes when clicked anywhere inside -->
+    <div class="modal-dialog">
+        <div class=" modal-content modal-color">
+            <div class="modal-header d-flex justify-content-between">
+                <h5 *ngIf="!editTitlePressed; else editTextBox">{{ selectedPost.title }}</h5>
+                <div class="d-flex align-items-center">
+                    <a routerLink="" (click)="dispayEditPostTitle(selectedPost.title)" class="edit-delete-icon card-text custom-tooltip"  data-bs-toggle="tooltip" title="Edit post title"><i class="bi bi-pencil-fill me-2"></i></a>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                </div>   
+            </div>
+            <div class="modal-body">
+                <div *ngIf="!editContentPressed; else editTextBox">
+                    <p>{{ selectedPost.content }}</p>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a routerLink="" (click)="dispayEditPostContent(selectedPost.content)" class="edit-delete-icon card-text" data-bs-toggle="tooltip" title="Edit post content"><i class="bi bi-pencil-fill"></i></a>
+                </div>
+                <hr>
+            </div>
+            <div *ngIf="selectedPost.comments.length > 0; else noComments">
+                <div *ngFor="let comment of selectedPost.comments">
+                    <div class="card card-style comment-detail">
+                        <div class="">
+                        <div *ngIf="comment.commentId !== commentIdToEdit; else editTextBox">
+                            <p class="comment-text">{{ comment.content }}</p>
+                        </div>
+                        <p class="comment-date-username">{{ comment.developer.userName }}</p>
+                        <p class="comment-date-username">{{ util.convertDate(comment.createdAt!) }}</p>
+                        <div *ngIf="deleteCommentPressed && comment.commentId === commentToDelete">
+                            <app-delete-entry
+                            [entryToDelete]="'comment'"
+                            (deleteEntryEmitter)="deleteComment()"
+                            (cancelDeleteEmitter)="cancelDeleteComment()">
+                        </app-delete-entry>
+                        </div>
+                        <div class="icon-div mb-1">
+                            <a routerLink="" (click)="displayEditComment(comment.commentId, comment.content)" class="edit-delete-icon card-text  comment-icon" data-bs-toggle="tooltip" title="Edit comment"><i class="bi bi-pencil-fill mx-2"></i></a>
+                            <a routerLink="" (click)="displayDeleteComment(comment.commentId)" class="edit-delete-icon  comment-icon"><i class="bi bi-trash3-fill  me-2 text-danger" data-bs-toggle="tooltip" title="Delete comment"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <app-create-entry>
+                
+            </app-create-entry>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+            <div *ngIf="deletePostPressed" class="w-100">
+                <app-delete-entry 
+                [entryToDelete]="'post'"
+                (deleteEntryEmitter)="deletePost()"
+                (cancelDeleteEmitter)="cancelDeletePost()">
+                </app-delete-entry>
+            </div>
+            <a routerLink="" (click)="displayDeletePost()" class="edit-delete-icon" data-bs-toggle="tooltip" title="Delete post"><i class="bi bi-trash3-fill me-2 text-danger"></i></a>
+            <p class="small-text-post">{{ util.convertDate(selectedPost.createdAt!) }}</p>
+        </div>
+            <ng-template #editTextBox>
+                <app-edit-textbox
+                [currItemToEdit]="itemToEdit"
+                [textContent]="textContent"
+                (editTextEmitter)="emitUpdatedText($event)"
+                (cancelEditTextEmitter)="cancelEditText($event)">    
+                </app-edit-textbox>
+            </ng-template>
+            <ng-template #noComments>
+                <div class="d-flex justify-content-center">
+                    <p>There are currently no comments for this post.</p>
+                </div>
+            </ng-template>
+    </div>
+</div>
+

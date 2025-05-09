@@ -14,7 +14,7 @@ export class CommentService {
 
   constructor() { }
 
-  baseUrl: string = baseUrl;
+  // baseUrl: string = baseUrl;
   httpClient: HttpClient = inject(HttpClient);
 
 
@@ -27,6 +27,7 @@ export class CommentService {
   }
 
   editComment(commentId: number, newContent: CommentDTO) {
+    console.log('SERVICE')
     return this.httpClient.patch(`${baseUrl}/comments/${commentId}`, newContent);
   }
 

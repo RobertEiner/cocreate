@@ -1,8 +1,8 @@
-
 <div class="parent">
-  <div class="card bg-transparent border-0 card-div text-white">
-    <h2 class="card-title text-center mt-4 bg-">Sign in</h2>
-    <div class="card-body">
+  <!-- TODO: fix the layout of the sign in component, you might want to delete all css and start over -->
+  <div class="card bg-transparent border-0 text-white ">
+    <h2 class="card-title text-center mt-4 ">Sign in</h2>
+    <div class="card-body ">
       <form class="" #signInForm="ngForm" (ngSubmit)="navigateToDashboard()">
         <div class="">
           <label for="" class="form-label">Username</label>
@@ -16,12 +16,16 @@
 
         </div>
         <div class="button-wrapper">
-          <input type="submit" value="Sign in" class="btn button-color w-50" >
+          <input type="submit" value="Sign in" class="btn button-color w-100" >
         </div>
       </form>
-    </div>
-    <div class="text-center">
-        <p>Don't have an account yet? <a href="" routerLink="/signup">Sign up</a> </p>
+      <div class="text-center">
+        <h5>or</h5>
+      </div>
+      <div class="text-center button-wrapper">
+          <!-- <p>Don't have an account yet? <a href="" data-bs-toggle="modal" data-bs-target="#postModal"  (click)="renderSignUp(); $event.preventDefault()">Sign up</a> </p> -->
+          <button class="btn button-color w-100" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign up</button>
+      </div>
     </div>
     
   </div>

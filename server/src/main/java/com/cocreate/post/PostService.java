@@ -52,7 +52,7 @@ public class PostService {
         if(post.isPresent()) {
             Post existingPost = post.get();
             existingPost.setTitle(title);
-            existingPost.setContent(content);
+            if(!existingPost.getContent().isEmpty()) existingPost.setContent(content);
             postRepository.save(existingPost);
         } else {
             throw new ResourceNotFoundException("There exists no user with that ID");
@@ -68,10 +68,7 @@ public class PostService {
 
     public void createPostForExistingDeveloper(int developerId, Post post) {
         Optional<Developer> developer = developerRepository.findById(developerId);
-        System.out.println("REPOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         if(developer.isPresent()) {
-            System.out.println("REPOOOOOOOOOOOO++++++++++++++++++++OOOOOOOOOOOOOOOOOOOOOOO");
-
             Post newPost = new Post();
             newPost.setTitle(post.getTitle());
             newPost.setContent(post.getContent());

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, inject, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommentService } from '../services/comment/comment.service';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
 import { PostService } from '../services/post/post.service';
+import { Util } from '../../util/util';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ProjectCardComponent {
   @Input() devUserName: string = "";
   @Output() postUpdated: EventEmitter<string> = new EventEmitter<string>();
   @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
+  util: Util = new Util();
 
   // services
   commentService: CommentService = inject(CommentService);
@@ -41,10 +43,10 @@ export class ProjectCardComponent {
   selectedPostId: number = 0;          // maybe shouldn't have default value??
   commentContent: string = '';
 
-  convertDate(post: Post): string {
-    const date = post.createdAt ? new Date(post.createdAt) : null;
-    return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
-  }
+  // convertDate(post: Post): string {
+  //   const date = post.createdAt ? new Date(post.createdAt) : null;
+  //   return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
+  // }
 
   openPostDetails(post: Post) {
     // this.router.navigate([`post/${post.postId}`],  {relativeTo: this.avtiveRoute});
@@ -55,7 +57,7 @@ export class ProjectCardComponent {
     this.selectedPostId = post.postId ? post.postId : 0;
     // console.log(post);
     const date = post.createdAt ? new Date(post.createdAt) : null;
-    console.log(date); //TODO: figure out what is wrong here!
+    console.log(date); 
 
   }
 

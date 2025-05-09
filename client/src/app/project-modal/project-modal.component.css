@@ -22,23 +22,11 @@
     color: rgb(255, 152, 152);
 }
 
-.modal-color {
-    background-color: #23637c;
-    color: #d3d9d4;
-} 
 
 .posted-by {
     font-size: small;
 }
 
-.icon{
-     font-size: 0.7rem;
-     cursor: pointer;
-}
-
-.icon-div {
-    display: inline-block;
-}
 
 .icon-post {
     font-size: 1rem;

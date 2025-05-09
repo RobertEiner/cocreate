@@ -13,12 +13,12 @@
               <div class="card card-div-detail modal-color" *ngFor="let comment of postComments">
                 <div class="">
                   <div class="icon-div" *ngIf="commentToEdit !== comment.commentId; else editTextBox">
-                    <p class="my-1 mx-2">{{ comment.content }}</p> 
+                    <p class="comment-text">{{ comment.content }}</p> 
                   </div>
                   <div>
                     <div class="">
                       <p class=" mb-1 mx-2 posted-by"> {{ comment.developer.userName}}</p>
-                      <p class=" mb-1 mx-2 small-text-comment">{{ convertDate(comment) }}</p>
+                      <p class=" mb-1 mx-2 small-text-comment">{{ util.convertDate(comment.createdAt!) }}</p>
                     </div>
                     <div *ngIf="comment.developer.userName === signedInUser && !deletePostPressed">
                       <div class="icon-div mb-1" >

@@ -1,0 +1,5 @@
+<div class="m-2 alert-delete rounded">
+    <p>Are you sure you want to delete the {{ entryToDelete }}?</p> 
+    <button class="btn btn-outline-light me-1 delete-button" data-bs-dismiss="modal" (click)="deleteEntry()" >Delete</button>
+    <button class="btn btn-outline-light" (click)="cancelDelete()" >Cancel</button>
+</div>

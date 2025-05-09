@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Developer } from '../models/developer';
 import { DeveloperService } from '../services/developer/developer.service';
 import { Router } from '@angular/router';
+import { LandingNavbarComponent } from '../landing-navbar/landing-navbar.component';
 
 
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LandingNavbarComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
@@ -25,6 +26,7 @@ export class SignUpComponent {
 
   developerService: DeveloperService = inject(DeveloperService);
   @ViewChild('registrationForm') form: NgForm = new NgForm([], []);
+  @Output() renderSignInEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   onFormSubmitted() {
     // console.log(this.form.controls['userName'].value);
@@ -47,6 +49,10 @@ export class SignUpComponent {
     });
 
 
+  }
+
+  renderSignIn() {
+    this.renderSignInEmitter.emit('sign-in');
   }
 
 

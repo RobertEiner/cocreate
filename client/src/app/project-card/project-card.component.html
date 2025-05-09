@@ -1,5 +1,5 @@
 <div class="row row-div">
-  <div class="card col-sm-2 card-div m-2 bg-transparent border-light" *ngFor="let post of posts">
+  <div class="card col-sm-2 card-div m-2 card-style" *ngFor="let post of posts">
     <div class="card-body card-body-div card-text">
       <h4 class="card-title">{{ post.title }}</h4>
       <br>
@@ -10,12 +10,12 @@
         <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
       </div>
     </div>
-    <div class="card-footer footer-div bg-transparent card-text">
+    <div class="card-footer footer-div card-style">
       <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#postModal" (click)="openPostDetails(post)">Show details</button>
       <div class="text-center">
         <small class="">Posted by {{ post.developer?.userName === devUserName? 'you' : post.developer?.userName}}</small>
         <br>
-        <p class="small-text-post">{{ convertDate(post) }}</p>
+        <p class="small-text-post">{{ util.convertDate(post.createdAt!) }}</p>
       </div>
     </div>
   </div>

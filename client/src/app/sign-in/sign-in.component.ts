@@ -1,28 +1,29 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DeveloperService } from '../services/developer/developer.service';
 import { Developer } from '../models/developer';
 import { CommonModule } from '@angular/common';
-
+import { LandingNavbarComponent } from '../landing-navbar/landing-navbar.component';
 
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule],
+  imports: [RouterLink, FormsModule, CommonModule, LandingNavbarComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',
 })
 export class SignInComponent {
 
   @ViewChild('signInForm') form: NgForm = new NgForm([], []);
+  @Output() renderSignUpEmitter: EventEmitter<string> = new EventEmitter<string>();
+  
   // Routing
   router: Router = inject(Router); //inject allows us to use DI without constructor
   activeRoute: ActivatedRoute = inject(ActivatedRoute);
   // Services
   developerService: DeveloperService = inject(DeveloperService);
-
 
   userName: string = '';
   password: string = '' ;
@@ -56,6 +57,10 @@ export class SignInComponent {
 
       }
     });
+  }
+
+  renderSignUp() {
+    // this.renderSignUpEmitter.emit('sign-up');
   }
 
 }

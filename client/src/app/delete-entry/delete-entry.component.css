@@ -1,0 +1,8 @@
+.delete-button {
+    background-color: rgb(247, 76, 76);
+}
+
+.delete-button:hover {
+    background-color: lightcoral;
+    color: white;
+}

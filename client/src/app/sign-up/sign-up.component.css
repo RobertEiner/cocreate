@@ -1,17 +1,4 @@
-.parent {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* border: 2px solid rgba(0, 255, 115, 0.607); */
-  height: 80vh;
-}
 
-.card-div {
-  display: flex;
-  justify-content: center;
-  width: 25%;
-  border: 3px solid rgb(0, 118, 51);
-}
 
 .button-wrapper {
   display: flex;
@@ -25,4 +12,8 @@ input.ng-invalid.ng-touched {
 
 .invalid-msg {
     color: red;
+}
+
+.logo-styling {
+    width: 15%;
 }
