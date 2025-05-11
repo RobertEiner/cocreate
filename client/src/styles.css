@@ -6,6 +6,16 @@ body {
     color: #d3d9d4;
 }
 
+.dark-text {
+    color: #000000;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #9d82e8, #82e8d9); /* Define your gradient colors */
+    -webkit-background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent to show the gradient */
+}
+
 .button-color {
     background-color: #2dbbb9;
     color: #eeeeee;
@@ -34,6 +44,14 @@ body {
 .flex-jc-c {
     display: flex;
     justify-content: center;
+}
+
+/* ----------------- naavbar ----------------------------- */
+
+
+.navbar-img {
+    width: 4%;
+    height: 4%;
 }
 
 /* ----------------- Alerts ----------------------------- */

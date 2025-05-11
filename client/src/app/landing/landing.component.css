@@ -1,6 +1,11 @@
 
 .spacing-signin {
     margin-top: 6rem;
+    height: 100vh;
+}
+
+.sign-in-width {
+    width: 60%
 }
 
 .margin-carousel {
@@ -8,7 +13,16 @@
 }
 
 .custom-width {
-    width: 60%;
+    width: 80%;
     margin:auto;
 }
+
+.carousel-bg {
+    background-color: #d3d9d4;
+    /* margin-bottom: 15%; */
+    padding-bottom: 10%;
+    color: #23637c;
+}
+
+
 

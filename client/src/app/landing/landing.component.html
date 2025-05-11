@@ -2,25 +2,27 @@
 <div class="container spacing-signin">  
   <div class="custom-width">
     <div class="row align-items-center">
-      <div class="col d-flex justify-content-center mt-5">
+      <div class="col d-flex flex-column justify-content-center align-items-center mt-5 text-center">
         <img src="assets/images/rocket-logo.png" alt="" class="w-50">
+        <h3 class="card-text mt-3">Are you ready for <span class="gradient-text">your</span> idea to take off?</h3>
           <!-- TODO: Keep working on the columns here -->
       </div>
       <div class="col d-flex justify-content-center">
         <app-sign-up></app-sign-up>
-        <app-sign-in></app-sign-in>
+        <app-sign-in class="sign-in-width "></app-sign-in>
       </div>
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-center">
-  <div id="carouselExampleIndicators" class="carousel slide w-75 text-center card-text margin-carousel">
+<div class="d-flex justify-content-center carousel-bg ">
+  <div id="carouselExampleIndicators" class="carousel slide w-75 text-center margin-carousel " data-bs-theme="dark">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
       </div>
-      <h3>Examples of companies that started right here on CoCreate</h3>
+      <h3>Some of the greatest ideas started right here on CoCreate</h3>
       <div class="carousel-inner text-center">
         <div class="carousel-item active">
           <h1>Facebook</h1>
@@ -49,9 +51,4 @@
       </button>
     </div>
 </div>
-<div>
-  <!-- TODO: Add a footer  here -->
-  <footer>
-    FOOTER
-  </footer>
-</div>
+ <app-footer></app-footer> 

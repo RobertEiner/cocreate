@@ -51,9 +51,15 @@ export class SignUpComponent {
 
   }
 
-  renderSignIn() {
-    this.renderSignInEmitter.emit('sign-in');
+  resetForm() {
+    this.form.reset();
   }
+
+  // renderSignIn() {
+  //   this.renderSignInEmitter.emit('sign-in');
+  // }
+
+
 
 
 

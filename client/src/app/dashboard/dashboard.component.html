@@ -2,7 +2,7 @@
 <app-navbar></app-navbar>
 <div class="parent-welcome">
   <div class="welcome-div">
-    <h3 class="welcome-msg">Welcome to your dashboard, {{ userName }}.</h3>
+    <h3 class="welcome-msg">Welcome to your dashboard, <span class="gradient-text">{{ userName }}.</span></h3>
       <button *ngIf="activeView==='createPost'" class="btn btn-outline-light show-projects-btn me-2" (click)="getAllPosts()">Show posts</button>
       <button *ngIf="activeView==='showPosts'" class="btn btn-outline-light" (click)="createPost()">Create post</button>
   </div>
@@ -16,16 +16,5 @@
 (postDeleted)="getAllPosts()"
 ></app-project-card>
 <app-create-post *ngIf="activeView === 'createPost'" [devId]="developerId"></app-create-post>
-<div class="text-center mt-5">
-  <p>This is for testing rebase</p>
-</div>
-<div>
-  <h1>lets test again rebase</h1>
-</div>
+<app-footer></app-footer>
 
-<div>
-  <h3>rebase #######3</h3>
-</div>
-<div>
-  <h3>also for rebase 33333</h3>
-</div>

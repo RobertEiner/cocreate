@@ -10,12 +10,13 @@ import { DeveloperService } from '../services/developer/developer.service';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Util } from '../../util/util';
+import { FooterComponent } from "../footer/footer.component";
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, CommonModule, ProjectCardComponent, CreatePostComponent, NavbarComponent],
+  imports: [RouterLink, CommonModule, ProjectCardComponent, CreatePostComponent, NavbarComponent, FooterComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

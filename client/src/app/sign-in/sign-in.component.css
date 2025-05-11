@@ -1,4 +1,18 @@
 
+.section-divider {
+  margin: 0.5rem 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  margin: 0 1rem;
+}
 
 .button-wrapper {
     display: flex;
