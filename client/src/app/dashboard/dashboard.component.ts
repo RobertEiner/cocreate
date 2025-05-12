@@ -11,12 +11,15 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Util } from '../../util/util';
 import { FooterComponent } from "../footer/footer.component";
+import { FilterComponent } from '../filter/filter.component';
+
+
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, CommonModule, ProjectCardComponent, CreatePostComponent, NavbarComponent, FooterComponent],
+  imports: [RouterLink, CommonModule, ProjectCardComponent, CreatePostComponent, NavbarComponent, FooterComponent, FilterComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -36,7 +39,6 @@ export class DashboardComponent implements OnInit {
   developerId: number = 0;
   userName: string = '';
   posts: Post[] = [];
-  activeView: string = 'showPosts';
 
 
   ngOnInit(): void {
@@ -58,13 +60,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  createPost() {
-    this.activeView = 'createPost'
-  }
-
   getAllPosts() {
-    this.activeView = 'showPosts'
-
     // when the button gets pressed, this subscribe method gets executed, and then the observable gets executed.
     this.postService.getAllPosts().subscribe({ //
       next: (response: Post[]) => {

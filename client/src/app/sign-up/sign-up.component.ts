@@ -26,7 +26,6 @@ export class SignUpComponent {
 
   developerService: DeveloperService = inject(DeveloperService);
   @ViewChild('registrationForm') form: NgForm = new NgForm([], []);
-  @Output() renderSignInEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   onFormSubmitted() {
     // console.log(this.form.controls['userName'].value);
@@ -55,9 +54,6 @@ export class SignUpComponent {
     this.form.reset();
   }
 
-  // renderSignIn() {
-  //   this.renderSignInEmitter.emit('sign-in');
-  // }
 
 
 

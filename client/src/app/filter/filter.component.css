@@ -1,0 +1,8 @@
+.filter-bg {
+    background-color: #23637c;
+}
+
+
+.filter-btn:hover .filter-icon {
+  color: black !important;
+}

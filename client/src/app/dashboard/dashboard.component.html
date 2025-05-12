@@ -1,20 +1,24 @@
 
 <app-navbar></app-navbar>
 <div class="parent-welcome">
-  <div class="welcome-div">
+  <div class="welcome-div ">
     <h3 class="welcome-msg">Welcome to your dashboard, <span class="gradient-text">{{ userName }}.</span></h3>
-      <button *ngIf="activeView==='createPost'" class="btn btn-outline-light show-projects-btn me-2" (click)="getAllPosts()">Show posts</button>
-      <button *ngIf="activeView==='showPosts'" class="btn btn-outline-light" (click)="createPost()">Create post</button>
+      <div class="d-flex justify-content-between w-100">
+        <app-filter></app-filter>
+        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#createPostModal">Create post</button>
+      </div>
   </div>
 </div>
 <app-project-card 
-*ngIf="activeView === 'showPosts'" 
 [posts]="posts"
 [devId]="developerId"
 [devUserName]="userName"
 (postUpdated)="getAllPosts()"
 (postDeleted)="getAllPosts()"
 ></app-project-card>
-<app-create-post *ngIf="activeView === 'createPost'" [devId]="developerId"></app-create-post>
+<app-create-post 
+[devId]="developerId"
+(postCreated)="getAllPosts()"
+></app-create-post>
 <app-footer></app-footer>
 
