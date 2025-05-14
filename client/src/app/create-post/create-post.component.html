@@ -1,28 +1,55 @@
-<div class="parent mt-5">
-  <div class="row w-50">
-    <div class="card card-div bg-transparent border-light">
-      <div class="card-body card-text">
-        <div *ngIf="showSuccessMessage" class="alert alert-success fade show" role="alert">
-          Post successfully created!
-          <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <h3 class="card-title text-center">Create a new post</h3>
-        <form action="" #createPostForm="ngForm" (ngSubmit)="onFormSubmit()">
-            <div>
-                <label for="">Title</label>
-                <input name="title" type="text" class="form-control" required #titleRef="ngModel" [(ngModel)]="title">
-                <small *ngIf="titleRef.invalid && titleRef.touched" class="invalid-msg">*Title is required</small>
-            </div>
-            <div>
-                <label for="">Description</label>
-                <textarea name="description" id="" class="form-control" required #descriptionRef="ngModel" [(ngModel)]="content"></textarea>
-                <small *ngIf="descriptionRef.invalid && descriptionRef.touched" class="invalid-msg">*Description is required</small>
-            </div>
-            <div class="text-center">
-                <input value="Create post" type="submit" class="btn btn-outline-light mt-2 w-50" [disabled]="createPostForm.invalid">
-            </div>
-        </form>
+
+
+<div class="modal fade" id="createPostModal" (hidden.bs.modal)="resetForm()" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content modal-color">
+      <div  data-bs-theme="dark" class=" m-2">
+        <button type="button" class="btn-close modal-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="modal-body">  
+          <div class="parent">
+            <div class="row w-75">
+              <div class="card bg-transparent border-0">
+                <div class="card-body card-text">
+                  <!-- <div *ngIf="showSuccessMessage" class="alert alert-success fade show" role="alert">
+                    Post successfully created!
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div> -->
+                  <div class="toast align-items-center text-bg-success border-0 " id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="d-flex">
+                    <div class="toast-body">
+                      Post successfully created <i class="bi bi-check2"></i>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                </div> 
+                  <h3 class="card-title text-center">Create a new post</h3>
+                  <form action="" #createPostForm="ngForm" (ngSubmit)="onFormSubmit()">
+                      <div>
+                          <label for="">Title</label>
+                          <input name="title" type="text" class="form-control" required #titleRef="ngModel" [(ngModel)]="title">
+                          <small *ngIf="titleRef.invalid && titleRef.touched" class="invalid-msg">*Title is required</small>
+                      </div>
+                      <div>
+                          <label for="">Description</label>
+                          <textarea name="description" id="" class="form-control" required #descriptionRef="ngModel" [(ngModel)]="content"></textarea>
+                          <small *ngIf="descriptionRef.invalid && descriptionRef.touched" class="invalid-msg">*Description is required</small>
+                      </div>
+                      <div class="text-center">
+                          <input value="Create post" type="submit" class="btn btn-outline-light mt-2 w-50" [disabled]="createPostForm.invalid">
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+
+
+
+
+
+  

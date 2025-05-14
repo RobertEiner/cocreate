@@ -1,6 +1,6 @@
 
 
-<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="signUpModal" (hidden.bs.modal)="resetForm()" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content modal-color">
       <div  data-bs-theme="dark" class=" m-2">
@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">  
         <div class="parent">
-          <div class="card bg-transparent border-0 text-white">
+          <div class="card bg-transparent border-0 card-text">
             <div class="d-flex justify-content-center">
               <img src="assets/images/rocket-logo.png" alt="" class="logo-styling mt-1 mb-2">
             </div>

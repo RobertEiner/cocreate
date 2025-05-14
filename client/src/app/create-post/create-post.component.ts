@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, ViewChild } from '@angular/core';
+import { Component, inject, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { PostService } from '../services/post/post.service';
 import { Post } from '../models/post';
-
-
 
 @Component({
   selector: 'app-create-post',
@@ -17,6 +15,7 @@ export class CreatePostComponent {
 
   @ViewChild('createPostForm') form: NgForm = new NgForm([], []);
   @Input() devId: number = 0;
+  @Output() postCreated: EventEmitter<string> = new EventEmitter<string>();
   postService: PostService = inject(PostService);
 
   // Class variables
@@ -29,10 +28,20 @@ export class CreatePostComponent {
   onFormSubmit() {
     const newPost: Post = new Post(this.title, this.content);
     this.postService.createPost(this.devId, newPost).subscribe({
-      next: (response: Post) => {
+      next: (response: Post) => { 
         console.log(response);
-        this.form.resetForm();
-        this.showSuccessMessage = true;
+        this.form.resetForm();        
+        if (typeof window !== 'undefined') {
+        import('bootstrap').then(({ Toast }) => {
+        const toastSuccess = document.getElementById('successToast');
+        if (toastSuccess) {
+          const toast = Toast.getOrCreateInstance(toastSuccess);
+          toast.show();
+        }
+        this.postCreated.emit('created');
+      });
+}
+
         setTimeout(() => {
           this.showSuccessMessage = false;
         }, 3000)
@@ -41,6 +50,10 @@ export class CreatePostComponent {
         console.log(err);
       }
     })
+  }
+
+  resetForm() {
+    this.form.resetForm();
   }
 
 
