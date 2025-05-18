@@ -13,9 +13,6 @@ import { Util } from '../../util/util';
 import { FooterComponent } from "../footer/footer.component";
 import { FilterComponent } from '../filter/filter.component';
 
-
-
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -39,6 +36,7 @@ export class DashboardComponent implements OnInit {
   developerId: number = 0;
   userName: string = '';
   posts: Post[] = [];
+  chosenFilterExists: boolean = true;
 
 
   ngOnInit(): void {
@@ -62,9 +60,36 @@ export class DashboardComponent implements OnInit {
 
   getAllPosts() {
     // when the button gets pressed, this subscribe method gets executed, and then the observable gets executed.
-    this.postService.getAllPosts().subscribe({ //
+    // console.log('Fetching all posts...');
+    this.chosenFilterExists = true; 
+    this.postService.getAllPosts().subscribe({ 
       next: (response: Post[]) => {
         this.posts = response;
+      },
+      error(error) {
+        console.error('Error fetching posts: ', error);
+      },
+    }); 
+  }
+
+  filterPosts(tickedLanguages: { [key: string]: boolean }) {
+    // const filteredPosts: Post[] = [];
+    this.postService.getAllPosts().subscribe({
+      next: (response: Post[]) => {
+        this.posts = response;
+        const filteredPosts = this.posts.filter((post) => { 
+         return tickedLanguages[post.developer?.preferredLanguage || ''] === true;
+        });
+          console.log('No posts found1 :', this.chosenFilterExists );
+    
+        if(filteredPosts.length === 0) {
+          this.chosenFilterExists = false;
+          console.log('No posts found2 :', this.chosenFilterExists );
+        } else {
+          this.chosenFilterExists = true;
+          this.posts = filteredPosts;
+          console.log('Filtered posts: ', this.posts);
+        }
       },
       error(error) {
         console.error('Error fetching posts: ', error);

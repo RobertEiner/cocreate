@@ -4,12 +4,15 @@
   <div class="welcome-div ">
     <h3 class="welcome-msg">Welcome to your dashboard, <span class="gradient-text">{{ userName }}.</span></h3>
       <div class="d-flex justify-content-between w-100">
-        <app-filter></app-filter>
+        <app-filter
+        (postFilterEmitter)="filterPosts($event)"
+        (refetchAllPostsEmitter)="getAllPosts()"></app-filter>
         <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#createPostModal">Create post</button>
       </div>
   </div>
 </div>
 <app-project-card 
+*ngIf="chosenFilterExists; else noFilteredPosts"
 [posts]="posts"
 [devId]="developerId"
 [devUserName]="userName"
@@ -21,4 +24,9 @@
 (postCreated)="getAllPosts()"
 ></app-create-post>
 <app-footer></app-footer>
+ <ng-template #noFilteredPosts>
+    <div class="text-center card-text mt-5">
+        <h5>Whoops, there are currently no posts that match the filter.</h5>
+    </div>
+</ng-template>
 
