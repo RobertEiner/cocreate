@@ -4,11 +4,19 @@
     margin-right: 0; /*The "row"-class adds margin to the div, this is to counteract that */
 }
 
+.card-title {
+display: -webkit-box; /* Enables the use of line-clamp */
+-webkit-line-clamp: 2; /* Limits the text to 2 lines */
+-webkit-box-orient: vertical; /* Specifies vertical orientation for the box */
+overflow: hidden; /* Hides overflowing text */
+text-overflow: ellipsis; /* Adds "..." to indicate truncated text */
+word-wrap: break-word; 
+
+}
 
 .card-body-div {
     text-align: center;
 }
-
 
 .footer-div button {
     width: 100%;
@@ -17,7 +25,7 @@
 .code-lang-img {
     width: 15%;
     height: 15%;
-
+    margin-right: 5%;
 }
 
 

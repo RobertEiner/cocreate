@@ -1,8 +1,7 @@
 <nav class="navbar navbar-parent navbar-expand-lg ">
     <div class="container-fluid">
       <img src="assets/images/rocket-logo.png" alt="" class="navbar-img ms-4">
-      <a class="navbar-brand navbar-parent card-text ms-2 gradient-text " href="#">{{ title }}</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand navbar-parent card-text ms-2 gradient-text " href="#">{{ title }}</a>      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse " id="navbarSupportedContent">
@@ -11,11 +10,11 @@
             <a class="nav-link dropdown-toggle navbar-parent" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ profileDropdown }}
             </a>
-            <ul class="dropdown-menu dropdown-menu-end card-style">
+            <ul class="dropdown-menu dropdown-menu-end options-dropdown bg-gradient">
               <li><a class="dropdown-item card-text navbar-dropdown-style" (click)="navigate('profile')">Profile</a></li>
               <li><a class="dropdown-item card-text navbar-dropdown-style" (click)="navigate('dashboard')">Dashboard</a></li>
               <div class="hr-dropdown ">
-                <hr class="dropdown-divider w-75">
+                <hr class=" w-75">
               </div>
               <li><a class="dropdown-item navbar-dropdown-logout" href="#" >Log out</a></li>
             </ul>

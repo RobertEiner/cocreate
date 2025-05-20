@@ -1,8 +1,13 @@
 .filter-bg {
     background-color: #23637c;
-}
+    border-color: #d3d9d4;
 
+}
 
 .filter-btn:hover .filter-icon {
   color: black !important;
+}
+
+.checkbox-spacing {
+    margin-left: 5%;
 }

@@ -5,6 +5,13 @@
 .hr-dropdown {
     display: flex;
     justify-content: center;
+    color: #d3d9d4;
+
+}
+
+.options-dropdown {
+    background-color: #23637c;
+    border-color: #d3d9d4;
 }
 
 .navbar-dropdown-style:hover {
