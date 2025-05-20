@@ -4,10 +4,8 @@
       <h4 class="card-title">{{ post.title }}</h4>
       <br>
       <div class="">
-        <p><img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img"> </p>
-      </div>
-      <div class="">
-        <p><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</p>
+        <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img"> 
+        <i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}
       </div>
     </div>
     <div class="card-footer footer-div card-style">

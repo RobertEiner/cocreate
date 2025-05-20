@@ -80,15 +80,12 @@ export class DashboardComponent implements OnInit {
         const filteredPosts = this.posts.filter((post) => { 
          return tickedLanguages[post.developer?.preferredLanguage || ''] === true;
         });
-          console.log('No posts found1 :', this.chosenFilterExists );
     
         if(filteredPosts.length === 0) {
           this.chosenFilterExists = false;
-          console.log('No posts found2 :', this.chosenFilterExists );
         } else {
           this.chosenFilterExists = true;
           this.posts = filteredPosts;
-          console.log('Filtered posts: ', this.posts);
         }
       },
       error(error) {
