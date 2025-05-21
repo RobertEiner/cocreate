@@ -26,6 +26,7 @@
     // Inputs and Outputs
     @Input() postTitle: string = '';
     @Input() postDescription: string = '';
+    @Input() postDevCategory: string = '';
     @Input() postAuthor: string = '';
     @Input() postComments: Comment[] = [];
     @Input() postId: number = 0;
@@ -50,6 +51,11 @@
     editPostPressed: boolean = false;
 
 
+    resetMModal() {
+      this.deletePostPressed = false;
+      this.editPostPressed = false;
+    }
+
     // ------------------------------- Create comment ------------------------
     createComment() {
       const commentDTO: CommentDTO = { 
@@ -62,7 +68,6 @@
           // clear the textarea
           this.form.reset();
           // emit to parent that a comment has been created 
-          console.log('HÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄR')
           this.commentUpdated.emit(this.postId);
         },
         error(err) {
@@ -109,6 +114,7 @@
       const editedPost: Post = {
         title: this.postTitle,
         content: postContent.newContent,
+        devCategory: this.postDevCategory,
         developer: null,
         comments: []
       }

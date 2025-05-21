@@ -1,4 +1,4 @@
-<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="postModal" tabindex="-1" (hidden.bs.modal)="resetMModal()" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content modal-color">
       <div  data-bs-theme="dark" class="modal-header">
@@ -46,7 +46,7 @@
             <div>
               <p>Are you sure you want to delete this post?</p>
               <button (click)="reallyDeletePost(postId)" class="btn btn-danger me-2" data-bs-dismiss="modal">Delete</button>
-              <button (click)="cancelDeletePost()" class="btn btn-outline-light">Cancel</button>
+              <button (click)="cancelDeletePost()" class="btn btn-light">Cancel</button>
             </div>
           </div>
           <!-- Edit or delete post -->

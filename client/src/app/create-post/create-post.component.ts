@@ -21,12 +21,12 @@ export class CreatePostComponent {
   // Class variables
   title: string = '';
   content: string = '';
+  devCategory: string = '';
   showSuccessMessage: boolean = false;
 
-
-
   onFormSubmit() {
-    const newPost: Post = new Post(this.title, this.content);
+    const newPost: Post = new Post(this.title, this.content, this.devCategory);
+    console.log(newPost)
     this.postService.createPost(this.devId, newPost).subscribe({
       next: (response: Post) => { 
         console.log(response);
@@ -40,15 +40,11 @@ export class CreatePostComponent {
         }
         this.postCreated.emit('created');
       });
-}
-
-        setTimeout(() => {
-          this.showSuccessMessage = false;
-        }, 3000)
-      },
-      error(err) {
-        console.log(err);
       }
+     },
+    error(err) {
+       console.log(err);
+    }
     })
   }
 

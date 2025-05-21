@@ -44,6 +44,14 @@ public class Post {
     @JsonIgnoreProperties("post") // is used to break the infinite loop that occurs when using bidirectional relationships (post - comment)
     private List<Comment> comments;
 
+    @Column
+    @NotNull(message = "Development category cannot be null")
+    @NotEmpty(message = "Development category cannot be empty")
+    private String devCategory;
+
+    // TODO: Create tech stack column
+    //private List<String> techStack;
+
     @Column(name = "created_at")
     // automatically inserts the current timestamp at the time of creation of a post. Is needed to be able to insert the date into the database.
     @CreationTimestamp

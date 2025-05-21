@@ -3,9 +3,10 @@
     <div class="card-body card-body-div card-text">
       <h4 class="card-title">{{ post.title }}</h4>
       <br>
-      <div class="">
+      <div class="post-details">
         <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img"> 
-        <i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}
+        <span><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</span>
+        <span><i class="bi bi-code-square"></i> {{ post.devCategory }}</span>
       </div>
     </div>
     <div class="card-footer footer-div card-style">
@@ -21,6 +22,7 @@
 <app-project-modal
 [postTitle]="selectedPostTitle"
 [postDescription]="selectedPostContent"
+[postDevCategory]="selectedPostDevCategory"
 [postAuthor]="selectedPostAuthor"
 [postComments]="selectedPostComments"
 [postId]="selectedPostId"

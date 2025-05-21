@@ -29,6 +29,7 @@ export class MyPostsComponent implements OnInit {
   post: Post = {
      title: '',
      content: '',
+     devCategory: '',
      developer: null,
      comments: []
   }

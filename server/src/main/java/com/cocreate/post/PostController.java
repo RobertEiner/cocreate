@@ -69,7 +69,6 @@ public class PostController {
     // Get all comments for a specific post
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDTO>> findAllComments(@PathVariable int id) {
-        System.out.println("HELLLOOOOOOOOOOOOOOOO");
         List<CommentDTO> comments = commentService.findCommentsOfPost(id);
         return ResponseEntity.status(HttpStatus.OK).body(comments);
     }
