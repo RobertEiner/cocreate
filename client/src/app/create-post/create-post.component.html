@@ -37,7 +37,6 @@
                       </div>
                       <div>
                         <label>Development category</label>
-                        <!-- // TODO: continue here -->
                         <select class="form-select" aria-label="Select development category" name="Development category" [(ngModel)]="devCategory" >
                           <option value="" disabled selected>Categories</option>
                             <option value="Web">Web development</option>
@@ -49,6 +48,8 @@
                         </select>
                         <small *ngIf="!devCategory && createPostForm.submitted" class="invalid-msg">*Category is required</small>
                       </div>
+                        <!-- // TODO: create new input for tech stack for post enity-->
+
                       <div class="text-center">
                           <input value="Create post" type="submit" class="btn btn-outline-light mt-2 w-50" [disabled]="createPostForm.invalid">
                       </div>

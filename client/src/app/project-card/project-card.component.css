@@ -31,7 +31,7 @@ word-wrap: break-word;
 .post-details {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items:   center ;
     gap: 0.5rem;
 }
 
