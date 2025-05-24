@@ -35,21 +35,16 @@ export class ProjectCardComponent {
   router: Router = inject(Router);
   avtiveRoute: ActivatedRoute = inject(ActivatedRoute);
   // class variables
-  createdAt: Date = new Date();
-  selectedPostTitle: string = '';
-  selectedPostContent: string = '';
-  selectedPostDevCategory: string = '';
-  selectedPostAuthor: string = '';
-  selectedPostComments: Comment[] = [];
-  selectedPostId: number = 0;          // maybe shouldn't have default value??
+  // createdAt: Date = new Date();
+  // selectedPostTitle: string = '';
+  // selectedPostContent: string = '';
+  // selectedPostDevCategory: string = '';
+  // selectedPostAuthor: string = '';
+  // selectedPostComments: Comment[] = [];
+  // selectedPostId: number = 0;          // maybe shouldn't have default value??
   commentContent: string = '';
   currentPost: Post = new Post('', '', '');
 
-
-  // convertDate(post: Post): string {
-  //   const date = post.createdAt ? new Date(post.createdAt) : null;
-  //   return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
-  // }
 
   openPostDetails(post: Post) {
     this.currentPost = post;
@@ -86,7 +81,7 @@ export class ProjectCardComponent {
   onPostUpdated(postId: number) {
     this.postService.getPostById(postId).subscribe({
       next: (response: Post) => {
-        this.selectedPostContent = response.content;
+        this.currentPost.content = response.content;
         this.postUpdated.emit("post updated")
       },
       error(err) {
