@@ -1,13 +1,15 @@
 ## CoCreate
 
-This is a web application which will serve as a portal for developers to meet and find eople to collaborate with on projects. 
-The backend is currently being built with Spring Boot. The frontend will be developed with Angular in the future.
+This is a web application which will serve as a portal for developers to meet and find people to collaborate with on projects. 
+
+#### Backend
+The backend is currently being built with Spring Boot. 
+
+#### Frontend
+The frontend is buing beilt with angular.
 
 This is a work in progress.
 
 ### TODO:
-Unit tests:
-- [ ] create tests for developerService class
-- [ ] create tests for all controllers
+See issues.
 
-Start implementing the Frontend application
