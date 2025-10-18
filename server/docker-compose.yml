@@ -2,21 +2,44 @@ version: '3.8'
 
 services:
   cocreate:
-    image: sb-cocreate
-    #build: .
+    image: cocreate
+    build: .
     ports:
-      - 8080:8080
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/cocreate
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      mysqldb:
+        condition: service_healthy
 
 
   mysqldb:
-   container_name: mysql-db
+   #container_name: mysql-db
    image: mysql:latest
    restart: unless-stopped
    ports:
      - "3366:3306"
+   volumes:
+    # This keeps the data even after restarts. This mounts the mysqldb-data volume inside the container at the location /var/lib/mysql
+    - mysqldb-data:/var/lib/mysql
+    # This line will import your dump once (the first time the DB starts)
+    - ./mysql_dumps/cocreate_dump.sql:/docker-entrypoint-initdb.d/cocreate_dump.sql
    environment:
       MYSQL_ROOT_PASSWORD: root
       #MYSQL_USER: root
       MYSQL_DATABASE: cocreate
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+   healthcheck:
+     test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+     interval: 5s
+     timeout: 10s
+     retries: 10
+
+# This is the volume where all data gets persisted
+volumes:
+  mysqldb-data:
+
 
 

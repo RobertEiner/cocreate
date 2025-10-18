@@ -1,8 +1,11 @@
 FROM eclipse-temurin:17-jdk-focal
 
-EXPOSE 8080
+# create the working directory for the container
+WORKDIR /app
 
-ADD target/sb-cocreate.jar sb-cocreate.jar
+# copy the jar file into the workdir
+COPY target/sb-cocreate.jar sb-cocreate.jar
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "sb-cocreate.jar"]
 

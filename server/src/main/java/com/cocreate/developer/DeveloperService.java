@@ -28,7 +28,7 @@ public class DeveloperService {
         return developerDTOMapper.mapToDTO(dev);
     }
 
-    // Find a developer by it's ID
+    // Find a developer by its ID
     public DeveloperDTO findDeveloperById(int id) {
         return developerRepository.findById(id)
                 .map(developerDTOMapper::mapToDTO)        // We are only working with a single value and don't need to use streams
@@ -74,7 +74,6 @@ public class DeveloperService {
             throw new ResourceNotFoundException("There is no developer with that user name!");
         }
         System.out.println(dev.get().getPosts());
-        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERE");
         if(dev.get().getPassword().equals(signInRequestDTO.getPassword())) {
             return developerDTOMapper.mapToDTO(dev.get());
         } else {
