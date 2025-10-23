@@ -42,7 +42,6 @@ public class DeveloperController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
     public DeveloperDTO createDeveloper(@RequestBody @Valid Developer newDeveloper) {  // @Valid will trigger the validations when creating a user, as you have set in User.java
-        System.out.println(newDeveloper.getUserName());
         return developerService.createDeveloper(newDeveloper);
     }
 
@@ -61,7 +60,6 @@ public class DeveloperController {
 
     @PostMapping("/{id}/posts")
     public ResponseEntity<String> createPostForExistingDeveloper(@PathVariable int id, @RequestBody Post post) {
-        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEERe" + post.getCreatedAt());
         postService.createPostForExistingDeveloper(id, post);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

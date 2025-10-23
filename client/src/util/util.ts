@@ -15,6 +15,6 @@ export class Util {
 
     convertDate(createdAt: string): string {
         const date = createdAt ? new Date(createdAt) : null;
-        return date?.getFullYear() + '-' + date?.getMonth() + '-' + date?.getDate();
+        return date?.getFullYear() + '-0' +(date?.getMonth()! + 1) + '-' + date?.getDate();
     }
 }

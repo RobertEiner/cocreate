@@ -24,7 +24,7 @@ export class PostModalComponent {
   postService: PostService = inject(PostService)
 
   // Inputs
-  @Input() selectedPost: Post = new Post("", "");
+  @Input() selectedPost: Post = new Post("", "", "");
   @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
   @Output() postUpdated: EventEmitter<number> = new EventEmitter<number>();
   @Output() postDeleted: EventEmitter<number> = new EventEmitter<number>();
@@ -97,6 +97,7 @@ editPostTitle(newTitle: string) {
   const editedPost: Post = {
     title: newTitle,
     content: this.selectedPost.content,
+    devCategory: this.selectedPost.devCategory,
     developer: null,
     comments: []
   }
@@ -116,6 +117,7 @@ editPostContent(newContent: string) {
   const editedPost: Post = {
     title: this.selectedPost.title,
     content: newContent,
+    devCategory: this.selectedPost.devCategory,
     developer: null,
     comments: []
   }

@@ -1,16 +1,20 @@
-<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="postModal" tabindex="-1" (hidden.bs.modal)="resetMModal()" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content modal-color">
       <div  data-bs-theme="dark" class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ postTitle }}</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ post.title }}</h1>
         <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">  
-        <p *ngIf="!editPostPressed; else editTextBox">{{ postDescription }}</p>
+        <p *ngIf="!editPostPressed; else editTextBox">{{ post.content }}</p>
+        <div>         
+        <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img-modal"> 
+          <span class="badge rounded-pill text-bg-info"><i class="bi bi-code-square "></i> {{ post.devCategory }}</span>
+        </div>
         
-        <div class="row" *ngIf="postComments.length > 0; else noComments" >
+        <div class="row" *ngIf="post.comments.length > 0" >
             <div>
-              <div class="card card-div-detail modal-color" *ngFor="let comment of postComments">
+              <div class="card card-div-detail modal-color" *ngFor="let comment of post.comments">
                 <div class="">
                   <div class="icon-div" *ngIf="commentToEdit !== comment.commentId; else editTextBox">
                     <p class="comment-text">{{ comment.content }}</p> 
@@ -23,7 +27,7 @@
                     <div *ngIf="comment.developer.userName === signedInUser && !deletePostPressed">
                       <div class="icon-div mb-1" >
                         <a routerLink="" (click)="displayEditCommentTextBox(comment.commentId, comment.content)"><i class="bi bi-pencil-fill mx-2 icon"></i></a>
-                        <a routerLink="" (click)="deleteComment(comment.commentId, postId)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
+                        <a routerLink="" (click)="deleteComment(comment.commentId, post.postId!)"><i class="bi bi-trash3-fill icon me-2 text-danger"></i></a>
                       </div>
                     </div>
                   </div>
@@ -45,20 +49,19 @@
           <div *ngIf="deletePostPressed" class="alert alert-danger d-flex align-items-center" role="alert">
             <div>
               <p>Are you sure you want to delete this post?</p>
-              <button (click)="reallyDeletePost(postId)" class="btn btn-danger me-2" data-bs-dismiss="modal">Delete</button>
-              <button (click)="cancelDeletePost()" class="btn btn-outline-light">Cancel</button>
+              <button (click)="reallyDeletePost(post.postId!)" class="btn btn-danger me-2" data-bs-dismiss="modal">Delete</button>
+              <button (click)="cancelDeletePost()" class="btn btn-light">Cancel</button>
             </div>
           </div>
           <!-- Edit or delete post -->
           <div class="">
-            <div *ngIf="postAuthor == signedInUser">
-              <a routerLink="" (click)="displayEditPostTextbox(postId, postDescription)"><i class="bi bi-pencil-fill mx-2 icon-post float-start"></i></a>
-              <a routerLink="" (click)="deletePostModal(postId)" ><i class="bi bi-trash3-fill me-2 icon-post text-danger float-start"></i></a>
+            <div *ngIf="post.developer?.userName === signedInUser">
+              <a routerLink="" (click)="displayEditPostTextbox(post.postId!, post.content)"><i class="bi bi-pencil-fill mx-2 icon-post float-start"></i></a>
+              <a routerLink="" (click)="deletePostModal(post.postId!)" ><i class="bi bi-trash3-fill me-2 icon-post text-danger float-start"></i></a>
             </div>
-            <small class="float-end">Posted by {{ postAuthor == signedInUser? 'you' : postAuthor}}</small>
+            <small class="float-end">Posted by {{ post.developer?.userName == signedInUser? 'you' : post.developer?.userName}}</small>
           </div>
         </div>
-        <ng-template #noComments >Be the first to comment on this post</ng-template>
        
         <ng-template #editTextBox>
           <app-edit-textbox

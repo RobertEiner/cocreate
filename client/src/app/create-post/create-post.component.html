@@ -15,7 +15,7 @@
                     Post successfully created!
                     <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div> -->
-                  <div class="toast align-items-center text-bg-success border-0 " id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast align-items-center text-bg-success border-0 mb-3" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
                   <div class="d-flex">
                     <div class="toast-body">
                       Post successfully created <i class="bi bi-check2"></i>
@@ -35,6 +35,21 @@
                           <textarea name="description" id="" class="form-control" required #descriptionRef="ngModel" [(ngModel)]="content"></textarea>
                           <small *ngIf="descriptionRef.invalid && descriptionRef.touched" class="invalid-msg">*Description is required</small>
                       </div>
+                      <div>
+                        <label>Development category</label>
+                        <select class="form-select" aria-label="Select development category" name="Development category" [(ngModel)]="devCategory" >
+                          <option value="" disabled selected>Categories</option>
+                            <option value="Web">Web development</option>
+                            <option value="Embedded">Embedded development</option>
+                            <option value="Mobile app">Mobile app development</option>
+                            <option value="Game dev">Game development</option>
+                            <option value="Data science">Data science</option>
+                            <option value="Machine learning">Machine learning</option>
+                        </select>
+                        <small *ngIf="!devCategory && createPostForm.submitted" class="invalid-msg">*Category is required</small>
+                      </div>
+                        <!-- // TODO: create new input for tech stack for post enity-->
+
                       <div class="text-center">
                           <input value="Create post" type="submit" class="btn btn-outline-light mt-2 w-50" [disabled]="createPostForm.invalid">
                       </div>

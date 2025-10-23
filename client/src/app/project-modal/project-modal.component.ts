@@ -24,11 +24,14 @@
     @ViewChild('editCommentForm') editCommentForm: NgForm = new NgForm([], []);
     util: Util = new Util();
     // Inputs and Outputs
-    @Input() postTitle: string = '';
-    @Input() postDescription: string = '';
-    @Input() postAuthor: string = '';
-    @Input() postComments: Comment[] = [];
-    @Input() postId: number = 0;
+    @Input() post: Post = new Post('', '', '');
+
+    // @Input() postTitle: string = '';
+    // @Input() postDescription: string = '';
+    // @Input() postDevCategory: string = '';
+    // @Input() postAuthor: string = '';
+    // @Input() postComments: Comment[] = [];
+    // @Input() postId: number = 0;
     @Input() devId: number = 0;
     @Input() signedInUser: string = "";
     @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
@@ -50,20 +53,24 @@
     editPostPressed: boolean = false;
 
 
+    resetMModal() {
+      this.deletePostPressed = false;
+      this.editPostPressed = false;
+    }
+
     // ------------------------------- Create comment ------------------------
     createComment() {
       const commentDTO: CommentDTO = { 
         content: this.commentContent 
       }
       
-      this.commentService.createComment(this.postId, commentDTO, this.devId).subscribe({
+      this.commentService.createComment(this.post.postId!, commentDTO, this.devId).subscribe({
         next: (response: Comment) => {
           console.log(response.content);
           // clear the textarea
           this.form.reset();
           // emit to parent that a comment has been created 
-          console.log('HÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄR')
-          this.commentUpdated.emit(this.postId);
+          this.commentUpdated.emit(this.post.postId);
         },
         error(err) {
           console.error(err);
@@ -107,15 +114,16 @@
 
     editPost(postContent: TextToEdit) {
       const editedPost: Post = {
-        title: this.postTitle,
+        title: this.post.title,
         content: postContent.newContent,
+        devCategory: this.post.devCategory,
         developer: null,
         comments: []
       }
-      this.postService.editPostById(this.postId, editedPost).subscribe({
+      this.postService.editPostById(this.post.postId!, editedPost).subscribe({
         next: () => {
           this.editPostPressed = false;
-          this.postContentUpdated.emit(this.postId);
+          this.postContentUpdated.emit(this.post.postId);
         },
         error(err) {
           console.error(err);
@@ -158,7 +166,7 @@
       this.commentService.editComment(this.commentToEdit, editedComment).subscribe({
         next: () => {
           console.log('comment edited');
-          this.commentUpdated.emit(this.postId);
+          this.commentUpdated.emit(this.post.postId);
           this.commentToEdit = -1;
         }, 
         error(err) {

@@ -31,8 +31,8 @@ public class Developer {
     @Column(unique = true)      // email needs to be unique
     private String emailAddress;
 
-    @NotEmpty(message = "A preferred language must be added")
-    private String preferredLanguage;
+//    @NotEmpty(message = "A preferred language must be added")
+//    private String preferredLanguage;
 
     // mappedBy should be set to the name that the developer object has in the post entity
     // ALL means that whenever there is a change in the parent developer, the changes will be reflected in the post
@@ -50,7 +50,7 @@ public class Developer {
     public Developer(String userName, String emailAddress, String preferredLanguages) {
         this.userName = userName;
         this.emailAddress = emailAddress;
-        this.preferredLanguage= preferredLanguages;
+//        this.preferredLanguage= preferredLanguages;
     }
 
     public Developer() {
@@ -73,13 +73,13 @@ public class Developer {
         this.emailAddress = emailAddress;
     }
 
-    public String getPreferredLanguage() {
-        return preferredLanguage;
-    }
+//    public String getPreferredLanguage() {
+//        return preferredLanguage;
+//    }
 
-    public void setPreferredLanguages(String preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
-    }
+//    public void setPreferredLanguages(String preferredLanguage) {
+//        this.preferredLanguage = preferredLanguage;
+//    }
 
     public void setDeveloperId(int developerId) {
         this.developerId = developerId;

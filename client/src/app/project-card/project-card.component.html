@@ -3,9 +3,11 @@
     <div class="card-body card-body-div card-text">
       <h4 class="card-title">{{ post.title }}</h4>
       <br>
-      <div class="">
+      <div class="post-details">
         <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img"> 
-        <i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}
+        <span class="badge rounded-pill text-bg-info"><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</span>
+         
+        <span class="badge rounded-pill text-bg-info"><i class="bi bi-code-square "></i> {{ post.devCategory }}</span>
       </div>
     </div>
     <div class="card-footer footer-div card-style">
@@ -19,11 +21,7 @@
   </div>
 </div>
 <app-project-modal
-[postTitle]="selectedPostTitle"
-[postDescription]="selectedPostContent"
-[postAuthor]="selectedPostAuthor"
-[postComments]="selectedPostComments"
-[postId]="selectedPostId"
+[post]="currentPost"
 [devId]="devId"
 [signedInUser]="devUserName"
 (commentUpdated)="onCommentUpdated($event)"
@@ -31,3 +29,9 @@
 (postContentUpdated)="onPostUpdated($event)"
 ></app-project-modal>
 
+<!-- [postTitle]="currentPost.title"
+[postDescription]="selectedPostContent"
+[postDevCategory]="selectedPostDevCategory"
+[postAuthor]="selectedPostAuthor"
+[postComments]="selectedPostComments"
+[postId]="selectedPostId" -->

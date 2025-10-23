@@ -32,3 +32,9 @@
     font-size: 1rem;
     cursor: pointer;
 }
+
+.code-lang-img-modal {
+    width: 10%;
+    height: 10%;
+    margin-right: 3%;
+}

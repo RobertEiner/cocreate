@@ -6,6 +6,7 @@ export class Post {
     constructor(
         public title: string,
         public content: string,
+        public devCategory: string,
         public postId?: number,
         public developer: Developer | null = null,
         public comments: Comment[] | [] = [],

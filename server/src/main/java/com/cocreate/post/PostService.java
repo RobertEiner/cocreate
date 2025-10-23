@@ -73,6 +73,7 @@ public class PostService {
             newPost.setTitle(post.getTitle());
             newPost.setContent(post.getContent());
             newPost.setDeveloper(developer.get());
+            newPost.setDevCategory(post.getDevCategory());
             postRepository.save(newPost);
         } else {
             throw new ResourceNotFoundException("The developer doesn't exist");
