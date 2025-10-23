@@ -51,7 +51,7 @@ public class DeveloperService {
             // update dev
             if(updateInfo.getUserName() != null) existingDev.setUserName(updateInfo.getUserName());
             if(updateInfo.getEmailAddress() != null) existingDev.setEmailAddress(updateInfo.getEmailAddress());
-            if(updateInfo.getPreferredLanguage() != null) existingDev.setPreferredLanguages(updateInfo.getPreferredLanguage());
+//            if(updateInfo.getPreferredLanguage() != null) existingDev.setPreferredLanguages(updateInfo.getPreferredLanguage());
             developerRepository.save(existingDev);
             return optDev.map(developerDTOMapper::mapToDTO).get();
         } else {
