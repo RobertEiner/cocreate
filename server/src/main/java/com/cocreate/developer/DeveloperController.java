@@ -12,11 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("api/v1/developers")
 @CrossOrigin(origins = "http://localhost:4200")
 public class DeveloperController {
+    private static final Logger log = LoggerFactory.getLogger(DeveloperController.class);
+
 
     private final DeveloperService developerService;
     private final PostService postService;
@@ -60,6 +64,9 @@ public class DeveloperController {
 
     @PostMapping("/{id}/posts")
     public ResponseEntity<String> createPostForExistingDeveloper(@PathVariable int id, @RequestBody Post post) {
+        System.out.println("HERE POST: " + post.getPreferredLanguage());
+        log.info("TEST MESSAGE FROM SPRING BOOT " + post.getPreferredLanguage());
+
         postService.createPostForExistingDeveloper(id, post);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

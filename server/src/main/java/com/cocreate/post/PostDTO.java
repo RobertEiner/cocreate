@@ -21,6 +21,7 @@ public class PostDTO {
     String title;
     Developer developer;
     List<Comment> comments;
+    String preferredLanguage;
     String devCategory;
     String createdAt;
 

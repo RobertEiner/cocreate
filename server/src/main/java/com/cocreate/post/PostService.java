@@ -74,6 +74,8 @@ public class PostService {
             newPost.setContent(post.getContent());
             newPost.setDeveloper(developer.get());
             newPost.setDevCategory(post.getDevCategory());
+            newPost.setPreferredLanguage(post.getPreferredLanguage());
+            System.out.println("NEW POST LANG: " + newPost.getPreferredLanguage());
             postRepository.save(newPost);
         } else {
             throw new ResourceNotFoundException("The developer doesn't exist");

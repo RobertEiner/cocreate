@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     userName: '',
     password: '',
     emailAddress: '',
-    preferredLanguage: '',
+    // preferredLanguage: '',
   }
   optionTitle: string = 'posts';
   postsSelected: boolean = true;

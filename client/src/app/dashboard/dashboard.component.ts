@@ -73,24 +73,24 @@ export class DashboardComponent implements OnInit {
   }
 
   filterPosts(tickedLanguages: { [key: string]: boolean }) {
-    // const filteredPosts: Post[] = [];
-    this.postService.getAllPosts().subscribe({
-      next: (response: Post[]) => {
-        this.posts = response;
-        const filteredPosts = this.posts.filter((post) => { 
-         return tickedLanguages[post.developer?.preferredLanguage || ''] === true;
-        });
+    // // const filteredPosts: Post[] = [];
+    // this.postService.getAllPosts().subscribe({
+    //   next: (response: Post[]) => {
+    //     this.posts = response;
+    //     const filteredPosts = this.posts.filter((post) => { 
+    //      return tickedLanguages[post.developer?.preferredLanguage || ''] === true;
+    //     });
     
-        if(filteredPosts.length === 0) {
-          this.chosenFilterExists = false;
-        } else {
-          this.chosenFilterExists = true;
-          this.posts = filteredPosts;
-        }
-      },
-      error(error) {
-        console.error('Error fetching posts: ', error);
-      },
-    });
+    //     if(filteredPosts.length === 0) {
+    //       this.chosenFilterExists = false;
+    //     } else {
+    //       this.chosenFilterExists = true;
+    //       this.posts = filteredPosts;
+    //     }
+    //   },
+    //   error(error) {
+    //     console.error('Error fetching posts: ', error);
+    //   },
+    // });
   }
 }

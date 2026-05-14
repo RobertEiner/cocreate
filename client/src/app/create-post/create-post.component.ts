@@ -22,10 +22,19 @@ export class CreatePostComponent {
   title: string = '';
   content: string = '';
   devCategory: string = '';
+  preferredLanguage: string = '';
   showSuccessMessage: boolean = false;
+  devCategories: string[] = [
+    'Embedded',
+    'Web',
+    'Mobile app',
+    'Game dev',
+    'Data science',
+    'Machine learning'
+  ];  
 
   onFormSubmit() {
-    const newPost: Post = new Post(this.title, this.content, this.devCategory);
+    const newPost: Post = new Post(this.title, this.content, this.devCategory, this.preferredLanguage);
     console.log(newPost)
     this.postService.createPost(this.devId, newPost).subscribe({
       next: (response: Post) => { 

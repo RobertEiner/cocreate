@@ -7,6 +7,7 @@ export class Post {
         public title: string,
         public content: string,
         public devCategory: string,
+        public preferredLanguage?: string,
         public postId?: number,
         public developer: Developer | null = null,
         public comments: Comment[] | [] = [],

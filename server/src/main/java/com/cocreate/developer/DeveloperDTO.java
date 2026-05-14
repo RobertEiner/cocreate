@@ -18,6 +18,6 @@ public class DeveloperDTO {
         Integer id;
         String userName;
         String emailAddress;
-        String preferredLanguage;
+//        String preferredLanguage;
         List<Post> posts;
 }

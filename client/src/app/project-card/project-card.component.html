@@ -4,10 +4,11 @@
       <h4 class="card-title">{{ post.title }}</h4>
       <br>
       <div class="post-details">
-        <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img"> 
+        <!-- <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img">  -->
         <span class="badge rounded-pill text-bg-info"><i class="bi bi-chat-right-text-fill"></i> {{ post.comments.length }}</span>
          
         <span class="badge rounded-pill text-bg-info"><i class="bi bi-code-square "></i> {{ post.devCategory }}</span>
+        <span class="badge rounded-pill text-bg-info"><i class="bi bi-code-square "></i> {{ post.preferredLanguage }}</span>
       </div>
     </div>
     <div class="card-footer footer-div card-style">
