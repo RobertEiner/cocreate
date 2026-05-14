@@ -22,7 +22,7 @@ export class SignUpComponent {
   email: string = '';
   userName: string = '';
   password: string = '';
-  preferredLanguage: string = '';
+  // preferredLanguage: string = '';
 
   developerService: DeveloperService = inject(DeveloperService);
   @ViewChild('registrationForm') form: NgForm = new NgForm([], []);
@@ -33,9 +33,10 @@ export class SignUpComponent {
     this.email = this.form.value.email;
     this.userName = this.form.value.userName;
     this.password = this.form.value.password;
-    this.preferredLanguage = this.form.value.prefLang;
-    const newDev: Developer = new Developer(this.userName, this.password, this.email, this.preferredLanguage);
+    // this.preferredLanguage = this.form.value.prefLang;
+    const newDev: Developer = new Developer(this.userName, this.password, this.email);
     
+    // TODO: Det fungerar inte att skapa en developer. du har tagit bort preferred language i backedn och i schemat. du får 400 bad request
     this.developerService.createDeveloper(newDev).subscribe({
       next: (response: Developer) => {
         console.log(response.userName)

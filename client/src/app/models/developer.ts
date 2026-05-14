@@ -7,7 +7,7 @@ export class Developer {
         public userName: string,
         public password: string,
         public emailAddress: string,
-        public preferredLanguage: string,
+        // public preferredLanguage: string,
         public id?: number,
         public posts?: Post[],
     )

@@ -38,11 +38,11 @@
                   <input type="password" class="form-control" name="password" [(ngModel)]="password" required #passwordRef="ngModel"/>
                   <small *ngIf="passwordRef.invalid && passwordRef.touched" class="invalid-msg">*Password is required</small>
                 </div>
-                <div class="">
+                <!-- <div class="">
                   <label for="" class="form-label">What is your preferred programming language?</label>
                   <input type="" class="form-control" name="prefLang" [(ngModel)]="preferredLanguage" required #prefLangRef="ngModel"/>
                   <small *ngIf="prefLangRef.invalid && prefLangRef.touched" class="invalid-msg">*A preferred language is required</small>
-                </div>
+                </div> -->
                 <div class="button-wrapper">
                   <!-- when we press submit, the type="submit" will call the onFormSubmitted method -->
                     <input value="Submit" class="btn button-color w-50" type="submit" [disabled]="registrationForm.invalid">

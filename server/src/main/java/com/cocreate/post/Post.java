@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,6 +22,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
 
     @Id
@@ -49,51 +53,53 @@ public class Post {
     @NotEmpty(message = "Development category cannot be empty")
     private String devCategory;
 
-    // TODO: Create tech stack column
-    //private List<String> techStack;
+    //TODO: WHY IS THis NULL??? kan det vara något med mysql dumpen, att den fortfarande har kvar det gamla post schema som ej har preferredlanguage?
+    // du tog bort manuella setters/getters/constructors, och sen körde du mvn clean package, fråga claude om problemet med att docker compose build failar
+    @NotNull
+    private String preferredLanguage;
 
     @Column(name = "created_at")
     // automatically inserts the current timestamp at the time of creation of a post. Is needed to be able to insert the date into the database.
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public Post(int postId, String title, String content) {
-        this.postId = postId;
-        this.title = title;
-        this.content = content;
-    }
+//    public Post(int postId, String title, String content) {
+//        this.postId = postId;
+//        this.title = title;
+//        this.content = content;
+//    }
 
-    public Post() {
+//    public Post() {
+//
+//    }
 
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
-    }
+//    public int getPostId() {
+//        return postId;
+//    }
+//
+//    public void setPostId(int postId) {
+//        this.postId = postId;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
+//
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public String getContent() {
+//        return content;
+//    }
+//
+//    public void setDeveloper(Developer developer) {
+//        this.developer = developer;
+//    }
 }
 
 
