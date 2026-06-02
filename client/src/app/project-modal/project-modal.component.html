@@ -9,6 +9,7 @@
         <p *ngIf="!editPostPressed; else editTextBox">{{ post.content }}</p>
         <div>         
         <!-- <img src="assets/images/{{post.developer?.preferredLanguage}}.png" class="code-lang-img-modal">  -->
+          <span class="badge rounded-pill text-bg-info me-2"><i class="bi bi-code-square "></i> {{ post.preferredLanguage }}</span>
           <span class="badge rounded-pill text-bg-info"><i class="bi bi-code-square "></i> {{ post.devCategory }}</span>
         </div>
         
