@@ -40,12 +40,11 @@
                         <select class="form-select" aria-label="Select development category" name="Development category" [(ngModel)]="devCategory" >
                           <option value="" disabled selected>Categories</option>
                           @for (category of devCategories; track $index) {
-                            <option value="category">{{ category }}</option>
+                            <option value="{{ category }}">{{ category }}</option>
                           }
                         </select>
                         <small *ngIf="!devCategory && createPostForm.submitted" class="invalid-msg">*Category is required</small>
                       </div>
-                        <!-- // TODO: why is preferred_language empty in DB? -->
                       <div>
                         <label for="" >Preferred language</label>
                         <input name="preferredLanguage" type="text" class="form-control" [(ngModel)]="preferredLanguage" placeholder="e.g. JavaScript" maxlength="30">
