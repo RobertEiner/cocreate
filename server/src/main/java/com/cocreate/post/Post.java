@@ -53,8 +53,6 @@ public class Post {
     @NotEmpty(message = "Development category cannot be empty")
     private String devCategory;
 
-    //TODO: WHY IS THis NULL??? kan det vara något med mysql dumpen, att den fortfarande har kvar det gamla post schema som ej har preferredlanguage?
-    // du tog bort manuella setters/getters/constructors, och sen körde du mvn clean package, fråga claude om problemet med att docker compose build failar
     @NotNull
     private String preferredLanguage;
 
@@ -63,43 +61,7 @@ public class Post {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-//    public Post(int postId, String title, String content) {
-//        this.postId = postId;
-//        this.title = title;
-//        this.content = content;
-//    }
 
-//    public Post() {
-//
-//    }
-
-//    public int getPostId() {
-//        return postId;
-//    }
-//
-//    public void setPostId(int postId) {
-//        this.postId = postId;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public String getContent() {
-//        return content;
-//    }
-//
-//    public void setDeveloper(Developer developer) {
-//        this.developer = developer;
-//    }
 }
 
 

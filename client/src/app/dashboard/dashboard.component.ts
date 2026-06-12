@@ -60,7 +60,6 @@ export class DashboardComponent implements OnInit {
 
   getAllPosts() {
     // when the button gets pressed, this subscribe method gets executed, and then the observable gets executed.
-    // console.log('Fetching all posts...');
     this.chosenFilterExists = true; 
     this.postService.getAllPosts().subscribe({ 
       next: (response: Post[]) => {
@@ -73,24 +72,25 @@ export class DashboardComponent implements OnInit {
   }
 
   filterPosts(tickedLanguages: { [key: string]: boolean }) {
+    console.log('FILTER!!!')
     // // const filteredPosts: Post[] = [];
-    // this.postService.getAllPosts().subscribe({
-    //   next: (response: Post[]) => {
-    //     this.posts = response;
-    //     const filteredPosts = this.posts.filter((post) => { 
-    //      return tickedLanguages[post.developer?.preferredLanguage || ''] === true;
-    //     });
+     this.postService.getAllPosts().subscribe({
+       next: (response: Post[]) => {
+         this.posts = response;
+         const filteredPosts = this.posts.filter((post) => { 
+          return tickedLanguages[post.preferredLanguage || ''] === true;
+         });
     
-    //     if(filteredPosts.length === 0) {
-    //       this.chosenFilterExists = false;
-    //     } else {
-    //       this.chosenFilterExists = true;
-    //       this.posts = filteredPosts;
-    //     }
-    //   },
-    //   error(error) {
-    //     console.error('Error fetching posts: ', error);
-    //   },
-    // });
+         if(filteredPosts.length === 0) {
+           this.chosenFilterExists = false;
+         } else {
+           this.chosenFilterExists = true;
+           this.posts = filteredPosts;
+         }
+       },
+       error(error) {
+         console.error('Error fetching posts: ', error);
+       },
+     });
   }
 }
