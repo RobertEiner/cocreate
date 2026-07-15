@@ -51,11 +51,14 @@
 
     deletePostPressed: boolean = false;
     editPostPressed: boolean = false;
-
+    showNoCommentsErrorMsg: boolean = false;
+    
 
     resetMModal() {
       this.deletePostPressed = false;
       this.editPostPressed = false;
+      this.form.resetForm();
+      this.commentContent = '';
     }
 
     // ------------------------------- Create comment ------------------------
