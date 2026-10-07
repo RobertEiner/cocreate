@@ -25,13 +25,6 @@
     util: Util = new Util();
     // Inputs and Outputs
     @Input() post: Post = new Post('', '', '');
-
-    // @Input() postTitle: string = '';
-    // @Input() postDescription: string = '';
-    // @Input() postDevCategory: string = '';
-    // @Input() postAuthor: string = '';
-    // @Input() postComments: Comment[] = [];
-    // @Input() postId: number = 0;
     @Input() devId: number = 0;
     @Input() signedInUser: string = "";
     @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();

@@ -28,18 +28,14 @@ export class ProfileComponent implements OnInit {
     userName: '',
     password: '',
     emailAddress: '',
-    // preferredLanguage: '',
   }
+  
   optionTitle: string = 'posts';
   postsSelected: boolean = true;
 
   ngOnInit(): void {
     this.devId = parseInt(this.util.getDevIdFromUrl()!);
-    // console.log("DEVID :  " + this.devId)
     this.getDevInfo();
-    // console.log('dev; ', this.dev)
-    console.log('profile posts: ');
-    console.log(this.dev.posts)
   }
 
   getDevInfo() {

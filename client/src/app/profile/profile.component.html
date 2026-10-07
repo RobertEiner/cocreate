@@ -25,7 +25,6 @@
 
             </div>
         </div>
-        <!-- TODO: fixa så att columnerna tar mer plats och att dem inte smalnar av så jävligt -->
         <div class="col-10">
             <div class="card bg-transparent border-0 card-text">
                 <div class="card-title text-center mt-2">
@@ -37,14 +36,16 @@
                     [devId]="this.devId"
                     (postDeleted)="onPostDeleted($event)">
                     </app-my-posts> -->
+                    <!-- TODO: varför visas inte editdelete comment och post? du behöver ha samma Inputs som dashboard skickar in till project-card-component tror jag -->
                     <app-project-card
                     [posts]="this.dev.posts!"
                     [devId]="this.devId!"
+                    [devUserName]="this.dev.userName"
+                    (postUpdated)="getDevInfo()"
+                    (postDeleted)="getDevInfo()"
                     ></app-project-card>
                 </div>
-
             </div>
-            <!-- <p>{{ this.dev.posts![0].content }}</p> -->
         </div>
     </div>
 </div>

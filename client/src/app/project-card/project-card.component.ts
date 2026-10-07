@@ -35,27 +35,12 @@ export class ProjectCardComponent {
   router: Router = inject(Router);
   avtiveRoute: ActivatedRoute = inject(ActivatedRoute);
   // class variables
-  // createdAt: Date = new Date();
-  // selectedPostTitle: string = '';
-  // selectedPostContent: string = '';
-  // selectedPostDevCategory: string = '';
-  // selectedPostAuthor: string = '';
-  // selectedPostComments: Comment[] = [];
-  // selectedPostId: number = 0;          // maybe shouldn't have default value??
   commentContent: string = '';
   currentPost: Post = new Post('', '', '');
 
 
   openPostDetails(post: Post) {
     this.currentPost = post;
-    // this.router.navigate([`post/${post.postId}`],  {relativeTo: this.avtiveRoute});
-    // this.selectedPostTitle = post.title;
-    // this.selectedPostContent = post.content;
-    // this.selectedPostDevCategory = post.devCategory;
-    // this.selectedPostComments = post.comments;
-    // this.selectedPostAuthor = post.developer ? post.developer?.userName : 'Unknown'; // ternary operator. means we are checking if the post.developer is null, if it is we give it a default username 'Unknown'
-    // this.selectedPostId = post.postId ? post.postId : 0;
-    // console.log(post);
     const date = post.createdAt ? new Date(post.createdAt) : null;
     console.log(date); 
 
