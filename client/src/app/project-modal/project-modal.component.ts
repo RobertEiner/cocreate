@@ -25,13 +25,6 @@
     util: Util = new Util();
     // Inputs and Outputs
     @Input() post: Post = new Post('', '', '');
-
-    // @Input() postTitle: string = '';
-    // @Input() postDescription: string = '';
-    // @Input() postDevCategory: string = '';
-    // @Input() postAuthor: string = '';
-    // @Input() postComments: Comment[] = [];
-    // @Input() postId: number = 0;
     @Input() devId: number = 0;
     @Input() signedInUser: string = "";
     @Output() commentUpdated: EventEmitter<number> = new EventEmitter<number>();
@@ -66,17 +59,18 @@
       const commentDTO: CommentDTO = { 
         content: this.commentContent 
       }
+      console.log('COMMENT: ' + commentDTO.content, 'POSTID: ' + this.post.postId, 'DEV ID: ' + this.devId);
       
       this.commentService.createComment(this.post.postId!, commentDTO, this.devId).subscribe({
         next: (response: Comment) => {
-          console.log(response.content);
+          console.log("Här: ", response.content);
           // clear the textarea
           this.form.reset();
           // emit to parent that a comment has been created 
           this.commentUpdated.emit(this.post.postId);
         },
         error(err) {
-          console.error(err);
+          console.error("Felet:", err);
         }
       })
     }

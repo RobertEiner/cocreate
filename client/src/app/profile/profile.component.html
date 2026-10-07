@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-3 row-div">
+        <div class="col row-div">
             <div class="card bg-transparent border-light card-text">
                 <div class="card-body">
                     <h5 class="margin-bottom-options">Your profile page, {{ dev.userName }}.</h5>
@@ -25,21 +25,27 @@
 
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-10">
             <div class="card bg-transparent border-0 card-text">
                 <div class="card-title text-center mt-2">
                     <h3>Your {{ optionTitle }}</h3>
                 </div>
                 <div class="card-body">
-                    <app-my-posts *ngIf="postsSelected"
+                    <!-- <app-my-posts *ngIf="postsSelected"
                     [posts]="this.dev.posts!"
                     [devId]="this.devId"
                     (postDeleted)="onPostDeleted($event)">
-                    </app-my-posts>
+                    </app-my-posts> -->
+                    <!-- TODO: varför visas inte editdelete comment och post? du behöver ha samma Inputs som dashboard skickar in till project-card-component tror jag -->
+                    <app-project-card
+                    [posts]="this.dev.posts!"
+                    [devId]="this.devId!"
+                    [devUserName]="this.dev.userName"
+                    (postUpdated)="getDevInfo()"
+                    (postDeleted)="getDevInfo()"
+                    ></app-project-card>
                 </div>
-
             </div>
-            <!-- <p>{{ this.dev.posts![0].content }}</p> -->
         </div>
     </div>
 </div>

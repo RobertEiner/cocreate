@@ -5,11 +5,12 @@ import { DeveloperService } from '../services/developer/developer.service';
 import { Developer } from '../models/developer';
 import { MyPostsComponent } from '../my-posts/my-posts.component';
 import { CommonModule } from '@angular/common';
+import { ProjectCardComponent } from "../project-card/project-card.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, MyPostsComponent],
+  imports: [CommonModule, NavbarComponent, MyPostsComponent, ProjectCardComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -27,17 +28,14 @@ export class ProfileComponent implements OnInit {
     userName: '',
     password: '',
     emailAddress: '',
-    // preferredLanguage: '',
   }
+  
   optionTitle: string = 'posts';
   postsSelected: boolean = true;
 
   ngOnInit(): void {
     this.devId = parseInt(this.util.getDevIdFromUrl()!);
-    // console.log("DEVID :  " + this.devId)
     this.getDevInfo();
-    console.log('profile posts: ');
-    console.log(this.dev.posts)
   }
 
   getDevInfo() {
